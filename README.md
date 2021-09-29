@@ -1,10 +1,10 @@
 # ndbs
-local start docker-compose for test purposes
-docker-compose up -d
-docker-compose down
+local start docker-compose for test purposes <br>
+docker-compose up -d <br>
+docker-compose down <br>
 # server-adresses local
-localhost:3001 -> phpmyadmin
-http://localhost:5985/_utils/#login -> couchdb
+localhost:3001 -> phpmyadmin <br>
+http://localhost:5985/_utils/#login -> couchdb <br>
 
 # server-adresses cloud aws
-in progress
+in progress <br>
