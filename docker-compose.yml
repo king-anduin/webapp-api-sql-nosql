@@ -1,8 +1,8 @@
 version: '3.6'
 
 services:
-  mariadb10:
-    image: mariadb:10.4.8
+  mariadb-ndbs:
+    image: mariadb:latest
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
@@ -13,19 +13,28 @@ services:
     - MYSQL_USER=maria
     - MYSQL_PASSWORD=password
 
-  phpmyadmin-mariadb:
-    image: phpmyadmin/phpmyadmin:4.8.5
+  phpmyadmin-mariadb-ndbs:
+    image: phpmyadmin/phpmyadmin:latest
     restart: always
     depends_on:
-    - mariadb10
+    - mariadb-ndbs
     environment:
-    - PMA_HOST=mariadb10
+    - PMA_HOST=mariadb-ndbs
     - PMA_PORT=3306
     - PMA_USER=maria
     - PMA_PASSWORD=password
     ports:
     - "3001:80"
 
+  couchdb-ndbs:
+    image: arm64v8/couchdb:latest
+    restart: always
+    environment:
+    - COUCHDB_PASSWORD=couchdb
+    - COUCHDB_USER=admin
+    ports:
+    - "5985:5984"
+    
 volumes:
   mariadb:
 
