@@ -1,8 +1,15 @@
-# ndbs
-local start docker-compose for test purposes <br>
-docker-compose up -d <br>
-docker-compose down <br>
+# Install & start app
+1. start visual studio code <br>
+2. click on NPM scripts <br>
+3. click on install-npm <br>
+4. start docker-compose <br>
+5. start <br>
+
+When exiting click <br>
+1. stop docker-compose <br> 
+2. close app terminal <br>
 # server-adresses local
+localhost:3000 -> app
 localhost:3001 -> phpmyadmin <br>
 http://localhost:5985/_utils/#login -> couchdb <br>
 
