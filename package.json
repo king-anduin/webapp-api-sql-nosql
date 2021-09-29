@@ -1,9 +1,16 @@
 {
-  "name": "Elastic-Beanstalk-Sample-App",
-  "version": "0.0.1",
+  "name": "ndbs",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "mariadb": "^2.5.4",
+    "react": "^17.0.2"
+  },
   "scripts": {
+    "install-npm": "npm i",
+    "start-docker-compose": "docker-compose up -d",
+    "stop docker-compose": "docker-compose down",
     "start": "node app.js"
   }
 }
