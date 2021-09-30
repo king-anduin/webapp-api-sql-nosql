@@ -3,14 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.19.0",
     "dotenv": "^10.0.0",
+    "express": "^4.17.1",
     "mariadb": "^2.5.4",
+    "path": "^0.12.7",
     "react": "^17.0.2"
   },
   "scripts": {
-    "install-npm": "npm i",
     "start-docker-compose": "docker-compose up -d",
     "stop docker-compose": "docker-compose down",
-    "start": "node app.js"
+    "start-backend": "node routes/index.js",
+    "build": "cd static && npm install && npm run build-react",
+    "start-frontend": "cd static && npm run start-react"
   }
 }

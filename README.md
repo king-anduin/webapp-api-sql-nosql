@@ -9,7 +9,7 @@ When exiting click <br>
 1. stop docker-compose <br> 
 2. close app terminal <br>
 # server-adresses local
-localhost:3000 -> app
+localhost:3000 -> app <br>
 localhost:3001 -> phpmyadmin <br>
 http://localhost:5985/_utils/#login -> couchdb <br>
 
@@ -26,3 +26,6 @@ Framework for building frontend
 
 - mariadb <br>
 Install the mariadb Connector using npm
+
+- express <br>
+backend API framework
