@@ -106,3 +106,4 @@ dist
 # amazon files
 scenario*
 nodejs.zip
+package-lock.json 
