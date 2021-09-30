@@ -3,18 +3,24 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "body-parser": "^1.19.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mariadb": "^2.5.4",
+    "mongoose": "^6.0.8",
+    "nodemon": "^2.0.13",
     "path": "^0.12.7",
-    "react": "^17.0.2"
+    "react": "^17.0.2",
+    "sequelize": "^6.6.5"
   },
   "scripts": {
     "start-docker-compose": "docker-compose up -d",
     "stop docker-compose": "docker-compose down",
-    "start-backend": "node routes/index.js",
+    "start": "node routes/index.js",
+    "start-dev": "nodemon routes/index.js",
     "build": "cd static && npm install && npm run build-react",
     "start-frontend": "cd static && npm run start-react"
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "^7.26.1"
   }
 }

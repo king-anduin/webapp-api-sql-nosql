@@ -6,18 +6,15 @@ WORKDIR /srv/web-app
 
 # Install app dependencies
 COPY package.json ./
-COPY yarn.lock ./
-RUN yarn install --production
 
-# Build JavaScript from TypeScript
+RUN npm install
+
+# If you are building your code for production
+# RUN npm install --only=production
+
+# Bundle app source
 COPY . .
-RUN NODE_OPTIONS=--max-old-space-size=8192 yarn build
 
-# Tell docker which port will be used (not published)
-EXPOSE 3000
-
-# Default env file
-ENV ENV_FILE=config/.env.prod
-
+EXPOSE 3005
 # Run this app when a container is launched
-CMD [ "node", "-r", "tsconfig-paths/register", "bin/app.js" ]
+CMD [ "node", "-r", "routes/index.js" ]

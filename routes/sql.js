@@ -1,21 +1,47 @@
-// Use the MariaDB Node.js Connector
-var mariadb = require("mariadb");
+const express = require("express");
 
-const DB_HOST = process.env.DB_HOST;
-const DB_USER = process.env.DB_USER;
-const DB_PWD = process.env.DB_PWD;
-const MYSQL_DATABASE = process.env.MYSQL_DATABASE;
+const sql = express.Router();
 
-// Create a connection pool
-var pool = mariadb.createPool({
-     host: DB_HOST, 
-     user: DB_USER, 
-     password: DB_PWD,
-     connectionLimit: 5,
-     database: MYSQL_DATABASE
+const db = require('./connect-rds.js')
+//------------------------------- MariaDB API -------------------------------//
+// GET
+sql.get("/client", async (req, res) => {
+    try {
+      const result = await db.pool.query("select * from client");
+      res.send(result);
+    } catch (err) {
+      throw err;
+    }
+});
+// POST
+sql.post('/client', async (req, res) => {
+  let task = req.body;
+  try {
+    const result = await db.pool.query("insert into tasks (description) values (?)", [task.description]);
+    res.send(result);
+  } catch (err) {
+      throw err;
+  }
+});
+// UPDATE
+sql.put('/client', async (req, res) => {
+  let task = req.body;
+  try {
+    const result = await db.pool.query("update tasks set description = ?, completed = ? where id = ?", [task.description, task.completed, task.id]);
+    res.send(result);
+  } catch (err) {
+      throw err;
+  } 
+});
+// DELETE
+sql.delete('/client', async (req, res) => {
+  let id = req.query.id;
+  try {
+    const result = await db.pool.query("delete from tasks where id = ?", [id]);
+    res.send(result);
+  } catch (err) {
+      throw err;
+  } 
 });
 
-// Expose a method to establish connection with MariaDB SkySQL
-module.exports = Object.freeze({
-  pool: pool
-});
+module.exports = sql;
