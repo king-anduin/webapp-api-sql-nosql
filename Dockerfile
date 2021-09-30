@@ -2,7 +2,7 @@
 FROM node:lts
 
 # Create app directory
-WORKDIR /opt/api-example
+WORKDIR /srv/web-app
 
 # Install app dependencies
 COPY package.json ./
