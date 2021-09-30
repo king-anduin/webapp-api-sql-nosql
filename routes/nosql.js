@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+//------------------------------- Mongo routes -------------------------------//
+// Connection to MongoDB
 const mongoose = require('mongoose');
 const mondodb = process.env.MONGODB;
 mongoose.connect(mondodb, () =>

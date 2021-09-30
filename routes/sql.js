@@ -3,7 +3,7 @@ const express = require("express");
 const sql = express.Router();
 
 const db = require('./connect-rds.js')
-//------------------------------- MariaDB API -------------------------------//
+//------------------------------- MariaDB routes -------------------------------//
 // GET
 sql.get("/client", async (req, res) => {
     try {
