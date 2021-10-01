@@ -7,10 +7,7 @@ const { client, driver, ride, waypoint } = require("./models-sequelize.js");
 //------------------------------- MariaDB routes -------------------------------//
 // GET
 sql.get("/client", async (req, res) => {
-  //let task = req.body;
-  let task = {
-    attributes: ['name'],
-    where: {id: 1}};
+  let task = req.body;
     try {
       const result = await client.findAll(task);
       res.send(result);

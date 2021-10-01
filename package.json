@@ -18,7 +18,7 @@
     "stop docker-compose": "docker-compose down",
     "start": "node routes/index.js",
     "start-dev": "nodemon routes/index.js",
-    "build": "cd static && npm install && npm run build-react",
+    "install-app": "npm i && cd static && npm install && npm run build-react",
     "start-frontend": "cd static && npm run start-react"
   },
   "devDependencies": {

@@ -1,31 +1,64 @@
 # Install & start app
 1. start visual studio code <br>
 2. click on NPM scripts <br>
-3. click on install-npm <br>
+3. click on install-app <br>
 4. start docker-compose <br>
-5. start <br>
-
+5. start (for prod) or start-dev (for dev)<br>
+<br>
 When exiting click <br>
 1. stop docker-compose <br> 
 2. close app terminal <br>
+<br>
 # server-adresses local
-localhost:3000 -> app <br>
+localhost:3005 -> app <br>
 localhost:3001 -> phpmyadmin <br>
-http://localhost:5985/_utils/#login -> couchdb <br>
-
+localhost:8081/-> mongo-express <br>
+<br>
 # server-adresses cloud aws
 in progress <br>
-
-
+<br>
+# SQL API routes
+<br>
+localhost:3005/sql/client <br>
+localhost:3005/sql/driver <br>
+localhost:3005/sql/ride <br>
+localhost:3005/sql/waypoint <br>
+<br>
+each API takes in a JSON format an example as shown below
+sql.get("/client", async (req, res) => {
+  let task = {
+    attributes: ['colum-names'],
+    where: {id: 1}
+    };
+    try {
+      const result = await client.findAll(task);
+      res.send(result);
+    } catch (err) {
+      throw err;
+    }
+});
+<br>
 # Packages & explanation
 - dotenv: <br>
 Another solution is using `dotenv` package. Dotenv loads environment variables from .env files into the process.env variable in Node.js<br>
-
+<br>
 - react <br>
 Framework for building frontend
-
+<br>
 - mariadb <br>
 Install the mariadb Connector using npm
-
+<br>
 - express <br>
 backend API framework
+<br>
+- axios <br>
+send requests to backend
+<br>
+- mongoose <br>
+NoSQL connector
+<br>
+- nodemon <br>
+dev-tool -> app restarts automatically after saving 
+<br>
+- sequelize <br>
+ORM(Object-relational-mapping) tool for node
