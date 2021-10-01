@@ -24,19 +24,19 @@ localhost:3005/sql/driver <br>
 localhost:3005/sql/ride <br>
 localhost:3005/sql/waypoint <br>
 <br>
-each API takes in a JSON format an example as shown below
-sql.get("/client", async (req, res) => {
-  let task = {
-    attributes: ['colum-names'],
-    where: {id: 1}
-    };
-    try {
-      const result = await client.findAll(task);
-      res.send(result);
-    } catch (err) {
-      throw err;
-    }
-});
+each API takes in a JSON format an example as shown below <br>
+sql.get("/client", async (req, res) => { <br>
+  let task = { <br>
+    attributes: ['colum-names'], <br>
+    where: {id: 1} <br>
+    }; <br>
+    try { <br>
+      const result = await client.findAll(task); <br>
+      res.send(result); <br>
+    } catch (err) { <br>
+      throw err; <br>
+    } <br>
+});<br>
 <br>
 # Packages & explanation
 - dotenv: <br>
