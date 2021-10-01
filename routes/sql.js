@@ -2,46 +2,60 @@ const express = require("express");
 
 const sql = express.Router();
 
-const db = require('./connect-rds.js')
+const sequelize = require('./connect-rds.js');
+const { client, driver, ride, waypoint } = require("./models-sequelize.js");
 //------------------------------- MariaDB routes -------------------------------//
 // GET
 sql.get("/client", async (req, res) => {
+  //let task = req.body;
+  let task = {
+    attributes: ['name'],
+    where: {id: 1}};
     try {
-      const result = await db.pool.query("select * from client");
+      const result = await client.findAll(task);
       res.send(result);
     } catch (err) {
       throw err;
     }
 });
-// POST
-sql.post('/client', async (req, res) => {
+// GET
+sql.get("/driver", async (req, res) => {
   let task = req.body;
-  try {
-    const result = await db.pool.query("insert into tasks (description) values (?)", [task.description]);
-    res.send(result);
-  } catch (err) {
+  let task = {
+    attributes: ['id'],
+    where: {id: 2}};
+    try {
+      const result = await driver.findAll(task);
+      res.send(result);
+    } catch (err) {
       throw err;
-  }
+    }
 });
-// UPDATE
-sql.put('/client', async (req, res) => {
+// GET
+sql.get("/ride", async (req, res) => {
   let task = req.body;
-  try {
-    const result = await db.pool.query("update tasks set description = ?, completed = ? where id = ?", [task.description, task.completed, task.id]);
-    res.send(result);
-  } catch (err) {
+  let task = {
+    attributes: ['id'],
+    where: {id: 3}};
+    try {
+      const result = await ride.findAll(task);
+      res.send(result);
+    } catch (err) {
       throw err;
-  } 
+    }
 });
-// DELETE
-sql.delete('/client', async (req, res) => {
-  let id = req.query.id;
-  try {
-    const result = await db.pool.query("delete from tasks where id = ?", [id]);
-    res.send(result);
-  } catch (err) {
+// GET
+sql.get("/waypoint", async (req, res) => {
+  let task = req.body;
+  let task = {
+    attributes: ['id'],
+    where: {id: 4}};
+    try {
+      const result = await waypoint.findAll(task);
+      res.send(result);
+    } catch (err) {
       throw err;
-  } 
+    }
 });
 
 module.exports = sql;
