@@ -31,6 +31,15 @@ localhost:3005/sql/driver <br>
 localhost:3005/sql/ride <br>
 localhost:3005/sql/waypoint <br>
 <br>
+# NoSQL API routes <br>
+If you wanna migrate your data in index.js is a migration line. Just comment it out and change path to your csv file. That's it.
+<br>
+localhost:3005/nosql/client <br>
+localhost:3005/nosql/driver <br>
+localhost:3005/nosql/ride <br>
+localhost:3005/nosql/waypoint <br>
+<br>
+<br>
 each API takes in a JSON format an example as shown below <br>
 sql.get("/client", async (req, res) => { <br>
   let task = { <br>

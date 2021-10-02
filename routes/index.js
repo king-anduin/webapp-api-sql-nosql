@@ -14,7 +14,7 @@ const path = require('path');
 app.use(express.static(path.resolve(__dirname, '../static/build')));
 
 //------------------------------- MariaDB API -------------------------------//
-// Import sql outes
+// Import sql routes
 const sqlRoute = require('./sql.js');
 
 app.use('/sql', sqlRoute);
@@ -22,6 +22,7 @@ app.use('/sql', sqlRoute);
 //------------------------------- Mongo API -------------------------------//
 // Import nosql routes
 const nosqlRoute = require('./nosql.js');
+
 app.use('/nosql', nosqlRoute);
 
 //------------------------------- Sequelize -------------------------------//
@@ -31,6 +32,10 @@ const sequelize = require('./connect-rds.js');
 
 // Import the user model we have defined
 const models = require('./models-sequelize.js');
+
+// Migration data to MongoDB
+/*const migration = require('./migration.js');
+migration;*/
 
 // Create all the table defined using
 // sequelize in Database

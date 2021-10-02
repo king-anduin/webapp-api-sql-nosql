@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.22.0",
+    "csvtojson": "^2.0.10",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mariadb": "^2.5.4",
@@ -11,7 +12,6 @@
     "nodemon": "^2.0.13",
     "path": "^0.12.7",
     "react": "^17.0.2",
-    "save-dev": "0.0.1-security",
     "sequelize": "^6.6.5"
   },
   "scripts": {
@@ -21,7 +21,7 @@
     "start-dev": "nodemon routes/index.js",
     "install-app": "npm i && cd static && npm install && npm run build-react",
     "start-frontend": "cd static && npm run start-react",
-    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
+    "format": "prettier --config .prettierrc --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "devDependencies": {
     "eslint": "^7.32.0",
