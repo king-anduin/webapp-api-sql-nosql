@@ -1,21 +1,22 @@
 # Install & start app
 
 1. start visual studio code <br>
-2. click on NPM scripts <br>
-3. click on install-app <br>
-4. start docker-compose <br>
-5. start (for prod) or start-dev (for dev)<br>
+3. create .env file and copy variables from dot.env.template <br>
+3. click on NPM scripts <br>
+4. click on install-app <br>
+5. start docker-compose <br>
+6. start (for prod) or start-dev (for dev)<br>
    <br>
    When exiting click <br>
-6. stop docker-compose <br>
-7. close app terminal <br>
+7. stop docker-compose <br>
+8. close app terminal <br>
    <br>
 
 # server-adresses local
 
 localhost:3005 -> app <br>
-localhost:3001 -> phpmyadmin <br>
-localhost:8081/-> mongo-express <br>
+localhost:3001 -> phpmyadmin (GUI MariaDB) <br>
+localhost:8081/-> mongo-express (GUI MongoDB) <br>
 <br>
 
 # server-adresses cloud aws
@@ -24,15 +25,15 @@ in progress <br>
 <br>
 
 # SQL API routes
-
+Sequelize creates all tables for you and checks them everytime the app gets restart.
 <br>
 localhost:3005/sql/client <br>
 localhost:3005/sql/driver <br>
 localhost:3005/sql/ride <br>
 localhost:3005/sql/waypoint <br>
-<br>
+<br> 
 # NoSQL API routes <br>
-If you wanna migrate your data in index.js is a migration line. Just comment it out and change path to your csv file. That's it.
+If you wanna migrate your data to MongoDB in index.js is a migration line. Just comment it out and change path to your csv file in .env. That's it.
 <br>
 localhost:3005/nosql/client <br>
 localhost:3005/nosql/driver <br>

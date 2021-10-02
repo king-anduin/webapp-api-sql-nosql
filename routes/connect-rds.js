@@ -1,12 +1,6 @@
 // Use the MariaDB Node.js Connector
 // var mariadb = require("mariadb");
 
-// Const for env variables
-const DB_HOST = process.env.DB_HOST;
-const DB_USER = process.env.DB_USER;
-const DB_PWD = process.env.DB_PWD;
-const MYSQL_DATABASE = process.env.MYSQL_DATABASE;
-
 // Create a connection pool
 /*var pool = mariadb.createPool({
      host: DB_HOST, 
@@ -25,14 +19,19 @@ module.exports = Object.freeze({
 const Sequelize = require('sequelize');
 
 // Creating new Object of Sequelize
-const sequelize = new Sequelize(MYSQL_DATABASE, DB_USER, DB_PWD, {
-  // Explicitly specifying
-  // mysql database
-  dialect: 'mariadb',
+const sequelize = new Sequelize(
+  process.env.MYSQL_DATABASE,
+  process.env.DB_USER,
+  process.env.DB_PWD,
+  {
+    // Explicitly specifying
+    // mysql database
+    dialect: 'mariadb',
 
-  // By default host is 'localhost'
-  host: DB_HOST,
-});
+    // By default host is 'localhost'
+    host: process.env.DB_HOST,
+  }
+);
 
 // Exporting the sequelize object.
 // We can use it in another file

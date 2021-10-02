@@ -2,9 +2,7 @@ const csvtojson = require('csvtojson');
 
 //------------------------- scenario_uber_client ---------------------------//
 csvtojson()
-  .fromFile(
-    '/Users/king-anduin/nextcloud/studying/scripts/ndbk/scenario_uber/scenario_uber_client.csv'
-  )
+  .fromFile(process.env.CLIENTPATH)
   .then((csvData) => {
     const mongodb = require('mongodb').MongoClient;
 
@@ -25,9 +23,7 @@ csvtojson()
   });
 //------------------------- scenario_uber_driver.csv ---------------------------//
 csvtojson()
-  .fromFile(
-    '/Users/king-anduin/nextcloud/studying/scripts/ndbk/scenario_uber/scenario_uber_driver.csv'
-  )
+  .fromFile(process.env.DRIVERPATH)
   .then((csvData) => {
     const mongodb = require('mongodb').MongoClient;
 
@@ -49,9 +45,7 @@ csvtojson()
 
 //------------------------- scenario_uber_ride.csv ---------------------------//
 csvtojson()
-  .fromFile(
-    '/Users/king-anduin/nextcloud/studying/scripts/ndbk/scenario_uber/scenario_uber_ride.csv'
-  )
+  .fromFile(process.env.RIDEPATH)
   .then((csvData) => {
     const mongodb = require('mongodb').MongoClient;
 
@@ -73,9 +67,7 @@ csvtojson()
 
 //------------------------- scenario_uber_waypoint.csv ---------------------------//
 csvtojson()
-  .fromFile(
-    '/Users/king-anduin/nextcloud/studying/scripts/ndbk/scenario_uber/scenario_uber_waypoint.csv'
-  )
+  .fromFile(process.env.WAYPOINTPATH)
   .then((csvData) => {
     const mongodb = require('mongodb').MongoClient;
 

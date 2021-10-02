@@ -10,6 +10,7 @@ const PORT = process.env.PORT;
 // Dep path
 const path = require('path');
 
+//------------------------------- Load react frontend -----------------------//
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../static/build')));
 
@@ -33,21 +34,25 @@ const sequelize = require('./connect-rds.js');
 // Import the user model we have defined
 const models = require('./models-sequelize.js');
 
-// Migration data to MongoDB
-/*const migration = require('./migration.js');
-migration;*/
-
 // Create all the table defined using
 // sequelize in Database
 
 // Sync all models that are not
 // already in the database
 sequelize.sync(models);
-
 // Force sync all models
 // It will drop the table first
 // and re-create it afterwards
 //sequelize.sync({force:true});
+
+//---------------------------- Migration to Mongo -------------------------//
+// Migration data to MongoDB
+/*const migration = require('./migration.js');
+migration;*/
+
+//------------------------------- Twitter API -------------------------------//
+/*const twitter = require('./twitter.js');
+twitter;*/
 //------------------------------- App listen on -------------------------------//
 app.listen(PORT, () => {
   console.log(`Server running at http://127.0.0.1:${PORT}/`);
