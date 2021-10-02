@@ -11,6 +11,9 @@ const PORT = process.env.PORT;
 const path = require('path');
 
 //------------------------------- Load react frontend -----------------------//
+// express can use JSON format. It's the same as body-parser but thats not part of it anymore
+app.use(express.json());
+
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../static/build')));
 

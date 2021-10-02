@@ -6,13 +6,17 @@ const router = express.Router();
 //------------------------------- Mongo routes -------------------------------//
 // Connection to MongoDB
 const mongoose = require('mongoose');
-const mondodb = process.env.MONGODB;
-const schema = require('./schema-mongo.js');
-mongoose.connect(mondodb, () => console.log('connected to DB'));
+const client = require('./schema-mongo.js');
+mongoose.connect(process.env.MONGODB, () => console.log('connected to DB'));
 
 // GET client
-router.get('/client', (req, res) => {
-  res.send('client');
+router.get('/client', async (req, res) => {
+  try {
+    const result = await client.find();
+    res.json(result);
+  } catch (error) {
+    res.status.apply(500).json({ message: error.message });
+  }
 });
 
 // GET driver

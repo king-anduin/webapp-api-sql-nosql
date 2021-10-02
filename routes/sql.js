@@ -1,14 +1,15 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-catch */
 const express = require('express');
 
 const router = express.Router();
 
 const { client, driver, ride, waypoint } = require('./models-sequelize.js');
+
 //------------------------------- MariaDB routes -------------------------------//
 // GET
 router.get('/client', async (req, res) => {
   let task = req.body;
+  console.log(task);
   try {
     const result = await client.findAll(task);
     res.send(result);
