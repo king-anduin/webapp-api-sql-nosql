@@ -22,23 +22,19 @@ module.exports = Object.freeze({
 });*/
 
 // Include Sequelize module
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
 
 // Creating new Object of Sequelize
-const sequelize = new Sequelize(
-	MYSQL_DATABASE,
-	DB_USER,
-	DB_PWD, {
-		// Explicitly specifying
-		// mysql database
-		dialect: 'mariadb',
+const sequelize = new Sequelize(MYSQL_DATABASE, DB_USER, DB_PWD, {
+  // Explicitly specifying
+  // mysql database
+  dialect: 'mariadb',
 
-		// By default host is 'localhost'		
-		host: DB_HOST
-	}
-);
+  // By default host is 'localhost'
+  host: DB_HOST,
+});
 
 // Exporting the sequelize object.
 // We can use it in another file
 // for creating models
-module.exports = sequelize
+module.exports = sequelize;

@@ -11,6 +11,7 @@
     "nodemon": "^2.0.13",
     "path": "^0.12.7",
     "react": "^17.0.2",
+    "save-dev": "0.0.1-security",
     "sequelize": "^6.6.5"
   },
   "scripts": {
@@ -19,9 +20,14 @@
     "start": "node routes/index.js",
     "start-dev": "nodemon routes/index.js",
     "install-app": "npm i && cd static && npm install && npm run build-react",
-    "start-frontend": "cd static && npm run start-react"
+    "start-frontend": "cd static && npm run start-react",
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "devDependencies": {
-    "eslint-plugin-react": "^7.26.1"
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
+    "prettier": "^2.4.1"
   }
 }

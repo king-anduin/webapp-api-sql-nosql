@@ -1,23 +1,30 @@
 # Install & start app
+
 1. start visual studio code <br>
 2. click on NPM scripts <br>
 3. click on install-app <br>
 4. start docker-compose <br>
 5. start (for prod) or start-dev (for dev)<br>
-<br>
-When exiting click <br>
-1. stop docker-compose <br> 
-2. close app terminal <br>
-<br>
+   <br>
+   When exiting click <br>
+6. stop docker-compose <br>
+7. close app terminal <br>
+   <br>
+
 # server-adresses local
+
 localhost:3005 -> app <br>
 localhost:3001 -> phpmyadmin <br>
 localhost:8081/-> mongo-express <br>
 <br>
+
 # server-adresses cloud aws
+
 in progress <br>
 <br>
+
 # SQL API routes
+
 <br>
 localhost:3005/sql/client <br>
 localhost:3005/sql/driver <br>
