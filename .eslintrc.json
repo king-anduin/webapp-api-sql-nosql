@@ -1,0 +1,30 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    // "prettier"
+    "eslint:recommended"
+    // "plugin:react/recommended",
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    // "comma-dangle": ["error", "only-multiline"],
+    // "no-param-reassign": [2, { "props": false }],
+    // "no-console": "off",
+    // "no-plusplus": "off",
+    // "max-len": ["error", { "code": 100 }],
+    "react/react-in-jsx-scope": ["off"],
+    "no-underscore-dangle": ["off"],
+    "max-len": ["error", { "code": 100 }]
+  }
+}

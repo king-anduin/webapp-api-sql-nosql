@@ -1,4 +1,5 @@
-const express = require("express");
+/* eslint-disable no-unused-vars */
+const express = require('express');
 
 const router = express.Router();
 
@@ -6,12 +7,23 @@ const router = express.Router();
 // Connection to MongoDB
 const mongoose = require('mongoose');
 const mondodb = process.env.MONGODB;
-mongoose.connect(mondodb, () =>
-  console.log("connected to DB")
-);
+const schema = require('./schema-mongo.js');
+mongoose.connect(mondodb, () => console.log('connected to DB'));
 
-router.get("/client", (req, res) => {
-    res.send("works");
-  });
+router.get('/client', (req, res) => {
+  res.send('client');
+});
+
+router.get('/driver', (req, res) => {
+  res.send('driver');
+});
+
+router.get('/ride', (req, res) => {
+  res.send('ride');
+});
+
+router.get('/waypoint', (req, res) => {
+  res.send('waypoint');
+});
 
 module.exports = router;
