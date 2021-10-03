@@ -106,3 +106,4 @@ dist
 # amazon files
 scenario_uber_*
 nodejs.zip
+package-lock.json
