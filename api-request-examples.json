@@ -1,3 +1,4 @@
+//--------------------------GET---------------------------------------------//
 // GET: localhost:3005/sql/get/client
 {
     "attributes": [
@@ -47,7 +48,7 @@
         "id": 1
     }
 }
-//-----------------------------------------------------------------------------//
+//----------------------------POST---------------------------------------------//
 // POST: localhost:3005/sql/post/client
 {
     "name": "sebastian",
@@ -73,4 +74,55 @@
     "number": 8,
     "latitude": 5,
     "longitude": 76
+}
+//----------------------------DELETE------------------------------------------//
+// DELETE: localhost:3005/sql/delete/{client, ride, waypoint, driver}
+{
+    "where": {
+        "id": 543
+    }
+}
+//----------------------------UPDATE------------------------------------------//
+// UPDATE: localhost:3005/sql/update/client
+{
+    //"gender": "m",
+    "name": "Peter",
+    "id": 1
+}
+// UPDATE: localhost:3005/sql/update/driver
+{
+    "license_plate": "NMS-PS-187",
+    "city": "Neumuenster",
+    "name": "Peter",
+    "id": 1
+}
+// UPDATE: localhost:3005/sql/update/ride
+{
+    "client_id": 1,
+    "driver_id": 4,
+    "ride_date": "2020-11-21",
+    "distance": "50.60",
+    "price": "33.33",
+    "id": 3
+}
+// UPDATE: localhost:3005/sql/update/waypoint
+{
+    "ride_id": 5,
+    "number": 8,
+    "latitude": 5,
+    "longitude": 76,
+    "id": 1
+}
+
+
+
+{
+    "raw": true,
+    "attributes": [
+        "client_id",
+        "driver_id"
+    ],
+    "where": {
+        "id": 3
+    }
 }

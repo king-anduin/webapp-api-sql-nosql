@@ -28,12 +28,30 @@ in progress <br>
 
 Sequelize creates all tables for you and checks them everytime the app gets restart.
 <br>
-localhost:3005/sql/client <br>
-localhost:3005/sql/driver <br>
-localhost:3005/sql/ride <br>
-localhost:3005/sql/waypoint <br>
+GET routes
+localhost:3005/sql/get/client <br>
+localhost:3005/sql/get/driver <br>
+localhost:3005/sql/get/ride <br>
+localhost:3005/sql/get/waypoint <br>
 <br>
-
+POST routes
+localhost:3005/sql/post/client <br>
+localhost:3005/sql/post/driver <br>
+localhost:3005/sql/post/ride <br>
+localhost:3005/sql/post/waypoint <br>
+<br>
+DELETE routes
+localhost:3005/sql/delete/client <br>
+localhost:3005/sql/delete/driver <br>
+localhost:3005/sql/delete/ride <br>
+localhost:3005/sql/delete/waypoint <br>
+<br>
+PUT routes
+localhost:3005/sql/update/client <br>
+localhost:3005/sql/update/driver <br>
+localhost:3005/sql/update/ride <br>
+localhost:3005/sql/update/waypoint <br>
+<br>
 # NoSQL API routes <br>
 
 If you wanna migrate your data to MongoDB in index.js is a migration line. Just comment it out and change path to your csv file in .env. That's it.
