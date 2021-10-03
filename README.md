@@ -28,25 +28,25 @@ in progress <br>
 
 Sequelize creates all tables for you and checks them everytime the app gets restart.
 <br>
-GET routes
+GET routes <br>
 localhost:3005/sql/get/client <br>
 localhost:3005/sql/get/driver <br>
 localhost:3005/sql/get/ride <br>
 localhost:3005/sql/get/waypoint <br>
 <br>
-POST routes
+POST routes <br>
 localhost:3005/sql/post/client <br>
 localhost:3005/sql/post/driver <br>
 localhost:3005/sql/post/ride <br>
 localhost:3005/sql/post/waypoint <br>
 <br>
-DELETE routes
+DELETE routes <br>
 localhost:3005/sql/delete/client <br>
 localhost:3005/sql/delete/driver <br>
 localhost:3005/sql/delete/ride <br>
 localhost:3005/sql/delete/waypoint <br>
 <br>
-PUT routes
+PUT routes <br>
 localhost:3005/sql/update/client <br>
 localhost:3005/sql/update/driver <br>
 localhost:3005/sql/update/ride <br>
