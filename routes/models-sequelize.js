@@ -48,7 +48,7 @@ const driver = sequelize.define(
       allowNull: false,
     },
     city: {
-      type: Sequelize.DOUBLE,
+      type: Sequelize.STRING,
       allowNull: false,
     },
     license_plate: {
@@ -77,29 +77,29 @@ const ride = sequelize.define(
       autoIncrement: true,
     },
     client_id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT(6),
       references: {
         model: client,
         key: 'id',
       },
     },
     driver_id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT(6),
       references: {
         model: driver,
         key: 'id',
       },
     },
     ride_date: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
       allowNull: false,
     },
     distance: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT(6),
       allowNull: false,
     },
     price: {
-      type: Sequelize.STRING,
+      type: Sequelize.FLOAT(2),
       allowNull: false,
     },
   },
@@ -124,19 +124,19 @@ const waypoint = sequelize.define(
       autoIncrement: true,
     },
     ride_id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT(11),
       allowNull: false,
     },
     number: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT(11),
       allowNull: false,
     },
     latitude: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.FLOAT(11),
       allowNull: false,
     },
     longitude: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.FLOAT(11),
       allowNull: false,
     },
   },

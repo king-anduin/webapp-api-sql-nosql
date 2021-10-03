@@ -1,0 +1,76 @@
+// GET: localhost:3005/sql/get/client
+{
+    "attributes": [
+        "id",
+        "name",
+        "gender"
+    ],
+    "where": {
+        "id": 1
+    }
+}
+// GET: localhost:3005/sql/get/driver
+{
+    "attributes": [
+        "id",
+        "city",
+        "name",
+        "license_plate"
+    ],
+    "where": {
+        "id": 1
+    }
+}
+// GET: localhost:3005/sql/get/ride
+{
+    "attributes": [
+        "id",
+        "client_id",
+        "driver_id",
+        "ride_date",
+        "distance",
+        "price"
+    ],
+    "where": {
+        "id": 1
+    }
+}
+// GET: localhost:3005/sql/get/waypoint
+{
+    "attributes": [
+        "id",
+        "number",
+        "latitude",
+        "longitude"
+    ],
+    "where": {
+        "id": 1
+    }
+}
+//-----------------------------------------------------------------------------//
+// POST: localhost:3005/sql/post/client
+{
+    "name": "sebastian",
+    "gender": "m"
+}
+// POST: localhost:3005/sql/post/driver
+{
+    "name": "sebastian",
+    "city": "Chicago, United States",
+    "license_plate": "UN-CH 1"
+}
+// POST: localhost:3005/sql/post/ride
+{
+    "client_id": 1,
+    "driver_id": 4,
+    "ride_date": "2020-11-21",
+    "distance": "50.60",
+    "price": "33.33"
+}
+// POST: localhost:3005/sql/post/waypoint
+{
+    "ride_id": 5,
+    "number": 8,
+    "latitude": 5,
+    "longitude": 76
+}
