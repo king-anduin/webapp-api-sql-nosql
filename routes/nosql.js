@@ -3,35 +3,55 @@ const express = require('express');
 
 const router = express.Router();
 
-//------------------------------- Mongo routes -------------------------------//
 // Connection to MongoDB
 const mongoose = require('mongoose');
-const client = require('./schema-mongo.js');
-mongoose.connect(process.env.MONGODB, () => console.log('connected to DB'));
+
+mongoose.connect(process.env.MONGODB, { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on('error', (error) => console.error(error));
+db.once('open', () => console.log('connected to database'));
+
+//------------------------------- Mongo routes -------------------------------//
+const { client, driver, ride, waypoint } = require('./schema-mongo.js');
 
 // GET client
 router.get('/client', async (req, res) => {
+  const result = await client.find(req.body);
   try {
-    const result = await client.find();
-    res.json(result);
+    res.send(result);
   } catch (error) {
-    res.status.apply(500).json({ message: error.message });
+    res.status(500).send(error);
   }
 });
 
 // GET driver
-router.get('/driver', (req, res) => {
-  res.send('driver');
+router.get('/driver', async (req, res) => {
+  const result = await driver.find(req.body);
+  try {
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 // GET ride
-router.get('/ride', (req, res) => {
-  res.send('ride');
+router.get('/ride', async (req, res) => {
+  const result = await ride.find(req.body);
+  try {
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 // Get waypoint
-router.get('/waypoint', (req, res) => {
-  res.send('waypoint');
+router.get('/waypoint', async (req, res) => {
+  const result = await waypoint.find(req.body);
+  try {
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 module.exports = router;
