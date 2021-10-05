@@ -3,7 +3,8 @@
 {
     "attributes": [
         "id",
-        "name",
+        "firstname",
+        "surname",
         "gender"
     ],
     "where": {
@@ -14,8 +15,10 @@
 {
     "attributes": [
         "id",
+        "firstname",
+        "surname",
         "city",
-        "name",
+        "country",
         "license_plate"
     ],
     "where": {

@@ -14,7 +14,11 @@ const client = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    firstname: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    surname: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -43,11 +47,19 @@ const driver = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    firstname: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    surname: {
       type: Sequelize.STRING,
       allowNull: false,
     },
     city: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    country: {
       type: Sequelize.STRING,
       allowNull: false,
     },

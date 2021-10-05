@@ -5,7 +5,16 @@ const router = express.Router();
 
 const { client, driver, ride, waypoint } = require('./models-sequelize.js');
 //------------------------------- CLIENT routes -------------------------------//
-// GET
+/**
+ * @swagger
+ * /sql/get/client:
+ *   get:
+ *     description: Get all clients
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/client', async (req, res) => {
   let task = req.body;
   try {
@@ -15,7 +24,22 @@ router.get('/get/client', async (req, res) => {
     throw err;
   }
 });
-// POST
+/**
+ * @swagger
+ * /sql/post/client:
+ *   post:
+ *     description: Create a client
+ *     parameters:
+ *     - name: Max Mustermann
+ *       description: Create a client
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.post('/post/client', async (req, res) => {
   let task = new client({
     name: req.body.name,
@@ -28,7 +52,16 @@ router.post('/post/client', async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-// DELETE
+/**
+ * @swagger
+ * /sql/delete/client:
+ *   delete:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.delete('/delete/client/', async (req, res) => {
   let task = req.body;
   try {
@@ -38,7 +71,16 @@ router.delete('/delete/client/', async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 });
-// UPDATE
+/**
+ * @swagger
+ * /sql/update/client:
+ *   put:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.put('/update/client', async (req, res, next) => {
   await client
     .update({ name: req.body.name, gender: req.body.gender }, { where: { id: req.body.id } })
@@ -48,7 +90,16 @@ router.put('/update/client', async (req, res, next) => {
     .catch(next);
 });
 //------------------------------- DRIVER routes -------------------------------//
-// GET
+/**
+ * @swagger
+ * /sql/get/driver:
+ *   get:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/driver', async (req, res) => {
   let task = req.body;
   try {
@@ -58,7 +109,16 @@ router.get('/get/driver', async (req, res) => {
     throw err;
   }
 });
-// POST
+/**
+ * @swagger
+ * /sql/post/driver:
+ *   post:
+ *     description: Get all clients
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.post('/post/driver', async (req, res) => {
   let task = new driver({
     name: req.body.name,
@@ -72,7 +132,16 @@ router.post('/post/driver', async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-// DELETE
+/**
+ * @swagger
+ * /sql/delete/driver:
+ *   delete:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.delete('/delete/driver/', async (req, res) => {
   let task = req.body;
   try {
@@ -82,7 +151,16 @@ router.delete('/delete/driver/', async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 });
-// UPDATE
+/**
+ * @swagger
+ * /sql/update/driver:
+ *   put:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.put('/update/driver', async (req, res, next) => {
   await driver
     .update(
@@ -95,7 +173,16 @@ router.put('/update/driver', async (req, res, next) => {
     .catch(next);
 });
 //------------------------------- RIDE routes -------------------------------//
-// GET
+/**
+ * @swagger
+ * /sql/get/ride:
+ *   get:
+ *     description: Get all clients
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/ride', async (req, res) => {
   let task = req.body;
   try {
@@ -105,7 +192,16 @@ router.get('/get/ride', async (req, res) => {
     throw err;
   }
 });
-// POST
+/**
+ * @swagger
+ * /sql/post/ride:
+ *   post:
+ *     description: Get all clients
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.post('/post/ride', async (req, res) => {
   let task = new ride({
     client_id: req.body.client_id,
@@ -121,7 +217,16 @@ router.post('/post/ride', async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-// DELETE
+/**
+ * @swagger
+ * /sql/delete/ride:
+ *   delete:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.delete('/delete/ride/', async (req, res) => {
   const ids = await ride.findAll(req.body);
   console.log(ids);
@@ -132,7 +237,16 @@ router.delete('/delete/ride/', async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 });
-// UPDATE
+/**
+ * @swagger
+ * /sql/update/ride:
+ *   put:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.put('/update/ride', async (req, res, next) => {
   await ride
     .update(
@@ -151,7 +265,16 @@ router.put('/update/ride', async (req, res, next) => {
     .catch(next);
 });
 //------------------------------- WAYPOINT routes -------------------------------//
-// GET
+/**
+ * @swagger
+ * /sql/get/waypoint:
+ *   get:
+ *     description: Get all clients
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/waypoint', async (req, res) => {
   let task = req.body;
   try {
@@ -161,7 +284,16 @@ router.get('/get/waypoint', async (req, res) => {
     throw err;
   }
 });
-// POST
+/**
+ * @swagger
+ * /sql/post/waypoint:
+ *   post:
+ *     description: Get all clients
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.post('/post/waypoint', async (req, res) => {
   let task = new waypoint({
     ride_id: req.body.ride_id,
@@ -177,7 +309,16 @@ router.post('/post/waypoint', async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-// DELETE
+/**
+ * @swagger
+ * /sql/delete/waypoint:
+ *   delete:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.delete('/delete/waypoint/', async (req, res) => {
   let task = req.body;
   try {
@@ -187,7 +328,16 @@ router.delete('/delete/waypoint/', async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 });
-// UPDATE
+/**
+ * @swagger
+ * /sql/update/waypoint:
+ *   put:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.put('/update/waypoint', async (req, res, next) => {
   await waypoint
     .update(

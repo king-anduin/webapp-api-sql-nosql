@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const clientSchema = mongoose.Schema(
   {
     id: Number,
-    name: String,
+    firstname: String,
+    surname: String,
     gender: String,
   },
   {
@@ -18,8 +19,10 @@ const client = mongoose.model('client', clientSchema);
 const driverSchema = mongoose.Schema(
   {
     id: Number,
-    name: String,
+    firstname: String,
+    surname: String,
     city: String,
+    country: String,
     licence_plate: String,
   },
   {

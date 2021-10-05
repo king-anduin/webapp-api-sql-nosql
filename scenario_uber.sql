@@ -32,7 +32,7 @@ create table waypoint(
 );
 
 load data infile "./scenario_uber_client.csv" into table `client` fields terminated by "," ignore 1 lines;
-load data infile "./scenario_uber_driver.csv" into table driver fields terminated by "," enclosed by "'" ignore 1 lines;
+load data infile "./scenario_uber_driver.csv" into table driver fields terminated by "," ignore 1 lines;
 load data infile "./scenario_uber_ride.csv" into table ride fields terminated by "," ignore 1 lines;
 load data infile "./scenario_uber_waypoint.csv" into table waypoint fields terminated by "," ignore 1 lines;
   

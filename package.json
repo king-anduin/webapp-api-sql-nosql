@@ -16,7 +16,10 @@
     "oauth-1.0a": "^2.2.6",
     "path": "^0.12.7",
     "react": "^17.0.2",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui": "^3.52.3",
+    "swagger-ui-express": "^4.1.6"
   },
   "scripts": {
     "start-docker-compose": "docker-compose up -d",

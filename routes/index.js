@@ -57,6 +57,22 @@ migration;*/
 //------------------------------- Twitter API -------------------------------//
 /*const twitter = require('./twitter.js');
 twitter;*/
+//------------------------------- SWAGGER (OpenAPI) -------------------------------//
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
+
+//Swagger Configuration
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: 'Employee API',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./routes/*.js'],
+};
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 //------------------------------- App listen on -------------------------------//
 app.listen(PORT, () => {
   console.log(`Server running at http://127.0.0.1:${PORT}/`);
