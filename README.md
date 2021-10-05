@@ -24,6 +24,9 @@ localhost:8081/-> mongo-express (GUI MongoDB) <br>
 in progress <br>
 <br>
 
+# OpenAPI -> Swagger-ui
+localhost:3005/api-docs<br>
+
 # SQL API routes
 
 Sequelize creates all tables for you and checks them everytime the app gets restart.
