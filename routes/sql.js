@@ -5,9 +5,19 @@ const router = express.Router();
 
 const { client, driver, ride, waypoint } = require('./models-sequelize.js');
 //------------------------------- CLIENT routes -------------------------------//
-// GET
+/**
+ * @swagger
+ * /sql/get/client:
+ *   get:
+ *     description: Get all client
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/client', async (req, res) => {
   let task = req.body;
+  console.log(req.config);
   try {
     const result = await client.findAll(task);
     res.send(result);
@@ -15,11 +25,46 @@ router.get('/get/client', async (req, res) => {
     throw err;
   }
 });
-// POST
+/**
+ * @swagger
+ * /sql/get/client/:id:
+ *   get:
+ *     description: Get one client
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/client/:id', async (req, res) => {
+  try {
+    const result = await client.findOne({ where: { id: req.params.id } });
+    res.status(200).json(result);
+  } catch (err) {
+    throw err;
+  }
+});
+/**
+ * @swagger
+ * /sql/post/client:
+ *   post:
+ *     description: Create a client
+ *     parameters:
+ *     - name: Max Mustermann
+ *       description: Create a client
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.post('/post/client', async (req, res) => {
   let task = new client({
-    name: req.body.name,
+    firstname: req.body.firstname,
+    surname: req.body.surname,
     gender: req.body.gender,
+    clientnumber: req.body.clientnumber,
   });
   try {
     const newClient = await task.save();
@@ -28,27 +73,86 @@ router.post('/post/client', async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-// DELETE
-router.delete('/delete/client/', async (req, res) => {
-  let task = req.body;
+/**
+ * @swagger
+ * /sql/delete/client:
+ *   delete:
+ *     description: Create an Employee
+ *     parameters:
+ *     - name: EmployeeName
+ *       description: Create an new employee
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
+router.delete('/delete/client/:id', async (req, res) => {
+  const result = await ride.findAll({
+    attributes: [`id`],
+    where: { client_id: req.params.id },
+    raw: true,
+  });
   try {
-    const result = await client.destroy(task);
-    res.sendStatus(result);
+    result.forEach(async (item) => {
+      var id = Object.values(item);
+      await waypoint.destroy({ where: { ride_id: id[0] } });
+    });
+    result.forEach(async (item) => {
+      var id = Object.values(item);
+      await ride.destroy({ where: { id: id[0] } });
+    });
+    await client.destroy({ where: { id: req.params.id } });
+    res.status(200).json({ message: 'Client succesfull deleted' });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 });
-// UPDATE
+/**
+ * @swagger
+ * /sql/update/client:
+ *   put:
+ *     description: Create an Employee
+ *     parameters:
+ *     - name: EmployeeName
+ *       description: Create an new employee
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.put('/update/client', async (req, res, next) => {
   await client
-    .update({ name: req.body.name, gender: req.body.gender }, { where: { id: req.body.id } })
+    .update(
+      {
+        firstname: req.body.firstname,
+        surname: req.body.surname,
+        gender: req.body.gender,
+        clientnumber: req.body.clientnumber,
+      },
+      { where: { id: req.body.id } }
+    )
     .then(function (rowsUpdated) {
       res.json({ message: 'Rows updated ' + rowsUpdated });
     })
     .catch(next);
 });
 //------------------------------- DRIVER routes -------------------------------//
-// GET
+/**
+ * @swagger
+ * /sql/get/driver:
+ *   get:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/driver', async (req, res) => {
   let task = req.body;
   try {
@@ -58,12 +162,47 @@ router.get('/get/driver', async (req, res) => {
     throw err;
   }
 });
-// POST
+/**
+ * @swagger
+ * /sql/get/driver/:id:
+ *   get:
+ *     description: Get one driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/driver/:id', async (req, res) => {
+  try {
+    const result = await driver.findOne({ where: { id: req.params.id } });
+    res.status(200).json(result);
+  } catch (err) {
+    throw err;
+  }
+});
+/**
+ * @swagger
+ * /sql/post/driver:
+ *   post:
+ *     description: Create a client
+ *     parameters:
+ *     - name: Max Mustermann
+ *       description: Create a client
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.post('/post/driver', async (req, res) => {
   let task = new driver({
-    name: req.body.name,
+    firstname: req.body.firstname,
+    surname: req.body.surname,
     city: req.body.city,
     license_plate: req.body.license_plate,
+    drivernumber: req.body.drivernumber,
   });
   try {
     const newDriver = await task.save();
@@ -72,21 +211,69 @@ router.post('/post/driver', async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-// DELETE
-router.delete('/delete/driver/', async (req, res) => {
-  let task = req.body;
+/**
+ * @swagger
+ * /sql/delete/driver:
+ *   delete:
+ *     description: Create an Employee
+ *     parameters:
+ *     - name: EmployeeName
+ *       description: Create an new employee
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
+router.delete('/delete/driver/:id', async (req, res) => {
+  const result = await ride.findAll({
+    attributes: [`id`],
+    where: { driver_id: req.params.id },
+    raw: true,
+  });
   try {
-    const result = await driver.destroy(task);
-    res.sendStatus(result);
+    result.forEach(async (item) => {
+      var id = Object.values(item);
+      await waypoint.destroy({ where: { ride_id: id[0] } });
+    });
+    result.forEach(async (item) => {
+      var id = Object.values(item);
+      await ride.destroy({ where: { id: id[0] } });
+    });
+    await driver.destroy({ where: { id: req.params.id } });
+    res.status(200).json({ message: 'Driver succesfull deleted' });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 });
-// UPDATE
+/**
+ * @swagger
+ * /sql/update/driver:
+ *   put:
+ *     description: Create an Employee
+ *     parameters:
+ *     - name: EmployeeName
+ *       description: Create an new employee
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.put('/update/driver', async (req, res, next) => {
   await driver
     .update(
-      { name: req.body.name, city: req.body.city, license_plate: req.body.license_plate },
+      {
+        firstname: req.body.firstname,
+        surname: req.body.surname,
+        city: req.body.city,
+        license_plate: req.body.license_plate,
+        drivernumber: req.body.drivernumber,
+      },
       { where: { id: req.body.id } }
     )
     .then(function (rowsUpdated) {
@@ -95,7 +282,16 @@ router.put('/update/driver', async (req, res, next) => {
     .catch(next);
 });
 //------------------------------- RIDE routes -------------------------------//
-// GET
+/**
+ * @swagger
+ * /sql/get/ride:
+ *   get:
+ *     description: Get all clients
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/ride', async (req, res) => {
   let task = req.body;
   try {
@@ -105,7 +301,40 @@ router.get('/get/ride', async (req, res) => {
     throw err;
   }
 });
-// POST
+/**
+ * @swagger
+ * /sql/get/ride/:id:
+ *   get:
+ *     description: Get one ride
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/ride/:id', async (req, res) => {
+  try {
+    const result = await ride.findOne({ where: { id: req.params.id } });
+    res.status(200).json(result);
+  } catch (err) {
+    throw err;
+  }
+});
+/**
+ * @swagger
+ * /sql/post/ride:
+ *   post:
+ *     description: Create a client
+ *     parameters:
+ *     - name: Max Mustermann
+ *       description: Create a client
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.post('/post/ride', async (req, res) => {
   let task = new ride({
     client_id: req.body.client_id,
@@ -121,18 +350,45 @@ router.post('/post/ride', async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-// DELETE
+/**
+ * @swagger
+ * /sql/delete/ride:
+ *   delete:
+ *     description: Create an Employee
+ *     parameters:
+ *     - name: EmployeeName
+ *       description: Create an new employee
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.delete('/delete/ride/', async (req, res) => {
-  const ids = await ride.findAll(req.body);
-  console.log(ids);
   try {
-    //await ride.destroy(req.body);
-    res.json({ message: 'Deleted Subscriber' });
+    res.json({ message: 'You cannot simply delete rides' });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 });
-// UPDATE
+/**
+ * @swagger
+ * /sql/update/ride:
+ *   put:
+ *     description: Create an Employee
+ *     parameters:
+ *     - name: EmployeeName
+ *       description: Create an new employee
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.put('/update/ride', async (req, res, next) => {
   await ride
     .update(
@@ -151,17 +407,59 @@ router.put('/update/ride', async (req, res, next) => {
     .catch(next);
 });
 //------------------------------- WAYPOINT routes -------------------------------//
-// GET
+/**
+ * @swagger
+ * /sql/get/waypoint:
+ *   get:
+ *     description: Get all clients
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/waypoint', async (req, res) => {
   let task = req.body;
   try {
     const result = await waypoint.findAll(task);
-    res.send(result);
+    res.status(200).json(result);
   } catch (err) {
     throw err;
   }
 });
-// POST
+/**
+ * @swagger
+ * /sql/get/waypoint/:id:
+ *   get:
+ *     description: Get one waypoint
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/waypoint/:id', async (req, res) => {
+  try {
+    const result = await waypoint.findOne({ where: { id: req.params.id } });
+    res.status(200).json(result);
+  } catch (err) {
+    throw err;
+  }
+});
+/**
+ * @swagger
+ * /sql/post/waypoint:
+ *   post:
+ *     description: Create a client
+ *     parameters:
+ *     - name: Max Mustermann
+ *       description: Create a client
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.post('/post/waypoint', async (req, res) => {
   let task = new waypoint({
     ride_id: req.body.ride_id,
@@ -177,17 +475,40 @@ router.post('/post/waypoint', async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-// DELETE
-router.delete('/delete/waypoint/', async (req, res) => {
-  let task = req.body;
+/**
+ * @swagger
+ * /sql/delete/waypoint:
+ *   delete:
+ *     description: Create an Employee
+ *     parameters:
+ *     - name: EmployeeName
+ *       description: Create an new employee
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
+router.delete('/delete/waypoint/:id', async (req, res) => {
   try {
-    const result = await waypoint.destroy(task);
-    res.sendStatus(result);
+    await waypoint.destroy({ where: { id: req.params.id } });
+    res.status(200).json({ message: 'Waypoint succesfull deleted' });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 });
-// UPDATE
+/**
+ * @swagger
+ * /sql/update/waypoint:
+ *   put:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.put('/update/waypoint', async (req, res, next) => {
   await waypoint
     .update(

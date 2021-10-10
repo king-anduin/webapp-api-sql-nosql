@@ -10,6 +10,14 @@ const PORT = process.env.PORT;
 // Dep path
 const path = require('path');
 
+//---------------------- Basic authorization for API usage ----------------//
+const basicAuth = require('express-basic-auth');
+
+app.use(
+  basicAuth({
+    users: { admin: `${process.env.SUPERSECRET}` },
+  })
+);
 //------------------------------- Load react frontend -----------------------//
 // express can use JSON format. It's the same as body-parser but thats not part of it anymore
 app.use(express.json());
@@ -57,6 +65,22 @@ migration;*/
 //------------------------------- Twitter API -------------------------------//
 /*const twitter = require('./twitter.js');
 twitter;*/
+//------------------------------- SWAGGER (OpenAPI) -------------------------------//
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
+
+//Swagger Configuration
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: 'Employee API',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./routes/*.js'],
+};
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 //------------------------------- App listen on -------------------------------//
 app.listen(PORT, () => {
   console.log(`Server running at http://127.0.0.1:${PORT}/`);

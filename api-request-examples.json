@@ -3,8 +3,10 @@
 {
     "attributes": [
         "id",
-        "name",
-        "gender"
+        "firstname",
+        "surname",
+        "gender",
+        "clientnumber"
     ],
     "where": {
         "id": 1
@@ -14,9 +16,12 @@
 {
     "attributes": [
         "id",
+        "firstname",
+        "surname",
         "city",
-        "name",
-        "license_plate"
+        "country",
+        "license_plate",
+        "drivernumber"
     ],
     "where": {
         "id": 1
@@ -48,7 +53,7 @@
         "id": 1
     }
 }
-//----------------------------POST---------------------------------------------//
+//----------------------------CREATE---------------------------------------------//
 // POST: localhost:3005/sql/post/client
 {
     "name": "sebastian",
@@ -76,13 +81,13 @@
     "longitude": 76
 }
 //----------------------------DELETE------------------------------------------//
-// DELETE: localhost:3005/sql/delete/{client, ride, waypoint, driver}
+// DELETE: localhost:3005/sql/delete/{client, waypoint, driver}
 {
     "where": {
-        "id": 543
+        "id": 1
     }
 }
-//----------------------------UPDATE------------------------------------------//
+//----------------------------PUT------------------------------------------//
 // UPDATE: localhost:3005/sql/update/client
 {
     //"gender": "m",
@@ -112,17 +117,4 @@
     "latitude": 5,
     "longitude": 76,
     "id": 1
-}
-
-
-
-{
-    "raw": true,
-    "attributes": [
-        "client_id",
-        "driver_id"
-    ],
-    "where": {
-        "id": 3
-    }
 }
