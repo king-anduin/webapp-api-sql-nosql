@@ -27,6 +27,8 @@ in progress <br>
 # OpenAPI -> Swagger-ui
 localhost:3005/api-docs<br>
 
+# Die API nutzt basic authorization for protection 
+
 # SQL API routes
 
 Sequelize creates all tables for you and checks them everytime the app gets restart.

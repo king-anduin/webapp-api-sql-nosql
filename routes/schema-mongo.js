@@ -7,6 +7,7 @@ const clientSchema = mongoose.Schema(
     firstname: String,
     surname: String,
     gender: String,
+    clientnumber: String,
   },
   {
     collection: 'client',
@@ -24,6 +25,7 @@ const driverSchema = mongoose.Schema(
     city: String,
     country: String,
     licence_plate: String,
+    drivernumber: String,
   },
   {
     collection: 'driver',

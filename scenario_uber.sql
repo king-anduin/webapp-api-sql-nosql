@@ -4,14 +4,19 @@ use scenario_uber;
 
 create table `client`(
   id int primary key auto_increment, 
-  `name` varchar(100) not null, 
-  gender char(1) check (gender in ("m", "f"))
+  firstname varchar(100) not null,
+  surname varchar(100) not null, 
+  gender char(1) check (gender in ("m", "f")),
+  clientnumber varchar(20) not null
 );
 create table driver(
   id int primary key auto_increment, 
-  `name` varchar(100) not null, 
-  city varchar(100) not null, 
-  license_plate varchar(10) not null
+  firstname varchar(100) not null,
+  surname varchar(100) not null, 
+  city varchar(100) not null,
+  country varchar(100) not null,  
+  license_plate varchar(10) not null,
+  drivernumber varchar(20) not null
 );
 create table ride(
   id int primary key auto_increment,
@@ -28,13 +33,14 @@ create table waypoint(
   ride_id int not null,
   `number` int not null check (`number` > 0),
   latitude decimal(7,4),
-  longitude decimal(7,4)
+  longitude decimal(7,4),
+  constraint fk_waypoint_ride_id foreign key (ride_id) references ride(id)
 );
 
-load data infile "./scenario_uber_client.csv" into table `client` fields terminated by "," ignore 1 lines;
-load data infile "./scenario_uber_driver.csv" into table driver fields terminated by "," ignore 1 lines;
-load data infile "./scenario_uber_ride.csv" into table ride fields terminated by "," ignore 1 lines;
-load data infile "./scenario_uber_waypoint.csv" into table waypoint fields terminated by "," ignore 1 lines;
+load data infile "/srv/scenario_uber_client.csv" into table `client` fields terminated by "," ignore 1 lines;
+load data infile "/srv/scenario_uber_driver.csv" into table driver fields terminated by "," ignore 1 lines;
+load data infile "/srv/scenario_uber_ride.csv" into table ride fields terminated by "," ignore 1 lines;
+load data infile "/srv/scenario_uber_waypoint.csv" into table waypoint fields terminated by "," ignore 1 lines;
   
 -- The following point column and the spatial index are not relevant for this exercise.
 -- alter table waypoint add geo_point point not null default (point(latitude, longitude));
