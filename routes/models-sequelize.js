@@ -13,6 +13,7 @@ const client = sequelize.define(
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+      unique: true,
     },
     firstname: {
       type: Sequelize.STRING,
@@ -26,6 +27,11 @@ const client = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    clientnumber: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+    },
   },
   {
     // don't add the timestamp attributes (updatedAt, createdAt)
@@ -34,6 +40,13 @@ const client = sequelize.define(
     // transform all passed model names (first parameter of define) into plural.
     // if you don't want that, set the following
     freezeTableName: true,
+    indexes: [
+      // Create a unique index on email
+      {
+        unique: true,
+        fields: ['clientnumber'],
+      },
+    ],
   }
 );
 
@@ -66,6 +79,12 @@ const driver = sequelize.define(
     license_plate: {
       type: Sequelize.STRING,
       allowNull: false,
+      unique: true,
+    },
+    drivernumber: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
     },
   },
   {
@@ -75,6 +94,13 @@ const driver = sequelize.define(
     // transform all passed model names (first parameter of define) into plural.
     // if you don't want that, set the following
     freezeTableName: true,
+    indexes: [
+      // Create a unique index on email
+      {
+        unique: true,
+        fields: ['drivernumber'],
+      },
+    ],
   }
 );
 
@@ -87,16 +113,17 @@ const ride = sequelize.define(
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+      unique: true,
     },
     client_id: {
-      type: Sequelize.BIGINT(6),
+      type: Sequelize.INTEGER(6),
       references: {
         model: client,
         key: 'id',
       },
     },
     driver_id: {
-      type: Sequelize.BIGINT(6),
+      type: Sequelize.INTEGER(6),
       references: {
         model: driver,
         key: 'id',
@@ -107,7 +134,7 @@ const ride = sequelize.define(
       allowNull: false,
     },
     distance: {
-      type: Sequelize.BIGINT(6),
+      type: Sequelize.INTEGER(6),
       allowNull: false,
     },
     price: {
@@ -134,13 +161,17 @@ const waypoint = sequelize.define(
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+      unique: true,
     },
     ride_id: {
-      type: Sequelize.BIGINT(11),
-      allowNull: false,
+      type: Sequelize.INTEGER(11),
+      references: {
+        model: ride,
+        key: 'id',
+      },
     },
     number: {
-      type: Sequelize.BIGINT(11),
+      type: Sequelize.INTEGER(11),
       allowNull: false,
     },
     latitude: {

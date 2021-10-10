@@ -16,8 +16,8 @@ db.once('open', () => console.log('connected to database'));
 const { client, driver, ride, waypoint } = require('./schema-mongo.js');
 
 // GET client
-router.get('/client', async (req, res) => {
-  const result = await client.find(req.body);
+router.get('/get/client', async (req, res) => {
+  const result = await client.findById(req.body._id);
   try {
     res.send(result);
   } catch (error) {
@@ -31,17 +31,27 @@ router.post('/post/client', function (req, res, next) {
     id: req.body.id,
     name: req.body.name,
     gender: req.body.gender,
+    clientnumber: req.body.clientnumber,
   });
   post.save(function (err, post) {
     if (err) {
       return next(err);
     }
-    res.json(201, post);
+    res.status(201).json(post);
   });
+});
+
+// DELETE client
+router.delete('/delete/client/:_id', async (req, res) => {
+  const result = await client.findById(req.params._id);
+  if (result) {
+    await result.remove();
+  }
+  return res.send(result);
 });
 //------------------------------- DRIVER routes -------------------------------//
 // GET driver
-router.get('/driver', async (req, res) => {
+router.get('/get/driver', async (req, res) => {
   const result = await driver.find(req.body);
   try {
     res.send(result);
@@ -57,17 +67,27 @@ router.post('/post/driver', function (req, res, next) {
     name: req.body.name,
     city: req.body.city,
     license_plate: req.body.license_plate,
+    drivernumber: req.body.drivernumber,
   });
   post.save(function (err, post) {
     if (err) {
       return next(err);
     }
-    res.json(201, post);
+    res.status(201).json(post);
   });
+});
+
+// DELETE client
+router.delete('/delete/driver/:_id', async (req, res) => {
+  const message = await driver.findById(req.params._id);
+  if (message) {
+    await message.remove();
+  }
+  return res.send(message);
 });
 //------------------------------- RIDE routes -------------------------------//
 // GET ride
-router.get('/ride', async (req, res) => {
+router.get('/get/ride', async (req, res) => {
   const result = await ride.find(req.body);
   try {
     res.send(result);
@@ -90,12 +110,21 @@ router.post('/post/ride', function (req, res, next) {
     if (err) {
       return next(err);
     }
-    res.json(201, post);
+    res.status(201).json(post);
   });
+});
+
+// DELETE client
+router.delete('/delete/ride/:_id', async (req, res) => {
+  const result = await ride.findById(req.params._id);
+  if (result) {
+    await result.remove();
+  }
+  return res.send(result);
 });
 //------------------------------- WAYPOINT routes -------------------------------//
 // Get waypoint
-router.get('/waypoint', async (req, res) => {
+router.get('/get/waypoint', async (req, res) => {
   const result = await waypoint.find(req.body);
   try {
     res.send(result);
@@ -104,4 +133,28 @@ router.get('/waypoint', async (req, res) => {
   }
 });
 
+//POST
+router.post('/post/waypoint', function (req, res, next) {
+  var post = new waypoint({
+    id: req.body.id,
+    ride_id: req.body.ride_id,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+  });
+  post.save(function (err, post) {
+    if (err) {
+      return next(err);
+    }
+    res.status(201).json(post);
+  });
+});
+
+// DELETE client
+router.delete('/delete/waypoint/:_id', async (req, res) => {
+  const result = await waypoint.findById(req.params._id);
+  if (result) {
+    await result.remove();
+  }
+  return res.send(result);
+});
 module.exports = router;

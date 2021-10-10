@@ -6,11 +6,10 @@ docker cp driver_uber.csv ndbs-mariadb-ndbs-1:/srv/
 docker cp scenario_uber_ride.csv ndbs-mariadb-ndbs-1:/srv/
 docker cp scenario_uber_waypoint.csv ndbs-mariadb-ndbs-1:/srv/
 
-# inside docker
+# inside docker or execute commands in phpmyadmin but relogin as root
 docker exec -it ndbs-mariadb-ndbs-1 bash
 cd srv/
 mysql -u root -p
-use scenario_uber
 
 # in mariadb
 use scenario_uber
@@ -19,7 +18,9 @@ load data infile "/srv/driver_uber.csv" into table driver fields terminated by "
 load data infile "/srv/scenario_uber_ride.csv" into table ride fields terminated by "," ignore 1 lines;
 load data infile "/srv/scenario_uber_waypoint.csv" into table waypoint fields terminated by "," ignore 1 lines;
 CREATE UNIQUE INDEX id ON client(id);
+CREATE UNIQUE INDEX clientnumber ON client(clientnumber);
 CREATE UNIQUE INDEX license_plate ON driver(license_plate);
+CREATE UNIQUE INDEX drivernumber ON driver(drivernumber);
 CREATE UNIQUE INDEX id ON driver(id);
 CREATE UNIQUE INDEX id ON ride(id);
 CREATE UNIQUE INDEX id ON waypoint(id);
