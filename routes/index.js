@@ -13,11 +13,11 @@ const path = require('path');
 //---------------------- Basic authorization for API usage ----------------//
 const basicAuth = require('express-basic-auth');
 
-/*app.use(
+app.use(
   basicAuth({
     users: { admin: `${process.env.SUPERSECRET}` },
   })
-);*/
+);
 //------------------------------- Load react frontend -----------------------//
 // express can use JSON format. It's the same as body-parser but thats not part of it anymore
 app.use(express.json());
