@@ -8,6 +8,14 @@
         "gender",
         "clientnumber"
     ],
+    "order": [
+        [
+            "firstname",
+            "ASC"
+        ]
+    ],
+    "offset": 30,
+    "limit": 10,
     "where": {
         "id": 1
     }
@@ -23,6 +31,14 @@
         "license_plate",
         "drivernumber"
     ],
+    "order": [
+        [
+            "firstname",
+            "ASC"
+        ]
+    ],
+    "offset": 30,
+    "limit": 10,
     "where": {
         "id": 1
     }
@@ -49,21 +65,58 @@
         "latitude",
         "longitude"
     ],
+    "order": [
+        [
+            "firstname",
+            "ASC"
+        ]
+    ],
+    "offset": 30,
+    "limit": 10,
     "where": {
         "id": 1
+    }
+}
+// GET: localhost:3005/sql/get/overview
+{
+    "attributes": [
+        "cust_firstname",
+        "cust_surname",
+        "ride_date",
+        "driv_firstname",
+        "driv_surname",
+        "city",
+        "country",
+        "license_plate",
+        "price",
+        "distance"
+    ],
+    "order": [
+        [
+            "cust_firstname",
+            "ASC"
+        ]
+    ],
+    "offset": 0,
+    "limit": 10,
+    "where": {
+        "cust_firstname": "Tim"
     }
 }
 //----------------------------CREATE---------------------------------------------//
 // POST: localhost:3005/sql/post/client
 {
-    "name": "sebastian",
+    "firstname": "sebastian",
+    "surname": "sebastian",
     "gender": "m"
 }
 // POST: localhost:3005/sql/post/driver
 {
-    "name": "sebastian",
-    "city": "Chicago, United States",
-    "license_plate": "UN-CH 1"
+    "firstname": "sebastian",
+    "surname": "sebastian",
+    "city": "Chicago",
+    "country": "United States",
+    "license_plate": "UN-CH 1",
 }
 // POST: localhost:3005/sql/post/ride
 {
@@ -87,19 +140,23 @@
         "id": 1
     }
 }
+// API REQUEST PARAMS: localhost:3005/sql/delete/{client, waypoint, driver}:id
 //----------------------------PUT------------------------------------------//
 // UPDATE: localhost:3005/sql/update/client
 {
-    //"gender": "m",
-    "name": "Peter",
-    "id": 1
+    "id": 1,
+    "firstname": "Tobias",
+    "surname": "Poth",
+    "gender": "m"
 }
 // UPDATE: localhost:3005/sql/update/driver
 {
-    "license_plate": "NMS-PS-187",
-    "city": "Neumuenster",
-    "name": "Peter",
-    "id": 1
+    "id": 1,
+    "firstname": "Jonah",
+    "surname": "Gabler",
+    "city": "Chicago",
+    "country": " United States",
+    "license_plate": "UN-CH 1"
 }
 // UPDATE: localhost:3005/sql/update/ride
 {

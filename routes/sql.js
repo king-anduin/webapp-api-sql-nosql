@@ -3,7 +3,9 @@ const express = require('express');
 
 const router = express.Router();
 
-const { client, driver, ride, waypoint } = require('./models-sequelize.js');
+// Include Sequelize module.
+const sequelize = require('sequelize');
+const { client, driver, ride, waypoint, ride_list, statistic } = require('./models-sequelize.js');
 //------------------------------- CLIENT routes -------------------------------//
 /**
  * @swagger
@@ -16,13 +18,11 @@ const { client, driver, ride, waypoint } = require('./models-sequelize.js');
  *
  */
 router.get('/get/client', async (req, res) => {
-  let task = req.body;
-  console.log(req.config);
   try {
-    const result = await client.findAll(task);
-    res.send(result);
+    const result = await client.findAll(req.body);
+    res.status(200).json(result);
   } catch (err) {
-    throw err;
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -40,7 +40,7 @@ router.get('/get/client/:id', async (req, res) => {
     const result = await client.findOne({ where: { id: req.params.id } });
     res.status(200).json(result);
   } catch (err) {
-    throw err;
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -64,13 +64,20 @@ router.post('/post/client', async (req, res) => {
     firstname: req.body.firstname,
     surname: req.body.surname,
     gender: req.body.gender,
-    clientnumber: req.body.clientnumber,
   });
   try {
     const newClient = await task.save();
-    res.status(201).send(newClient);
+    const updateClient = newClient.get({ plain: true });
+    await client.update(
+      {
+        clientnumber: `${req.body.firstname}_${req.body.surname}_${updateClient.id}`,
+      },
+      { where: { id: updateClient.id } }
+    );
+    const result = await client.findOne({ where: { id: updateClient.id } });
+    res.status(201).json(result);
   } catch (err) {
-    res.status(400).send({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 /**
@@ -104,10 +111,11 @@ router.delete('/delete/client/:id', async (req, res) => {
       var id = Object.values(item);
       await ride.destroy({ where: { id: id[0] } });
     });
+    const value = await client.findOne({ where: { id: req.params.id } });
     await client.destroy({ where: { id: req.params.id } });
-    res.status(200).json({ message: 'Client succesfull deleted' });
+    res.status(200).json({ message: 'Client succesfully deleted', client: value });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -126,9 +134,9 @@ router.delete('/delete/client/:id', async (req, res) => {
  *         description: Created
  *
  */
-router.put('/update/client', async (req, res, next) => {
-  await client
-    .update(
+router.put('/update/client', async (req, res) => {
+  try {
+    await client.update(
       {
         firstname: req.body.firstname,
         surname: req.body.surname,
@@ -136,11 +144,12 @@ router.put('/update/client', async (req, res, next) => {
         clientnumber: req.body.clientnumber,
       },
       { where: { id: req.body.id } }
-    )
-    .then(function (rowsUpdated) {
-      res.json({ message: 'Rows updated ' + rowsUpdated });
-    })
-    .catch(next);
+    );
+    const value = await client.findOne({ where: { id: req.body.id }, raw: true });
+    res.status(201).json({ message: 'Client updated', client: value });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 //------------------------------- DRIVER routes -------------------------------//
 /**
@@ -157,9 +166,9 @@ router.get('/get/driver', async (req, res) => {
   let task = req.body;
   try {
     const result = await driver.findAll(task);
-    res.send(result);
+    res.status(200).json(result);
   } catch (err) {
-    throw err;
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -177,7 +186,7 @@ router.get('/get/driver/:id', async (req, res) => {
     const result = await driver.findOne({ where: { id: req.params.id } });
     res.status(200).json(result);
   } catch (err) {
-    throw err;
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -201,14 +210,22 @@ router.post('/post/driver', async (req, res) => {
     firstname: req.body.firstname,
     surname: req.body.surname,
     city: req.body.city,
+    country: req.body.country,
     license_plate: req.body.license_plate,
-    drivernumber: req.body.drivernumber,
   });
   try {
     const newDriver = await task.save();
-    res.status(201).send(newDriver);
+    const updateDriver = newDriver.get({ plain: true });
+    await driver.update(
+      {
+        drivernumber: `${req.body.firstname}_${req.body.surname}_${updateDriver.id}`,
+      },
+      { where: { id: updateDriver.id } }
+    );
+    const result = await driver.findOne({ where: { id: updateDriver.id } });
+    res.status(201).json(result);
   } catch (err) {
-    res.status(400).send({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 /**
@@ -242,10 +259,11 @@ router.delete('/delete/driver/:id', async (req, res) => {
       var id = Object.values(item);
       await ride.destroy({ where: { id: id[0] } });
     });
+    const value = await driver.findOne({ where: { id: req.params.id } });
     await driver.destroy({ where: { id: req.params.id } });
-    res.status(200).json({ message: 'Driver succesfull deleted' });
+    res.status(200).json({ message: 'Driver succesfully deleted', client: value });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -264,9 +282,9 @@ router.delete('/delete/driver/:id', async (req, res) => {
  *         description: Created
  *
  */
-router.put('/update/driver', async (req, res, next) => {
-  await driver
-    .update(
+router.put('/update/driver', async (req, res) => {
+  try {
+    await driver.update(
       {
         firstname: req.body.firstname,
         surname: req.body.surname,
@@ -275,11 +293,12 @@ router.put('/update/driver', async (req, res, next) => {
         drivernumber: req.body.drivernumber,
       },
       { where: { id: req.body.id } }
-    )
-    .then(function (rowsUpdated) {
-      res.json({ message: 'Rows updated ' + rowsUpdated });
-    })
-    .catch(next);
+    );
+    const value = await driver.findOne({ where: { id: req.body.id }, raw: true });
+    res.status(201).json({ message: 'Driver updated', driver: value });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 //------------------------------- RIDE routes -------------------------------//
 /**
@@ -293,12 +312,11 @@ router.put('/update/driver', async (req, res, next) => {
  *
  */
 router.get('/get/ride', async (req, res) => {
-  let task = req.body;
   try {
-    const result = await ride.findAll(task);
-    res.send(result);
+    const result = await ride.findAll(req.body);
+    res.status(200).json(result);
   } catch (err) {
-    throw err;
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -316,7 +334,7 @@ router.get('/get/ride/:id', async (req, res) => {
     const result = await ride.findOne({ where: { id: req.params.id } });
     res.status(200).json(result);
   } catch (err) {
-    throw err;
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -345,9 +363,9 @@ router.post('/post/ride', async (req, res) => {
   });
   try {
     const newRide = await task.save();
-    res.status(201).send(newRide);
+    res.status(201).json(newRide);
   } catch (err) {
-    res.status(400).send({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 /**
@@ -370,7 +388,7 @@ router.delete('/delete/ride/', async (req, res) => {
   try {
     res.json({ message: 'You cannot simply delete rides' });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -389,9 +407,9 @@ router.delete('/delete/ride/', async (req, res) => {
  *         description: Created
  *
  */
-router.put('/update/ride', async (req, res, next) => {
-  await ride
-    .update(
+router.put('/update/ride', async (req, res) => {
+  try {
+    await ride.update(
       {
         client_id: req.body.client_id,
         driver_id: req.body.driver_id,
@@ -400,11 +418,12 @@ router.put('/update/ride', async (req, res, next) => {
         price: req.body.price,
       },
       { where: { id: req.body.id } }
-    )
-    .then(function (rowsUpdated) {
-      res.json({ message: 'Rows updated ' + rowsUpdated });
-    })
-    .catch(next);
+    );
+    const value = await ride.findOne({ where: { id: req.body.id }, raw: true });
+    res.status(201).json({ message: 'Ride updated', client: value });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 //------------------------------- WAYPOINT routes -------------------------------//
 /**
@@ -418,12 +437,11 @@ router.put('/update/ride', async (req, res, next) => {
  *
  */
 router.get('/get/waypoint', async (req, res) => {
-  let task = req.body;
   try {
-    const result = await waypoint.findAll(task);
+    const result = await waypoint.findAll(req.body);
     res.status(200).json(result);
   } catch (err) {
-    throw err;
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -441,7 +459,7 @@ router.get('/get/waypoint/:id', async (req, res) => {
     const result = await waypoint.findOne({ where: { id: req.params.id } });
     res.status(200).json(result);
   } catch (err) {
-    throw err;
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -467,12 +485,11 @@ router.post('/post/waypoint', async (req, res) => {
     latitude: req.body.latitude,
     longitude: req.body.longitude,
   });
-  console.log(task);
   try {
     const newWaypoint = await task.save();
-    res.status(201).send(newWaypoint);
+    res.status(201).json(newWaypoint);
   } catch (err) {
-    res.status(400).send({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 /**
@@ -496,7 +513,7 @@ router.delete('/delete/waypoint/:id', async (req, res) => {
     await waypoint.destroy({ where: { id: req.params.id } });
     res.status(200).json({ message: 'Waypoint succesfull deleted' });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -509,9 +526,9 @@ router.delete('/delete/waypoint/:id', async (req, res) => {
  *         description: Success
  *
  */
-router.put('/update/waypoint', async (req, res, next) => {
-  await waypoint
-    .update(
+router.put('/update/waypoint', async (req, res) => {
+  try {
+    await waypoint.update(
       {
         ride_id: req.body.ride_id,
         number: req.body.number,
@@ -519,11 +536,86 @@ router.put('/update/waypoint', async (req, res, next) => {
         longitude: req.body.longitude,
       },
       { where: { id: req.body.id } }
-    )
-    .then(function (rowsUpdated) {
-      res.json({ message: 'Rows updated ' + rowsUpdated });
-    })
-    .catch(next);
+    );
+    const value = await waypoint.findOne({ where: { id: req.body.id }, raw: true });
+    res.status(201).json({ message: 'Waypoint updated', waypoint: value });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+//------------------------------- Quick Overview -------------------------//
+/**
+ * @swagger
+ * /sql/get/client:
+ *   get:
+ *     description: Get all client
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/overview', async (req, res) => {
+  try {
+    const result = await ride_list.findAll(req.body);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+//---------------------------- GET statistics -------------------------//
+/**
+ * @swagger
+ * /sql/get/client:
+ *   get:
+ *     description: Get all client
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/amount', async (req, res) => {
+  try {
+    const result = await statistic.findAll({
+      attributes: ['city', [sequelize.fn('sum', sequelize.col('price')), 'total']],
+
+      group: ['statistic.city'],
+
+      raw: true,
+
+      order: sequelize.literal('total DESC'),
+    });
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+//-------------------------- GET COUNT(rides) -----------------------//
+/**
+ * @swagger
+ * /sql/get/client:
+ *   get:
+ *     description: Get all client
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/count', async (req, res) => {
+  try {
+    const result = await statistic.findAll({
+      attributes: ['city', [sequelize.fn('count', sequelize.col('id')), 'rides']],
+
+      group: ['statistic.city'],
+
+      raw: true,
+
+      order: sequelize.literal('rides DESC'),
+    });
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // Export routes

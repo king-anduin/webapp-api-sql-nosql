@@ -29,8 +29,8 @@ const client = sequelize.define(
     },
     clientnumber: {
       type: Sequelize.STRING,
-      allowNull: false,
-      unique: true,
+      defaultValue: null,
+      allowNull: true,
     },
   },
   {
@@ -79,12 +79,11 @@ const driver = sequelize.define(
     license_plate: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true,
     },
     drivernumber: {
       type: Sequelize.STRING,
-      allowNull: false,
-      unique: true,
+      defaultValue: null,
+      allowNull: true,
     },
   },
   {
@@ -95,10 +94,10 @@ const driver = sequelize.define(
     // if you don't want that, set the following
     freezeTableName: true,
     indexes: [
-      // Create a unique index on email
+      // Create a unique index
       {
         unique: true,
-        fields: ['drivernumber'],
+        fields: ['drivernumber', 'license_plate'],
       },
     ],
   }
@@ -138,7 +137,7 @@ const ride = sequelize.define(
       allowNull: false,
     },
     price: {
-      type: Sequelize.FLOAT(2),
+      type: Sequelize.DECIMAL(10, 2),
       allowNull: false,
     },
   },
@@ -193,9 +192,100 @@ const waypoint = sequelize.define(
   }
 );
 
+// view ride_list model
+const ride_list = sequelize.define(
+  'ride_list',
+  {
+    cust_firstname: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    cust_surname: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    ride_date: {
+      type: Sequelize.DATEONLY,
+      allowNull: false,
+    },
+    driv_firstname: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    driv_surname: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    driv_firstname: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    city: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    country: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    license_plate: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    price: {
+      type: Sequelize.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    distance: {
+      type: Sequelize.INTEGER(6),
+      allowNull: false,
+    },
+  },
+  {
+    // don't add the timestamp attributes (updatedAt, createdAt)
+    timestamps: false,
+    // disable the modification of tablenames; By default, sequelize will automatically
+    // transform all passed model names (first parameter of define) into plural.
+    // if you don't want that, set the following
+    freezeTableName: true,
+  }
+);
+
+// view statistic model
+const statistic = sequelize.define(
+  'statistic',
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+      unique: true,
+    },
+    price: {
+      type: Sequelize.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    city: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    // don't add the timestamp attributes (updatedAt, createdAt)
+    timestamps: false,
+    // disable the modification of tablenames; By default, sequelize will automatically
+    // transform all passed model names (first parameter of define) into plural.
+    // if you don't want that, set the following
+    freezeTableName: true,
+  }
+);
+
 module.exports = {
   client,
   driver,
   ride,
   waypoint,
+  ride_list,
+  statistic,
 };
