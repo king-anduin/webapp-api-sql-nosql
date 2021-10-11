@@ -45,7 +45,6 @@ router.get('/get/client', async (req, res) => {
  *
  */
 router.get('/get/client/:id', async (req, res) => {
-  console.log(await getAmount());
   try {
     const result = await client.findOne({ where: { id: req.params.id } });
     res.status(200).json(result);
