@@ -73,7 +73,7 @@ const swaggerUI = require('swagger-ui-express');
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: 'Employee API',
+      title: 'Uber API',
       version: '1.0.0',
     },
   },

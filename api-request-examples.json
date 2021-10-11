@@ -53,6 +53,24 @@
         "id": 1
     }
 }
+// GET: localhost:3005/sql/get/overview
+{
+    "attributes": [
+        "cust_firstname",
+        "cust_surname",
+        "ride_date",
+        "driv_firstname",
+        "driv_surname",
+        "city",
+        "country",
+        "license_plate",
+        "price",
+        "distance"
+    ],
+    "where": {
+        "license_plate": "UN-AR 9505"
+    }
+}
 //----------------------------CREATE---------------------------------------------//
 // POST: localhost:3005/sql/post/client
 {

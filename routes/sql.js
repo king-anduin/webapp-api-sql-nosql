@@ -3,7 +3,17 @@ const express = require('express');
 
 const router = express.Router();
 
-const { client, driver, ride, waypoint } = require('./models-sequelize.js');
+// Include Sequelize module.
+const sequelize = require('sequelize');
+const {
+  client,
+  driver,
+  ride,
+  waypoint,
+  ride_list,
+  getAmount,
+  statistic,
+} = require('./models-sequelize.js');
 //------------------------------- CLIENT routes -------------------------------//
 /**
  * @swagger
@@ -17,10 +27,9 @@ const { client, driver, ride, waypoint } = require('./models-sequelize.js');
  */
 router.get('/get/client', async (req, res) => {
   let task = req.body;
-  console.log(req.config);
   try {
     const result = await client.findAll(task);
-    res.send(result);
+    res.status(200).json(result);
   } catch (err) {
     throw err;
   }
@@ -36,6 +45,7 @@ router.get('/get/client', async (req, res) => {
  *
  */
 router.get('/get/client/:id', async (req, res) => {
+  console.log(await getAmount());
   try {
     const result = await client.findOne({ where: { id: req.params.id } });
     res.status(200).json(result);
@@ -68,9 +78,9 @@ router.post('/post/client', async (req, res) => {
   });
   try {
     const newClient = await task.save();
-    res.status(201).send(newClient);
+    res.status(201).json(newClient);
   } catch (err) {
-    res.status(400).send({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 /**
@@ -107,7 +117,7 @@ router.delete('/delete/client/:id', async (req, res) => {
     await client.destroy({ where: { id: req.params.id } });
     res.status(200).json({ message: 'Client succesfull deleted' });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -138,7 +148,7 @@ router.put('/update/client', async (req, res, next) => {
       { where: { id: req.body.id } }
     )
     .then(function (rowsUpdated) {
-      res.json({ message: 'Rows updated ' + rowsUpdated });
+      res.status(201).json({ message: 'Rows updated ' + rowsUpdated });
     })
     .catch(next);
 });
@@ -157,7 +167,7 @@ router.get('/get/driver', async (req, res) => {
   let task = req.body;
   try {
     const result = await driver.findAll(task);
-    res.send(result);
+    res.status(200).json(result);
   } catch (err) {
     throw err;
   }
@@ -206,9 +216,9 @@ router.post('/post/driver', async (req, res) => {
   });
   try {
     const newDriver = await task.save();
-    res.status(201).send(newDriver);
+    res.status(201).json(newDriver);
   } catch (err) {
-    res.status(400).send({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 /**
@@ -245,7 +255,7 @@ router.delete('/delete/driver/:id', async (req, res) => {
     await driver.destroy({ where: { id: req.params.id } });
     res.status(200).json({ message: 'Driver succesfull deleted' });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -277,7 +287,7 @@ router.put('/update/driver', async (req, res, next) => {
       { where: { id: req.body.id } }
     )
     .then(function (rowsUpdated) {
-      res.json({ message: 'Rows updated ' + rowsUpdated });
+      res.status(201).json({ message: 'Rows updated ' + rowsUpdated });
     })
     .catch(next);
 });
@@ -296,7 +306,7 @@ router.get('/get/ride', async (req, res) => {
   let task = req.body;
   try {
     const result = await ride.findAll(task);
-    res.send(result);
+    res.status(200).json(result);
   } catch (err) {
     throw err;
   }
@@ -345,9 +355,9 @@ router.post('/post/ride', async (req, res) => {
   });
   try {
     const newRide = await task.save();
-    res.status(201).send(newRide);
+    res.status(201).json(newRide);
   } catch (err) {
-    res.status(400).send({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 /**
@@ -370,7 +380,7 @@ router.delete('/delete/ride/', async (req, res) => {
   try {
     res.json({ message: 'You cannot simply delete rides' });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -402,7 +412,7 @@ router.put('/update/ride', async (req, res, next) => {
       { where: { id: req.body.id } }
     )
     .then(function (rowsUpdated) {
-      res.json({ message: 'Rows updated ' + rowsUpdated });
+      res.status(201).json({ message: 'Rows updated ' + rowsUpdated });
     })
     .catch(next);
 });
@@ -470,9 +480,9 @@ router.post('/post/waypoint', async (req, res) => {
   console.log(task);
   try {
     const newWaypoint = await task.save();
-    res.status(201).send(newWaypoint);
+    res.status(201).json(newWaypoint);
   } catch (err) {
-    res.status(400).send({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 /**
@@ -496,7 +506,7 @@ router.delete('/delete/waypoint/:id', async (req, res) => {
     await waypoint.destroy({ where: { id: req.params.id } });
     res.status(200).json({ message: 'Waypoint succesfull deleted' });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 /**
@@ -521,9 +531,84 @@ router.put('/update/waypoint', async (req, res, next) => {
       { where: { id: req.body.id } }
     )
     .then(function (rowsUpdated) {
-      res.json({ message: 'Rows updated ' + rowsUpdated });
+      res.status(201).json({ message: 'Rows updated ' + rowsUpdated });
     })
     .catch(next);
+});
+
+//------------------------------- Quick Overview -------------------------//
+/**
+ * @swagger
+ * /sql/get/client:
+ *   get:
+ *     description: Get all client
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/overview', async (req, res) => {
+  try {
+    const result = await ride_list.findAll(req.body);
+    res.status(200).json(result);
+  } catch (err) {
+    throw err;
+  }
+});
+//---------------------------- GET statistics -------------------------//
+/**
+ * @swagger
+ * /sql/get/client:
+ *   get:
+ *     description: Get all client
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/amount', async (req, res) => {
+  try {
+    const result = await statistic.findAll({
+      attributes: ['city', [sequelize.fn('sum', sequelize.col('price')), 'total']],
+
+      group: ['statistic.city'],
+
+      raw: true,
+
+      order: sequelize.literal('total DESC'),
+    });
+    res.status(200).json(result);
+  } catch (err) {
+    throw err;
+  }
+});
+
+//-------------------------- GET COUNT(rides) -----------------------//
+/**
+ * @swagger
+ * /sql/get/client:
+ *   get:
+ *     description: Get all client
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/count', async (req, res) => {
+  try {
+    const result = await statistic.findAll({
+      attributes: ['city', [sequelize.fn('count', sequelize.col('id')), 'rides']],
+
+      group: ['statistic.city'],
+
+      raw: true,
+
+      order: sequelize.literal('rides DESC'),
+    });
+    res.status(200).json(result);
+  } catch (err) {
+    throw err;
+  }
 });
 
 // Export routes
