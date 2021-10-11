@@ -29,8 +29,8 @@ const client = sequelize.define(
     },
     clientnumber: {
       type: Sequelize.STRING,
-      allowNull: false,
-      unique: true,
+      defaultValue: null,
+      allowNull: true,
     },
   },
   {
@@ -79,12 +79,11 @@ const driver = sequelize.define(
     license_plate: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true,
     },
     drivernumber: {
       type: Sequelize.STRING,
-      allowNull: false,
-      unique: true,
+      defaultValue: null,
+      allowNull: true,
     },
   },
   {
@@ -95,10 +94,10 @@ const driver = sequelize.define(
     // if you don't want that, set the following
     freezeTableName: true,
     indexes: [
-      // Create a unique index on email
+      // Create a unique index
       {
         unique: true,
-        fields: ['drivernumber'],
+        fields: ['drivernumber', 'license_plate'],
       },
     ],
   }
