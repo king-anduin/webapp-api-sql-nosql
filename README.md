@@ -35,9 +35,15 @@ Sequelize creates all tables for you and checks them everytime the app gets rest
 <br>
 GET routes <br>
 localhost:3005/sql/get/client <br>
+localhost:3005/sql/get/client/:id <br>
 localhost:3005/sql/get/driver <br>
+localhost:3005/sql/get/driver/id <br>
 localhost:3005/sql/get/ride <br>
+localhost:3005/sql/get/ride/:id <br>
 localhost:3005/sql/get/waypoint <br>
+localhost:3005/sql/get/waypoint/:id <br>
+localhost:3005/sql/get/amount <br>
+localhost:3005/sql/get/count <br>
 <br>
 POST routes <br>
 localhost:3005/sql/post/client <br>
@@ -46,10 +52,10 @@ localhost:3005/sql/post/ride <br>
 localhost:3005/sql/post/waypoint <br>
 <br>
 DELETE routes <br>
-localhost:3005/sql/delete/client <br>
-localhost:3005/sql/delete/driver <br>
+localhost:3005/sql/delete/client/:id <br>
+localhost:3005/sql/delete/driver/:id <br>
 localhost:3005/sql/delete/ride <br>
-localhost:3005/sql/delete/waypoint <br>
+localhost:3005/sql/delete/waypoint/:id <br>
 <br>
 PUT routes <br>
 localhost:3005/sql/update/client <br>
@@ -61,25 +67,26 @@ localhost:3005/sql/update/waypoint <br>
 
 If you wanna migrate your data to MongoDB in index.js is a migration line. Just comment it out and change path to your csv file in .env. That's it.
 <br>
-localhost:3005/nosql/client <br>
-localhost:3005/nosql/driver <br>
-localhost:3005/nosql/ride <br>
-localhost:3005/nosql/waypoint <br>
+GET routes <br>
+localhost:3005/nosql/get/client <br>
+localhost:3005/nosql/get/driver <br>
+localhost:3005/nosql/get/ride <br>
+localhost:3005/nosql/get/waypoint <br>
 <br>
+POST routes <br>
+localhost:3005/nosql/post/client <br>
+localhost:3005/nosql/post/driver <br>
+localhost:3005/nosql/post/ride <br>
+localhost:3005/nosql/post/waypoint <br>
 <br>
-each API takes in a JSON format an example as shown below <br>
-sql.get("/client", async (req, res) => { <br>
-let task = { <br>
-attributes: ['colum-names'], <br>
-where: {id: 1} <br>
-}; <br>
-try { <br>
-const result = await client.findAll(task); <br>
-res.send(result); <br>
-} catch (err) { <br>
-throw err; <br>
-} <br>
-});<br>
+DELETE routes <br>
+localhost:3005/nosql/delete/client/:_id <br>
+localhost:3005/nosql/delete/driver/:_id <br>
+localhost:3005/nosql/delete/ride/:_id <br>
+localhost:3005/nosql/delete/waypoint/:_id <br>
+<br>
+PUT routes <br>
+not implemented yet
 <br>
 
 # Packages & explanation
