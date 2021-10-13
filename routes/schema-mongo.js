@@ -54,7 +54,7 @@ const ride = mongoose.model('ride', rideSchema);
 // Waypoint schema for querying
 const waypointSchema = mongoose.Schema(
   {
-    id: Number,
+    field1: Number,
     ride_id: Number,
     number: Number,
     latitude: Number,

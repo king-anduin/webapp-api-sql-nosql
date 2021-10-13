@@ -51,7 +51,7 @@ const models = require('./models-sequelize.js');
 
 // Sync all models that are not
 // already in the database
-//sequelize.sync(models);
+sequelize.sync(models);
 // Force sync all models
 // It will drop the table first
 // and re-create it afterwards
@@ -59,8 +59,8 @@ const models = require('./models-sequelize.js');
 
 //---------------------------- Migration to Mongo -------------------------//
 // Migration data to MongoDB
-/*const migration = require('./migration.js');
-migration;*/
+const migration = require('./migration.js');
+migration;
 
 //------------------------------- Twitter API -------------------------------//
 /*const twitter = require('./twitter.js');
