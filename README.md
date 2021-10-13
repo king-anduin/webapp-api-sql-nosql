@@ -28,6 +28,8 @@ in progress <br>
 localhost:3005/api-docs<br>
 
 # Die API nutzt basic authorization for protection 
+user=admin
+pw=${SUPERSECRET} in dot.env.template <br>
 
 # SQL API routes
 
