@@ -26,19 +26,19 @@ router.get('/get/client', async (req, res) => {
 });
 
 //POST
-router.post('/post/client', function (req, res, next) {
-  var post = new client({
-    id: req.body.id,
-    name: req.body.name,
-    gender: req.body.gender,
-    clientnumber: req.body.clientnumber,
-  });
-  post.save(function (err, post) {
-    if (err) {
-      return next(err);
-    }
+router.post('/post/client', function (req, res) {
+  try {
+    var post = new client({
+      field1: req.body.field1,
+      name: req.body.name,
+      gender: req.body.gender,
+      clientnumber: req.body.clientnumber,
+    });
+    post.save();
     res.status(201).json(post);
-  });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // DELETE client
@@ -48,6 +48,24 @@ router.delete('/delete/client/:_id', async (req, res) => {
     await result.remove();
   }
   return res.send(result);
+});
+
+//PUT
+router.put('/update/client/:_id', async function (req, res) {
+  try {
+    var data = {
+      field1: req.body.field1,
+      firstname: req.body.firstname,
+      surname: req.body.surname,
+      gender: req.body.gender,
+      clientnumber: req.body.clientnumber,
+    };
+    await client.findByIdAndUpdate(req.params._id, data);
+    const result = await client.findById(req.params._id);
+    res.status(201).json({ message: 'Client successfully updated', client: result });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 //------------------------------- DRIVER routes -------------------------------//
 // GET driver
@@ -63,7 +81,7 @@ router.get('/get/driver', async (req, res) => {
 //POST
 router.post('/post/driver', function (req, res, next) {
   var post = new driver({
-    id: req.body.id,
+    field1: req.body.field1,
     name: req.body.name,
     city: req.body.city,
     license_plate: req.body.license_plate,
@@ -84,6 +102,26 @@ router.delete('/delete/driver/:_id', async (req, res) => {
     await message.remove();
   }
   return res.send(message);
+});
+
+//PUT
+router.put('/update/driver/:_id', async function (req, res) {
+  try {
+    var data = {
+      field1: req.body.field1,
+      firstname: req.body.firstname,
+      surname: req.body.surname,
+      city: req.body.city,
+      country: req.body.country,
+      licence_plate: req.body.licence_plate,
+      drivernumber: req.body.drivernumber,
+    };
+    await driver.findByIdAndUpdate(req.params._id, data);
+    const result = await driver.findById(req.params._id);
+    res.status(201).json({ message: 'Driver successfully updated', driver: result });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 //------------------------------- RIDE routes -------------------------------//
 // GET ride
@@ -121,6 +159,24 @@ router.delete('/delete/ride/:_id', async (req, res) => {
     await result.remove();
   }
   return res.send(result);
+});
+//PUT
+router.put('/update/driver/:_id', async function (req, res) {
+  try {
+    var data = {
+      field1: req.body.field1,
+      client_id: req.body.client_id,
+      driver_id: req.body.driver_id,
+      ride_date: req.body.ride_date,
+      distance: req.body.distance,
+      price: req.body.price,
+    };
+    await ride.findByIdAndUpdate(req.params._id, data);
+    const result = await ride.findById(req.params._id);
+    res.status(201).json({ message: 'Ride successfully updated', ride: result });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 //------------------------------- WAYPOINT routes -------------------------------//
 // Get waypoint

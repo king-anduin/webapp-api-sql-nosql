@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Client schema for querying
 const clientSchema = mongoose.Schema(
   {
-    id: Number,
+    field1: Number,
     firstname: String,
     surname: String,
     gender: String,
@@ -19,7 +19,7 @@ const client = mongoose.model('client', clientSchema);
 // Driver schema for querying
 const driverSchema = mongoose.Schema(
   {
-    id: Number,
+    field1: Number,
     firstname: String,
     surname: String,
     city: String,
@@ -37,7 +37,7 @@ const driver = mongoose.model('driver', driverSchema);
 // Ride schema for querying
 const rideSchema = mongoose.Schema(
   {
-    id: Number,
+    field1: Number,
     client_id: Number,
     driver_id: Number,
     ride_date: Date,
