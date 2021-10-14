@@ -17,6 +17,8 @@ load data infile "/srv/client_uber.csv" into table `client` fields terminated by
 load data infile "/srv/driver_uber.csv" into table driver fields terminated by "," ignore 1 lines;
 load data infile "/srv/scenario_uber_ride.csv" into table ride fields terminated by "," ignore 1 lines;
 load data infile "/srv/scenario_uber_waypoint.csv" into table waypoint fields terminated by "," ignore 1 lines;
+
+# Is already executed by sequelize
 CREATE UNIQUE INDEX id ON client(id);
 CREATE UNIQUE INDEX clientnumber ON client(clientnumber);
 CREATE UNIQUE INDEX license_plate ON driver(license_plate);

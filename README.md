@@ -25,11 +25,13 @@ in progress <br>
 <br>
 
 # OpenAPI -> Swagger-ui
+
 localhost:3005/api-docs<br>
 
-# Die API nutzt basic authorization for protection 
-user=admin
-pw=${SUPERSECRET} in dot.env.template <br>
+# Die API nutzt basic authorization for protection
+
+user=admin <br>
+pw=${SUPERSECRET}     in dot.env.template <br>
 
 # SQL API routes
 
@@ -65,19 +67,20 @@ localhost:3005/sql/update/driver/:id <br>
 localhost:3005/sql/update/ride/:id <br>
 localhost:3005/sql/update/waypoint/:id <br>
 <br>
+
 # NoSQL API routes <br>
 
 If you wanna migrate your data to MongoDB in index.js is a migration line. Just comment it out and change path to your csv file in .env. That's it.
 <br>
 GET routes <br>
 localhost:3005/nosql/get/client <br>
-localhost:3005/nosql/get/client/:_id <br>
+localhost:3005/nosql/get/client/:\_id <br>
 localhost:3005/nosql/get/driver <br>
-localhost:3005/nosql/get/driver/:_id <br>
+localhost:3005/nosql/get/driver/:\_id <br>
 localhost:3005/nosql/get/ride <br>
-localhost:3005/nosql/get/ride/:_id <br>
+localhost:3005/nosql/get/ride/:\_id <br>
 localhost:3005/nosql/get/waypoint <br>
-localhost:3005/nosql/get/waypoint/:_id <br>
+localhost:3005/nosql/get/waypoint/:\_id <br>
 <br>
 POST routes <br>
 localhost:3005/nosql/post/client <br>
@@ -86,16 +89,16 @@ localhost:3005/nosql/post/ride <br>
 localhost:3005/nosql/post/waypoint <br>
 <br>
 DELETE routes <br>
-localhost:3005/nosql/delete/client/:_id <br>
-localhost:3005/nosql/delete/driver/:_id <br>
-localhost:3005/nosql/delete/ride/:_id <br>
-localhost:3005/nosql/delete/waypoint/:_id <br>
+localhost:3005/nosql/delete/client/:\_id <br>
+localhost:3005/nosql/delete/driver/:\_id <br>
+localhost:3005/nosql/delete/ride/:\_id <br>
+localhost:3005/nosql/delete/waypoint/:\_id <br>
 <br>
 PUT routes <br>
-localhost:3005/nosql/update/client/:_id <br>
-localhost:3005/nosql/update/driver/:_id <br>
-localhost:3005/nosql/update/ride/:_id <br>
-localhost:3005/nosql/update/waypoint/:_id <br>
+localhost:3005/nosql/update/client/:\_id <br>
+localhost:3005/nosql/update/driver/:\_id <br>
+localhost:3005/nosql/update/ride/:\_id <br>
+localhost:3005/nosql/update/waypoint/:\_id <br>
 <br>
 
 # Packages & explanation

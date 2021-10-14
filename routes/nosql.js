@@ -27,7 +27,11 @@ const { client, driver, ride, waypoint } = require('./schema-mongo.js');
  *
  */
 router.get('/get/client/', async (req, res) => {
-  const result = await client.find({});
+  const result = await client
+    .find(req.body)
+    .skip(req.body.skip)
+    .limit(req.body.limit)
+    .sort(req.body.sort);
   try {
     res.send(result);
   } catch (error) {
@@ -156,7 +160,11 @@ router.put('/update/client/:_id', async function (req, res) {
 //------------------------------- DRIVER routes -------------------------------//
 // GET driver
 router.get('/get/driver', async (req, res) => {
-  const result = await driver.find(req.body);
+  const result = await driver
+    .find(req.body)
+    .skip(req.body.skip)
+    .limit(req.body.limit)
+    .sort(req.body.sort);
   try {
     res.send(result);
   } catch (error) {
@@ -231,7 +239,11 @@ router.put('/update/driver/:_id', async function (req, res) {
 //------------------------------- RIDE routes -------------------------------//
 // GET ride
 router.get('/get/ride', async (req, res) => {
-  const result = await ride.find(req.body);
+  const result = await ride
+    .find(req.body)
+    .skip(req.body.skip)
+    .limit(req.body.limit)
+    .sort(req.body.sort);
   try {
     res.send(result);
   } catch (error) {
@@ -299,7 +311,11 @@ router.put('/update/ride/:_id', async function (req, res) {
 //------------------------------- WAYPOINT routes -------------------------------//
 // Get waypoint
 router.get('/get/waypoint', async (req, res) => {
-  const result = await waypoint.find(req.body);
+  const result = await waypoint
+    .find(req.body)
+    .skip(req.body.skip)
+    .limit(req.body.limit)
+    .sort(req.body.sort);
   try {
     res.send(result);
   } catch (error) {
@@ -309,7 +325,7 @@ router.get('/get/waypoint', async (req, res) => {
 
 // GET waypoint by id
 router.get('/get/waypoint/:_id', async (req, res) => {
-  const result = await driver.findById(req.params._id);
+  const result = await waypoint.findById(req.params._id);
   try {
     res.send(result);
   } catch (error) {
@@ -359,6 +375,37 @@ router.put('/update/waypoint/:_id', async function (req, res) {
     await waypoint.findByIdAndUpdate(req.params._id, data);
     const result = await waypoint.findById(req.params._id);
     res.status(201).json({ message: 'Waypoint successfully updated', waypoint: result });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+//-------------------------- GET COUNT(rides) -----------------------//
+/**
+ * @swagger
+ * /sql/get/count:
+ *   get:
+ *     description: Count all rides
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/count', async (req, res) => {
+  try {
+    const stats = await ride.aggregate([
+      {
+        $lookup: {
+          from: 'driver',
+          localField: 'driver_id',
+          foreignField: 'field1',
+          as: 'statistics',
+        },
+      },
+    ]);
+    const result = await driver.find(req.body.city);
+    const countRides = await ride.count('ride');
+    res.status(200).json(stats);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
