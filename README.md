@@ -68,6 +68,12 @@ localhost:3005/sql/update/ride/:id <br>
 localhost:3005/sql/update/waypoint/:id <br>
 <br>
 
+# Statistics
+
+localhost:3005/sql/get/amount <br>
+localhost:3005/sql/get/count <br>
+<br>
+
 # NoSQL API routes <br>
 
 If you wanna migrate your data to MongoDB in index.js is a migration line. Just comment it out and change path to your csv file in .env. That's it.
