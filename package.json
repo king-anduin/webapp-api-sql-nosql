@@ -32,6 +32,7 @@
     "start": "node routes/index.js",
     "start-dev": "nodemon routes/index.js",
     "install-app": "npm i && cd static && npm install && npm run build-react",
+    "build": "cd ./static && npm run build",
     "start-frontend": "cd static && npm run start-react",
     "format": "prettier --config .prettierrc --write \"**/*.+(js|jsx|json|css|md)\""
   },
