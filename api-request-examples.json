@@ -79,31 +79,31 @@
 }
 // GET: localhost:3005/sql/get/overview
 {
-    "attributes": [
-        "cust_firstname",
-        "cust_surname",
-        "ride_date",
-        "driv_firstname",
-        "driv_surname",
-        "city",
-        "country",
-        "license_plate",
-        "price",
-        "distance"
-    ],
-    "order": [
-        [
-            "cust_firstname",
-            "ASC"
-        ]
-    ],
-    "offset": 0,
-    "limit": 10,
-    "where": {
-        "cust_firstname": "Tim"
-    }
+	"attributes": [
+		"cust_firstname",
+		"cust_surname",
+		"ride_date",
+		"driv_firstname",
+		"driv_surname",
+		"city",
+		"country",
+		"license_plate",
+		"price",
+		"distance"
+	],
+	"order": [
+		[
+			"ride_date",
+			"DESC"
+		]
+	],
+	"limit": 1,
+	"where": {
+		"cust_firstname": "John",
+		"cust_surname": "Braumann"
+	}
 }
-//----------------------------CREATE---------------------------------------------//
+//----------------------------CREATE(POST)-----------------------------------------//
 // POST: localhost:3005/sql/post/client
 {
     "firstname": "sebastian",
@@ -174,4 +174,37 @@
     "latitude": 5,
     "longitude": 76,
     "id": 1
+}
+//--------------------------GET---------------------------------------------//
+// GET: localhost:3005/nosql/get/client
+{
+    "skip": 10,
+    "limit": 10,
+    "sort": {
+        "firstname": "asc"
+    }
+}
+// GET: localhost:3005/nosql/get/driver
+{
+    "skip": 10,
+    "limit": 10,
+    "sort": {
+        "firstname": "asc"
+    }
+}
+// GET: localhost:3005/nosql/get/ride
+{
+    "skip": 10,
+    "limit": 10,
+    "sort": {
+        "firstname": "asc"
+    }
+}
+// GET: localhost:3005/nosql/get/waypoint
+{
+    "skip": 10,
+    "limit": 10,
+    "sort": {
+        "firstname": "asc"
+    }
 }
