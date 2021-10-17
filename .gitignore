@@ -107,3 +107,5 @@ dist
 scenario_uber_*
 nodejs.zip
 package-lock.json
+src/main/resources/application.properties
+./ebextensions

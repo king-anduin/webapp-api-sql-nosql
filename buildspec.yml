@@ -3,23 +3,25 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: latest
+      nodejs: 14
     commands:
       - echo "install phase"
   pre_build:
     commands:
       - npm install
+      - npm audit fix
       - cd ./static && npm install && cd -
+      - npm audit fix
       - echo "we are in the pre build phase"
   build:
     commands:
-      - cd ./static && npm run build && cd -
+      - cd ./static && npm run build-react && cd -
+      - npm audit fix
       - echo "we are in the build block"
       - echo "we will run some tests"
   post_build:
     commands:
       - echo "we are in the post build phase"
-artifacts:
+artifacts:    
   files:
-    - ‘**/*’
-  name: ndbs-web-application
+    - '**/*'

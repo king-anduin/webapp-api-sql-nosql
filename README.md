@@ -21,7 +21,9 @@ localhost:8081/-> mongo-express (GUI MongoDB) <br>
 
 # server-adresses cloud aws
 
-in progress <br>
+api.king-anduin.com <br>
+gui.king-anduin.com/phpmyadmin <br>
+api.king-anduin.com/mongo-express <br>
 <br>
 
 # OpenAPI -> Swagger-ui
