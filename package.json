@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@okta/jwt-verifier": "^2.1.0",
     "axios": "^0.22.0",
     "csvtojson": "^2.0.10",
     "dotenv": "^10.0.0",
@@ -32,8 +33,8 @@
     "start": "node routes/index.js",
     "start-dev": "nodemon routes/index.js",
     "install-app": "npm i && cd static && npm install && npm run build-react",
-    "build": "cd ./static && npm run build",
     "start-frontend": "cd static && npm run start-react",
+    "build": "cd ./static && npm run build",
     "format": "prettier --config .prettierrc --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "devDependencies": {

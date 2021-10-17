@@ -6,6 +6,12 @@ const router = express.Router();
 // Include Sequelize module.
 const sequelize = require('sequelize');
 const { client, driver, ride, waypoint, ride_list, statistic } = require('./models-sequelize.js');
+
+//---------------------- Basic authorization for API usage ----------------//
+const basicAuth = require('express-basic-auth');
+const auth = basicAuth({
+  users: { admin: `${process.env.SUPERSECRET}` },
+});
 //------------------------------- CLIENT routes -------------------------------//
 /**
  * @swagger
@@ -17,7 +23,7 @@ const { client, driver, ride, waypoint, ride_list, statistic } = require('./mode
  *         description: Success
  *
  */
-router.get('/get/client', async (req, res) => {
+router.get('/get/client', auth, async (req, res) => {
   try {
     const result = await client.findAll(req.body);
     res.status(200).json(result);
@@ -35,7 +41,7 @@ router.get('/get/client', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/client/:id', async (req, res) => {
+router.get('/get/client/:id', auth, async (req, res) => {
   try {
     const result = await client.findOne({ where: { id: req.params.id } });
     res.status(200).json(result);
@@ -59,7 +65,7 @@ router.get('/get/client/:id', async (req, res) => {
  *         description: Created
  *
  */
-router.post('/post/client', async (req, res) => {
+router.post('/post/client', auth, async (req, res) => {
   let task = new client({
     firstname: req.body.firstname,
     surname: req.body.surname,
@@ -98,7 +104,7 @@ router.post('/post/client', async (req, res) => {
  *         description: Created
  *
  */
-router.delete('/delete/client/:id', async (req, res) => {
+router.delete('/delete/client/:id', auth, async (req, res) => {
   const result = await ride.findAll({
     attributes: [`id`],
     where: { client_id: req.params.id },
@@ -138,7 +144,7 @@ router.delete('/delete/client/:id', async (req, res) => {
  *         description: Created
  *
  */
-router.put('/update/client/:id', async (req, res) => {
+router.put('/update/client/:id', auth, async (req, res) => {
   try {
     await client.update(
       {
@@ -166,7 +172,7 @@ router.put('/update/client/:id', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/driver', async (req, res) => {
+router.get('/get/driver', auth, async (req, res) => {
   let task = req.body;
   try {
     const result = await driver.findAll(task);
@@ -185,7 +191,7 @@ router.get('/get/driver', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/driver/:id', async (req, res) => {
+router.get('/get/driver/:id', auth, async (req, res) => {
   try {
     const result = await driver.findOne({ where: { id: req.params.id } });
     res.status(200).json(result);
@@ -209,7 +215,7 @@ router.get('/get/driver/:id', async (req, res) => {
  *         description: Created
  *
  */
-router.post('/post/driver', async (req, res) => {
+router.post('/post/driver', auth, async (req, res) => {
   let task = new driver({
     firstname: req.body.firstname,
     surname: req.body.surname,
@@ -248,7 +254,7 @@ router.post('/post/driver', async (req, res) => {
  *         description: Created
  *
  */
-router.delete('/delete/driver/:id', async (req, res) => {
+router.delete('/delete/driver/:id', auth, async (req, res) => {
   const result = await ride.findAll({
     attributes: [`id`],
     where: { driver_id: req.params.id },
@@ -286,7 +292,7 @@ router.delete('/delete/driver/:id', async (req, res) => {
  *         description: Created
  *
  */
-router.put('/update/driver/:id', async (req, res) => {
+router.put('/update/driver/:id', auth, async (req, res) => {
   try {
     await driver.update(
       {
@@ -315,7 +321,7 @@ router.put('/update/driver/:id', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/ride', async (req, res) => {
+router.get('/get/ride', auth, async (req, res) => {
   try {
     const result = await ride.findAll(req.body);
     res.status(200).json(result);
@@ -333,7 +339,7 @@ router.get('/get/ride', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/ride/:id', async (req, res) => {
+router.get('/get/ride/:id', auth, async (req, res) => {
   try {
     const result = await ride.findOne({ where: { id: req.params.id } });
     res.status(200).json(result);
@@ -357,7 +363,7 @@ router.get('/get/ride/:id', async (req, res) => {
  *         description: Created
  *
  */
-router.post('/post/ride', async (req, res) => {
+router.post('/post/ride', auth, async (req, res) => {
   let task = new ride({
     client_id: req.body.client_id,
     driver_id: req.body.driver_id,
@@ -388,7 +394,7 @@ router.post('/post/ride', async (req, res) => {
  *         description: Created
  *
  */
-router.delete('/delete/ride/', async (req, res) => {
+router.delete('/delete/ride/', auth, async (req, res) => {
   try {
     res.json({ message: 'You cannot simply delete rides' });
   } catch (err) {
@@ -411,7 +417,7 @@ router.delete('/delete/ride/', async (req, res) => {
  *         description: Created
  *
  */
-router.put('/update/ride/:id', async (req, res) => {
+router.put('/update/ride/:id', auth, async (req, res) => {
   try {
     await ride.update(
       {
@@ -440,7 +446,7 @@ router.put('/update/ride/:id', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/waypoint', async (req, res) => {
+router.get('/get/waypoint', auth, async (req, res) => {
   try {
     const result = await waypoint.findAll(req.body);
     res.status(200).json(result);
@@ -458,7 +464,7 @@ router.get('/get/waypoint', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/waypoint/:id', async (req, res) => {
+router.get('/get/waypoint/:id', auth, async (req, res) => {
   try {
     const result = await waypoint.findOne({ where: { id: req.params.id } });
     res.status(200).json(result);
@@ -482,7 +488,7 @@ router.get('/get/waypoint/:id', async (req, res) => {
  *         description: Created
  *
  */
-router.post('/post/waypoint', async (req, res) => {
+router.post('/post/waypoint', auth, async (req, res) => {
   let task = new waypoint({
     ride_id: req.body.ride_id,
     number: req.body.number,
@@ -512,7 +518,7 @@ router.post('/post/waypoint', async (req, res) => {
  *         description: Created
  *
  */
-router.delete('/delete/waypoint/:id', async (req, res) => {
+router.delete('/delete/waypoint/:id', auth, async (req, res) => {
   try {
     await waypoint.destroy({ where: { id: req.params.id } });
     res.status(200).json({ message: 'Waypoint succesfull deleted' });
@@ -530,7 +536,7 @@ router.delete('/delete/waypoint/:id', async (req, res) => {
  *         description: Success
  *
  */
-router.put('/update/waypoint/:id', async (req, res) => {
+router.put('/update/waypoint/:id', auth, async (req, res) => {
   try {
     await waypoint.update(
       {
@@ -558,7 +564,7 @@ router.put('/update/waypoint/:id', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/overview', async (req, res) => {
+router.get('/get/overview', auth, async (req, res) => {
   try {
     const result = await ride_list.findAll(req.body);
     res.status(200).json(result);
@@ -577,7 +583,7 @@ router.get('/get/overview', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/amount', async (req, res) => {
+router.get('/get/amount', auth, async (req, res) => {
   try {
     const result = await statistic.findAll({
       attributes: ['city', [sequelize.fn('sum', sequelize.col('price')), 'total']],
@@ -605,7 +611,7 @@ router.get('/get/amount', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/count', async (req, res) => {
+router.get('/get/count', auth, async (req, res) => {
   try {
     const result = await statistic.findAll({
       attributes: ['city', [sequelize.fn('count', sequelize.col('id')), 'rides']],
