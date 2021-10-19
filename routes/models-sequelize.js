@@ -204,6 +204,10 @@ const ride_list = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    clientnumber: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     ride_date: {
       type: Sequelize.DATEONLY,
       allowNull: false,
@@ -216,7 +220,7 @@ const ride_list = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    driv_firstname: {
+    drivernumber: {
       type: Sequelize.STRING,
       allowNull: false,
     },
