@@ -79,29 +79,29 @@
 }
 // GET: localhost:3005/sql/get/overview
 {
-	"attributes": [
-		"cust_firstname",
-		"cust_surname",
-		"ride_date",
-		"driv_firstname",
-		"driv_surname",
-		"city",
-		"country",
-		"license_plate",
-		"price",
-		"distance"
-	],
-	"order": [
-		[
-			"ride_date",
-			"DESC"
-		]
-	],
-	"limit": 1,
-	"where": {
-		"cust_firstname": "John",
-		"cust_surname": "Braumann"
-	}
+    "attributes": [
+        "cust_firstname",
+        "cust_surname",
+        "ride_date",
+        "driv_firstname",
+        "driv_surname",
+        "city",
+        "country",
+        "license_plate",
+        "price",
+        "distance"
+    ],
+    "order": [
+        [
+            "ride_date",
+            "DESC"
+        ]
+    ],
+    "limit": 1,
+    "where": {
+        "cust_firstname": "John",
+        "cust_surname": "Braumann"
+    }
 }
 //----------------------------CREATE(POST)-----------------------------------------//
 // POST: localhost:3005/sql/post/client
@@ -208,115 +208,110 @@
         "firstname": "asc"
     }
 }
-
 //--------------------------PA1---------------------------------------------//
+<<<<<<< HEAD
 
 SHOW INDEX FROM client;
 SHOW INDEX FROM driver;
 SHOW INDEX FROM ride;
 SHOW INDEX FROM waypoint;
 
+=======
+>>>>>>> peter
 // api.king-anduin.com/sql/get/driver
 // GET: localhost:3005/sql/get/driver
-
 {
-	"attributes": [
-		"id",
-		"firstname",
-		"surname",
-		"city",
-		"country",
-		"license_plate",
-		"drivernumber"
-	],
-	"order": [
-		[
-			"id",
-			"ASC"
-		]
-	],
-	"offset": 0,
-	"limit": 10
+    "attributes": [
+        "id",
+        "firstname",
+        "surname",
+        "city",
+        "country",
+        "license_plate",
+        "drivernumber"
+    ],
+    "order": [
+        [
+            "id",
+            "ASC"
+        ]
+    ],
+    "offset": 0,
+    "limit": 10
 }
     "where": {
-        "id": 1
-    }
-
-
-
+    "id": 1
+}
 // api.king-anduin.com/sql/get/overview
 // GET: localhost:3005/sql/get/overview
 {
-	"attributes": [
-		"cust_firstname",
-		"cust_surname",
-		"ride_date",
-		"driv_firstname",
-		"driv_surname",
-		"city",
-		"country",
-		"license_plate",
-		"price",
-		"distance"
-	],
-	"order": [
-		[
-			"ride_date",
-			"DESC"
-		]
-	],
-	"limit": 1,
-	"where": {
-		"cust_firstname": "John",
-		"cust_surname": "Braumann"
-	}
+    "attributes": [
+        "cust_firstname",
+        "cust_surname",
+        "clientnumber",
+        "ride_date",
+        "driv_firstname",
+        "driv_surname",
+        "drivernumber",
+        "city",
+        "country",
+        "license_plate",
+        "price",
+        "distance"
+    ],
+    "order": [
+        [
+            "ride_date",
+            "DESC"
+        ]
+    ],
+    "limit": 1,
+    "where": {
+        "clientnumber": "Enes_Pietschmann_66622"
+    }
 }
 
 {
-	"attributes": [
-		"cust_firstname",
-		"cust_surname",
-		"ride_date",
-		"driv_firstname",
-		"driv_surname",
-		"city",
-		"country",
-		"license_plate",
-		"price",
-		"distance"
-	],
-	"order": [
-		[
-			"ride_date",
-			"DESC"
-		]
-	],
-	"limit": 1,
-	"where": {
-		"driv_firstname": "Thomas",
-		"driv_surname": "Lipps"
-	}
+    "attributes": [
+        "cust_firstname",
+        "cust_surname",
+        "clientnumber",
+        "ride_date",
+        "driv_firstname",
+        "driv_surname",
+        "drivernumber",
+        "city",
+        "country",
+        "license_plate",
+        "price",
+        "distance"
+    ],
+    "order": [
+        [
+            "ride_date",
+            "DESC"
+        ]
+    ],
+    "limit": 1,
+    "where": {
+        "drivernumber": "Aaron_Badura_742"
+    }
 }
-
-
 // Bonus Task
 // Der Umsatz pro Stadt
 // api.king-anduin.com/sql/get/amount
 // localhost:3005/sql/get/amount
-
 // Bonus Task
 // Die Anzahl der Fahrten pro Stadt
 // api.king-anduin.com/sql/get/count
 // localhost:3005/sql/get/count
-
 // Bonus Task
 // Der Umsatz und die Anzahl der Fahrten pro Stadt
 // api.king-anduin.com/sql/get/statistics
 // localhost:3005/sql/get/statistics
-
 {
-	"sortby": "rides",
-	"order": "DESC",
-	"limit": 10,
-	"offset": 0
+    "sortby": "rides",
+    "order": "DESC",
+    "limit": 10,
+    "offset": 0
 }
