@@ -1,0 +1,63 @@
+First name: peter
+Last name: stueben
+Email address: peter-stueben@hotmail.com
+Company: 
+Company: king-anduin
+Creating new Okta Organization, this may take a minute:
+OrgUrl: https://dev-2328550.okta.com
+An email has been sent to you with a verification code.
+
+Check your email
+Verification code: 235111
+New Okta Account created!
+Your Okta Domain: https://dev-2328550.okta.com
+To set your password open this link:
+https://dev-2328550.okta.com/welcome/drpIL6B8m5PdH2U2YjGU
+
+Configuring a new OIDC Application, almost done:
+Created OIDC application, client-id: 0oa28s619k5tBzRy55d7
+
+Change the directory:
+    cd spring-boot
+
+Okta configuration written to: src/main/resources/application.properties
+Don't EVER commit src/main/resources/application.properties into source control
+
+Run this application with:
+
+    mvn spring-boot:run
+
+Application name [spring-boot]: ndbs
+Type of Application
+(The Okta CLI only supports a subset of application types and properties):
+> 1: Web
+> 2: Single Page App
+> 3: Native App (mobile)
+> 4: Service (Machine-to-Machine)
+Enter your choice [Web]: 1
+Type of Application
+> 1: Okta Spring Boot Starter
+> 2: Spring Boot
+> 3: JHipster
+> 4: Quarkus
+> 5: Other
+Enter your choice [Other]: Other
+
+Invalid choice, try again
+
+Type of Application
+> 1: Okta Spring Boot Starter
+> 2: Spring Boot
+> 3: JHipster
+> 4: Quarkus
+> 5: Other
+Enter your choice [Other]: 5
+Redirect URI
+Common defaults:
+ JHipster - http://localhost:8080/login/oauth2/code/oidc
+ Quarkus OIDC - http://localhost:8080/callback
+ Spring Security - http://localhost:8080/login/oauth2/code/okta
+Enter your Redirect URI(s) [http://localhost:8080/callback]: http://localhost:8080/authorization-code/callback
+Enter your Post Logout Redirect URI(s) [http://localhost:8080/]: 
+Configuring a new OIDC Application, almost done:
+Created OIDC application, client-id: 0oa28s86b8t7yawTw5d7

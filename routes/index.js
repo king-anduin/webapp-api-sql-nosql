@@ -10,14 +10,6 @@ const PORT = process.env.PORT;
 // Dep path
 const path = require('path');
 
-//---------------------- Basic authorization for API usage ----------------//
-const basicAuth = require('express-basic-auth');
-
-app.use(
-  basicAuth({
-    users: { admin: `${process.env.SUPERSECRET}` },
-  })
-);
 //------------------------------- Load react frontend -----------------------//
 // express can use JSON format. It's the same as body-parser but thats not part of it anymore
 app.use(express.json());
@@ -81,6 +73,12 @@ const swaggerOptions = {
 };
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
+//------------------------------- ALB health check -------------------------------//
+// Without middleware
+app.get('/health-check', function (req, res) {
+  res.status(200).json({ message: 'healthy' });
+});
 //------------------------------- App listen on -------------------------------//
 app.listen(PORT, () => {
   console.log(`Server running at http://127.0.0.1:${PORT}/`);

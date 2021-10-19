@@ -208,3 +208,44 @@
         "firstname": "asc"
     }
 }
+
+//--------------------------PA1---------------------------------------------//
+
+// api.king-anduin.com/sql/get/overview
+// GET: localhost:3005/sql/get/overview
+{
+	"attributes": [
+		"cust_firstname",
+		"cust_surname",
+		"ride_date",
+		"driv_firstname",
+		"driv_surname",
+		"city",
+		"country",
+		"license_plate",
+		"price",
+		"distance"
+	],
+	"order": [
+		[
+			"ride_date",
+			"DESC"
+		]
+	],
+	"limit": 1,
+	"where": {
+		"cust_firstname": "John",
+		"cust_surname": "Braumann"
+	}
+}
+
+
+// Bonus Task
+// Der Umsatz pro Stadt
+// api.king-anduin.com/sql/get/amount
+// localhost:3005/sql/get/amount
+
+// Bonus Task
+// Die Anzahl der Fahrten pro Stadt
+// api.king-anduin.com/sql/get/count
+// localhost:3005/sql/get/count
