@@ -211,6 +211,11 @@
 
 //--------------------------PA1---------------------------------------------//
 
+SHOW INDEX FROM client;
+SHOW INDEX FROM driver;
+SHOW INDEX FROM ride;
+SHOW INDEX FROM waypoint;
+
 // api.king-anduin.com/sql/get/driver
 // GET: localhost:3005/sql/get/driver
 
