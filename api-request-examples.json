@@ -241,6 +241,13 @@ SHOW INDEX FROM waypoint;
     "where": {
     "id": 1
 }
+    "where": {
+    "firstname": "Jonah",
+    "license_plate": "UN-CH 1"
+}
+    "where": {
+    "drivernumber": "Aaron_Badura_742"
+}
 // api.king-anduin.com/sql/get/overview
 // GET: localhost:3005/sql/get/overview
 {
