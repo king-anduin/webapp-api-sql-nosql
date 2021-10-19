@@ -37,9 +37,9 @@ const driver = mongoose.model('driver', driverSchema);
 // Ride schema for querying
 const rideSchema = mongoose.Schema(
   {
-    field1: { type: Number, required: false, index: true },
-    client_id: { type: Number, required: true, index: true },
-    driver_id: { type: Number, required: true, index: true },
+    id: { type: Number, required: false, index: true },
+    client_id: { type: String, required: true, index: true },
+    driver_id: { type: String, required: true, index: true },
     ride_date: { type: Date, required: true },
     distance: { type: Number, required: true },
     price: { type: Number, required: true },
@@ -54,8 +54,8 @@ const ride = mongoose.model('ride', rideSchema);
 // Waypoint schema for querying
 const waypointSchema = mongoose.Schema(
   {
-    field1: { type: Number, required: false, index: true },
-    ride_id: { type: Number, required: true, index: true },
+    id: { type: Number, required: false, index: true },
+    ride_id: { type: String, required: true, index: true },
     number: { type: Number, required: true },
     latitude: { type: Number, required: true },
     longtitude: { type: Number, required: true },
