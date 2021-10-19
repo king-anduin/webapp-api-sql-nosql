@@ -211,6 +211,34 @@
 
 //--------------------------PA1---------------------------------------------//
 
+// api.king-anduin.com/sql/get/driver
+// GET: localhost:3005/sql/get/driver
+
+{
+	"attributes": [
+		"id",
+		"firstname",
+		"surname",
+		"city",
+		"country",
+		"license_plate",
+		"drivernumber"
+	],
+	"order": [
+		[
+			"id",
+			"ASC"
+		]
+	],
+	"offset": 0,
+	"limit": 10
+}
+    "where": {
+        "id": 1
+    }
+
+
+
 // api.king-anduin.com/sql/get/overview
 // GET: localhost:3005/sql/get/overview
 {
@@ -239,6 +267,32 @@
 	}
 }
 
+{
+	"attributes": [
+		"cust_firstname",
+		"cust_surname",
+		"ride_date",
+		"driv_firstname",
+		"driv_surname",
+		"city",
+		"country",
+		"license_plate",
+		"price",
+		"distance"
+	],
+	"order": [
+		[
+			"ride_date",
+			"DESC"
+		]
+	],
+	"limit": 1,
+	"where": {
+		"driv_firstname": "Thomas",
+		"driv_surname": "Lipps"
+	}
+}
+
 
 // Bonus Task
 // Der Umsatz pro Stadt
@@ -249,3 +303,15 @@
 // Die Anzahl der Fahrten pro Stadt
 // api.king-anduin.com/sql/get/count
 // localhost:3005/sql/get/count
+
+// Bonus Task
+// Der Umsatz und die Anzahl der Fahrten pro Stadt
+// api.king-anduin.com/sql/get/statistics
+// localhost:3005/sql/get/statistics
+
+{
+	"sortby": "rides",
+	"order": "DESC",
+	"limit": 10,
+	"offset": 0
+}

@@ -74,6 +74,7 @@ localhost:3005/sql/update/waypoint/:id <br>
 
 localhost:3005/sql/get/amount <br>
 localhost:3005/sql/get/count <br>
+localhost:3005/sql/get/statistics <br>
 <br>
 
 # View ride_list

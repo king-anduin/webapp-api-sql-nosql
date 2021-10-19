@@ -575,9 +575,9 @@ router.get('/get/overview', auth, async (req, res) => {
 //---------------------------- GET statistics -------------------------//
 /**
  * @swagger
- * /sql/get/client:
+ * /sql/get/amount:
  *   get:
- *     description: Get all client
+ *     description: Get the amount of cash per city
  *     responses:
  *       200:
  *         description: Success
@@ -603,9 +603,9 @@ router.get('/get/amount', auth, async (req, res) => {
 //-------------------------- GET COUNT(rides) -----------------------//
 /**
  * @swagger
- * /sql/get/client:
+ * /sql/get/count:
  *   get:
- *     description: Get all client
+ *     description: Get the count of rides per city
  *     responses:
  *       200:
  *         description: Success
@@ -627,6 +627,45 @@ router.get('/get/count', auth, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+
+//-------------------------- GET both statistic requests -----------------------//
+/**
+ * @swagger
+ * /sql/get/statistics:
+ *   get:
+ *     description: Get the count and amount of rides per city
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+ router.get('/get/statistics', auth, async (req, res) => {
+  try {
+    const result = await statistic.findAll({
+      attributes: [
+        'city',
+        [sequelize.fn('count', sequelize.col('id')), 'rides'],
+        [sequelize.fn('sum', sequelize.col('price')), 'total']
+      ],
+
+      group: ['statistic.city'],
+
+      raw: true,
+
+      order: sequelize.literal(`${req.body.sortby} ${req.body.order}`),
+
+      limit: req.body.limit,
+
+      offset: req.body.offset,
+
+    });
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 // Export routes
 module.exports = router;
