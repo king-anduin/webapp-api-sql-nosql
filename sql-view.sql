@@ -1,6 +1,6 @@
 CREATE VIEW ride_list AS
-SELECT c.firstname as cust_firstname, c.surname as cust_surname, r.ride_date, 
-d.firstname as driv_firstname, d.surname as driv_surname, d.city, d.country, d.license_plate,
+SELECT c.firstname as cust_firstname, c.surname as cust_surname, c.clientnumber as clientnumber, r.ride_date, 
+d.firstname as driv_firstname, d.surname as driv_surname, d.drivernumber as drivernumber, d.city, d.country, d.license_plate,
 r.price, r.distance
 FROM client as c
 INNER JOIN ride as r ON  c.id=r.client_id
