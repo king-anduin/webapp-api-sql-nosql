@@ -17,7 +17,7 @@
     "offset": 30,
     "limit": 10,
     "where": {
-        "id": 1
+        "clientnumber": "Tobias_Poth_1"
     }
 }
 // GET: localhost:3005/sql/get/driver
@@ -33,14 +33,15 @@
     ],
     "order": [
         [
-            "firstname",
+            "id",
             "ASC"
         ]
     ],
-    "offset": 30,
+    "offset": 0,
     "limit": 10,
     "where": {
-        "id": 1
+        "firstname": "Jonah",
+        "license_plate": "UN-CH 1"
     }
 }
 // GET: localhost:3005/sql/get/ride
@@ -82,9 +83,11 @@
     "attributes": [
         "cust_firstname",
         "cust_surname",
+        "clientnumber",
         "ride_date",
         "driv_firstname",
         "driv_surname",
+        "drivernumber",
         "city",
         "country",
         "license_plate",
@@ -99,8 +102,7 @@
     ],
     "limit": 1,
     "where": {
-        "cust_firstname": "John",
-        "cust_surname": "Braumann"
+        "clientnumber": "Enes_Pietschmann_66622"
     }
 }
 //----------------------------CREATE(POST)-----------------------------------------//
