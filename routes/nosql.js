@@ -393,7 +393,7 @@ router.put('/update/waypoint/:_id', async function (req, res) {
  */
 router.get('/get/count', async (req, res) => {
   try {
-    const stats = await ride.aggregate([
+    /*const stats = await ride.aggregate([
       {
         $lookup: {
           from: 'driver',
@@ -404,7 +404,35 @@ router.get('/get/count', async (req, res) => {
       },
     ]);
     const result = await driver.find(req.body.city);
-    const countRides = await ride.count('ride');
+    const countRides = await ride.count('ride');*/
+    ride.aggregate(
+      [
+        {
+          $lookup: {
+            from: 'driver',
+            localField: 'driver_id',
+            foreignField: '_id',
+            as: 'overview',
+          },
+        },
+      ],
+      function (error, data) {
+        return res.json(data);
+      }
+    );
+    let overview = await ride
+      .aggregate([
+        {
+          $lookup: {
+            from: 'driver',
+            localField: 'driver_id',
+            foreignField: '_id',
+            as: 'overview',
+          },
+        },
+      ])
+      .pretty();
+    console.log(overview);
     res.status(200).json(stats);
   } catch (err) {
     res.status(500).json({ message: err.message });

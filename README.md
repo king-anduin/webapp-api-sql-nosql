@@ -28,12 +28,13 @@ api.king-anduin.com/mongo-express <br>
 
 # OpenAPI -> Swagger-ui
 
-localhost:3005/api-docs<br>
+localhost:3005/api-docs <br>
+https://api.king-anduin.com/api-docs/ <br>
 
 # Die API nutzt basic authorization for protection
 
 user=admin <br>
-pw=${SUPERSECRET}     in dot.env.template <br>
+pw=${SUPERSECRET} in dot.env.template <br>
 
 # SQL API routes
 
