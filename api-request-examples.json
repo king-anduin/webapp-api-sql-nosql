@@ -316,8 +316,17 @@ SHOW INDEX FROM waypoint;
 // api.king-anduin.com/sql/get/statistics
 // localhost:3005/sql/get/statistics
 {
-    "sortby": "rides",
+    "sort": "rides",
     "order": "DESC",
     "limit": 10,
     "offset": 0
 }
+//--------------------------PA2---------------------------------------------//
+//--------------------------PA3---------------------------------------------//
+{
+    "sort": -1,
+    "order": "ASC",
+    "limit": 3,
+    "offset": 2
+}
+//--------------------------PA4---------------------------------------------//

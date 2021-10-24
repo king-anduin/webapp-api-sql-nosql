@@ -628,7 +628,6 @@ router.get('/get/count', auth, async (req, res) => {
   }
 });
 
-
 //-------------------------- GET both statistic requests -----------------------//
 /**
  * @swagger
@@ -640,32 +639,30 @@ router.get('/get/count', auth, async (req, res) => {
  *         description: Success
  *
  */
- router.get('/get/statistics', auth, async (req, res) => {
+router.get('/get/statistics', auth, async (req, res) => {
   try {
     const result = await statistic.findAll({
       attributes: [
         'city',
         [sequelize.fn('count', sequelize.col('id')), 'rides'],
-        [sequelize.fn('sum', sequelize.col('price')), 'total']
+        [sequelize.fn('sum', sequelize.col('price')), 'total'],
       ],
 
       group: ['statistic.city'],
 
       raw: true,
 
-      order: sequelize.literal(`${req.body.sortby} ${req.body.order}`),
+      order: sequelize.literal(`${req.body.sort} ${req.body.order}`),
 
       limit: req.body.limit,
 
       offset: req.body.offset,
-
     });
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
-
 
 // Export routes
 module.exports = router;

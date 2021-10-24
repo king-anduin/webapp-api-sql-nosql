@@ -13,7 +13,7 @@ db.once('open', () => console.log('connected to database'));
 
 //------------------------------- CLIENT routes -------------------------------//
 // GET
-const { client, driver, ride, waypoint } = require('./schema-mongo.js');
+const { client, driver, ride, waypoint, statistics, overview } = require('./schema-mongo.js');
 
 // GET client
 /**
@@ -77,9 +77,11 @@ router.get('/get/client/:_id', async (req, res) => {
  *
  */
 router.post('/post/client', async (req, res) => {
+  const count = (await client.count()) + 1;
+  console.log(count);
   try {
     var post = new client({
-      field1: req.body.field1,
+      _id: count,
       firstname: req.body.firstname,
       surname: req.body.surname,
       gender: req.body.gender,
@@ -184,9 +186,10 @@ router.get('/get/driver/:_id', async (req, res) => {
 
 //POST
 router.post('/post/driver', async (req, res) => {
+  const count = (await driver.count()) + 1;
   try {
     var post = new driver({
-      field1: req.body.field1,
+      _id: count,
       firstname: req.body.firstname,
       surname: req.body.surname,
       city: req.body.city,
@@ -263,9 +266,10 @@ router.get('/get/ride/:_id', async (req, res) => {
 
 //POST
 router.post('/post/ride', async (req, res) => {
+  const count = (await ride.count()) + 1;
   try {
     var post = new ride({
-      field1: req.body.field1,
+      _id: count,
       client_id: req.body.client_id,
       driver_id: req.body.driver_id,
       ride_date: req.body.ride_date,
@@ -294,7 +298,7 @@ router.delete('/delete/ride/:_id', async (req, res) => {
 router.put('/update/ride/:_id', async function (req, res) {
   try {
     var data = {
-      field1: req.body.field1,
+      id: req.body.id,
       client_id: req.body.client_id,
       driver_id: req.body.driver_id,
       ride_date: req.body.ride_date,
@@ -335,9 +339,10 @@ router.get('/get/waypoint/:_id', async (req, res) => {
 
 //POST
 router.post('/post/waypoint', async (req, res) => {
+  const count = (await waypoint.count()) + 1;
   try {
     var post = new waypoint({
-      field1: req.body.field1,
+      _id: count,
       ride_id: req.body.ride_id,
       number: req.body.number,
       latitude: req.body.latitude,
@@ -367,7 +372,7 @@ router.put('/update/waypoint/:_id', async function (req, res) {
   try {
     var data = {
       field1: req.body.field1,
-      ride_id: req.body.ride_id,
+      ride_id: req.body.ride_ids,
       number: req.body.number,
       latitude: req.body.latitude,
       longtitude: req.body.longtitude,
@@ -383,57 +388,71 @@ router.put('/update/waypoint/:_id', async function (req, res) {
 //-------------------------- GET COUNT(rides) -----------------------//
 /**
  * @swagger
- * /sql/get/count:
+ * /sql/get/overview/:_id:
  *   get:
- *     description: Count all rides
+ *     description: Overview as seen in the wireframe
  *     responses:
  *       200:
  *         description: Success
  *
  */
-router.get('/get/count', async (req, res) => {
+router.get('/get/overview/:_id', async (req, res) => {
+  const result = await overview.findById(req.params._id);
   try {
-    /*const stats = await ride.aggregate([
-      {
-        $lookup: {
-          from: 'driver',
-          localField: 'driver_id',
-          foreignField: 'field1',
-          as: 'statistics',
-        },
+    res.status(201).json({ message: 'Overview', overview: result });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /sql/get/overview:
+ *   get:
+ *     description: Overview as seen in the wireframe
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/overview/', async (req, res) => {
+  const result = await overview
+    .find(req.body)
+    .skip(req.body.skip)
+    .limit(req.body.limit)
+    .sort(req.body.sort);
+  try {
+    res.status(201).json({ message: 'Overview', overview: result });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /sql/get/count:
+ *   get:
+ *     description: Count rides, sum prices, groupby city
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
+router.get('/get/count/', async (req, res) => {
+  const result = await statistics.aggregate([
+    {
+      $group: {
+        _id: '$driver.city',
+        count: { $count: {} },
+        amount: { $sum: '$price' },
       },
-    ]);
-    const result = await driver.find(req.body.city);
-    const countRides = await ride.count('ride');*/
-    ride.aggregate(
-      [
-        {
-          $lookup: {
-            from: 'driver',
-            localField: 'driver_id',
-            foreignField: '_id',
-            as: 'overview',
-          },
-        },
-      ],
-      function (error, data) {
-        return res.json(data);
-      }
-    );
-    let overview = await ride
-      .aggregate([
-        {
-          $lookup: {
-            from: 'driver',
-            localField: 'driver_id',
-            foreignField: '_id',
-            as: 'overview',
-          },
-        },
-      ])
-      .pretty();
-    console.log(overview);
-    res.status(200).json(stats);
+    },
+    { $sort: { _id: req.body.sort } },
+    { $skip: req.body.offset },
+    { $limit: req.body.limit },
+  ]);
+  try {
+    res.status(201).json({ message: 'Count rides, sum prices, groupby city', result: result });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

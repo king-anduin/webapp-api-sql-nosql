@@ -9,4 +9,4 @@ INNER JOIN driver as d ON d.id=r.driver_id
 CREATE VIEW statistic AS
 SELECT r.id, r.price, d.city
 FROM driver as d
-INNER JOIN ride as r ON  d.id=r.client_id
+INNER JOIN ride as r ON  d.id=r.driver_id
