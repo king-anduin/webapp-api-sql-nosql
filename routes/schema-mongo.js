@@ -56,9 +56,9 @@ const waypointSchema = mongoose.Schema(
   {
     _id: { type: String, required: true, unique: true },
     ride_id: { type: String, required: true, index: true },
-    number: { type: String, required: true },
-    latitude: { type: String, required: true },
-    longtitude: { type: String, required: true },
+    number: { type: Number, required: true },
+    latitude: { type: Number, required: true },
+    longtitude: { type: Number, required: true },
   },
   {
     collection: 'waypoint',
@@ -71,8 +71,8 @@ const waypoint = mongoose.model('waypoint', waypointSchema);
 const statisticsSchema = mongoose.Schema(
   {
     driver_id: { type: String, required: true },
-    price: { type: String, required: true, index: true },
-    driver: { type: Array, required: true },
+    price: { type: Number, required: true, index: true },
+    city: { type: String, required: true, index: true },
   },
   {
     collection: 'statistics',
@@ -84,14 +84,19 @@ const statistics = mongoose.model('statistics', statisticsSchema);
 // Overview schema for querying
 const overviewSchema = mongoose.Schema(
   {
-    client_id: { type: String, required: true, index: true },
-    driver_id: { type: String, required: true, index: true },
     ride_date: { type: String, required: true },
-    distance: { type: String, required: true },
-    price: { type: String, required: true },
-    distance: { type: String, required: true },
-    driver: { type: Array, required: true },
-    client: { type: Array, required: true },
+    distance: { type: Number, required: true },
+    price: { type: Number, required: true },
+    driver_id: { type: String, required: true, index: true },
+    driver_firstname: { type: String, required: true },
+    driver_surname: { type: String, required: true },
+    city: { type: String, required: true },
+    license_plate: { type: String, required: true, index: true },
+    drivernumber: { type: String, required: true, index: true },
+    client_id: { type: String, required: true, index: true },
+    client_firstname: { type: String, required: true },
+    client_surname: { type: String, required: true },
+    clientnumber: { type: String, required: true, index: true },
   },
   {
     collection: 'overview',

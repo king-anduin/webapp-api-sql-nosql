@@ -196,6 +196,10 @@ async function materializedViewStatistics() {
         },
       },
       {
+        $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: ['$driver', 0] }, '$$ROOT'] } },
+      },
+      { $project: { driver: 0 } },
+      {
         $merge: {
           into: 'statistics',
           on: '_id',
@@ -224,6 +228,30 @@ async function materializedViewOverview() {
         },
       },
       {
+        $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: ['$driver', 0] }, '$$ROOT'] } },
+      },
+      {
+        $project: {
+          driver: 0,
+          country: 0,
+          _id: 0,
+        },
+      },
+      {
+        $project: {
+          driver_id: 1,
+          client_id: 1,
+          driver_firstname: '$firstname',
+          driver_surname: '$surname',
+          drivernumber: 1,
+          city: 1,
+          license_plate: 1,
+          ride_date: 1,
+          distance: 1,
+          price: 1,
+        },
+      },
+      {
         $lookup: {
           from: 'client',
           localField: 'client_id',
@@ -232,31 +260,30 @@ async function materializedViewOverview() {
         },
       },
       {
+        $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: ['$client', 0] }, '$$ROOT'] } },
+      },
+      {
         $project: {
+          client: 0,
           _id: 0,
+          gender: 0,
+        },
+      },
+      {
+        $project: {
+          clientnumber: 1,
+          client_firstname: '$firstname',
+          client_surname: '$surname',
           driver_id: 1,
           client_id: 1,
+          driver_firstname: 1,
+          driver_surname: 1,
+          drivernumber: 1,
+          city: 1,
+          license_plate: 1,
           ride_date: 1,
           distance: 1,
           price: 1,
-          firstname: 1,
-          'client.firstname': 1,
-          surname: 1,
-          'client.surname': 1,
-          clientnumber: 1,
-          'client.clientnumber': 1,
-          firstname: 1,
-          'driver.firstname': 1,
-          surname: 1,
-          'driver.surname': 1,
-          drivernumber: 1,
-          'driver.drivernumber': 1,
-          city: 1,
-          'driver.city': 1,
-          country: 1,
-          'driver.country': 1,
-          licence_plate: 1,
-          'driver.licence_plate': 1,
         },
       },
       {

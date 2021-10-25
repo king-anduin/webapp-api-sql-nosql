@@ -442,9 +442,9 @@ router.get('/get/count/', async (req, res) => {
   const result = await statistics.aggregate([
     {
       $group: {
-        _id: '$driver.city',
-        count: { $count: {} },
-        amount: { $sum: '$price' },
+        _id: '$city',
+        count: { $sum: 1 },
+        total: { $sum: '$price' },
       },
     },
     { $sort: { _id: req.body.sort } },
