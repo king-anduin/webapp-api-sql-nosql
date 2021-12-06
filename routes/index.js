@@ -19,9 +19,9 @@ app.use(express.static(path.resolve(__dirname, '../static/build')));
 
 //------------------------------- MariaDB API -------------------------------//
 // Import sql routes
-// const sqlRoute = require('./sql.js');
+const sqlRoute = require('./sql.js');
 
-// app.use('/sql', sqlRoute);
+app.use('/sql', sqlRoute);
 
 //------------------------------- Mongo API -------------------------------//
 // Import nosql routes
