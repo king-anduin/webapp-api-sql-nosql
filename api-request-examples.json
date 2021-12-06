@@ -1,5 +1,5 @@
 //--------------------------GET---------------------------------------------//
-// GET: localhost:3005/sql/get/client
+// GET: localhost:3000/sql/get/client
 {
     "attributes": [
         "id",
@@ -20,7 +20,7 @@
         "clientnumber": "Tobias_Poth_1"
     }
 }
-// GET: localhost:3005/sql/get/driver
+// GET: localhost:3000/sql/get/driver
 {
     "attributes": [
         "id",
@@ -44,7 +44,7 @@
         "license_plate": "UN-CH 1"
     }
 }
-// GET: localhost:3005/sql/get/ride
+// GET: localhost:3000/sql/get/ride
 {
     "attributes": [
         "id",
@@ -58,7 +58,7 @@
         "id": 1
     }
 }
-// GET: localhost:3005/sql/get/waypoint
+// GET: localhost:3000/sql/get/waypoint
 {
     "attributes": [
         "id",
@@ -78,7 +78,7 @@
         "id": 1
     }
 }
-// GET: localhost:3005/sql/get/overview
+// GET: localhost:3000/sql/get/overview
 {
     "attributes": [
         "cust_firstname",
@@ -106,13 +106,13 @@
     }
 }
 //----------------------------CREATE(POST)-----------------------------------------//
-// POST: localhost:3005/sql/post/client
+// POST: localhost:3000/sql/post/client
 {
     "firstname": "sebastian",
     "surname": "sebastian",
     "gender": "m"
 }
-// POST: localhost:3005/sql/post/driver
+// POST: localhost:3000/sql/post/driver
 {
     "firstname": "sebastian",
     "surname": "sebastian",
@@ -120,7 +120,7 @@
     "country": "United States",
     "license_plate": "UN-CH 1",
 }
-// POST: localhost:3005/sql/post/ride
+// POST: localhost:3000/sql/post/ride
 {
     "client_id": 1,
     "driver_id": 4,
@@ -128,7 +128,7 @@
     "distance": "50.60",
     "price": "33.33"
 }
-// POST: localhost:3005/sql/post/waypoint
+// POST: localhost:3000/sql/post/waypoint
 {
     "ride_id": 5,
     "number": 8,
@@ -136,22 +136,22 @@
     "longitude": 76
 }
 //----------------------------DELETE------------------------------------------//
-// DELETE: localhost:3005/sql/delete/{client, waypoint, driver}
+// DELETE: localhost:3000/sql/delete/{client, waypoint, driver}
 {
     "where": {
         "id": 1
     }
 }
-// API REQUEST PARAMS: localhost:3005/sql/delete/{client, waypoint, driver}:id
+// API REQUEST PARAMS: localhost:3000/sql/delete/{client, waypoint, driver}:id
 //----------------------------PUT------------------------------------------//
-// UPDATE: localhost:3005/sql/update/client
+// UPDATE: localhost:3000/sql/update/client
 {
     "id": 1,
     "firstname": "Tobias",
     "surname": "Poth",
     "gender": "m"
 }
-// UPDATE: localhost:3005/sql/update/driver
+// UPDATE: localhost:3000/sql/update/driver
 {
     "id": 1,
     "firstname": "Jonah",
@@ -160,7 +160,7 @@
     "country": " United States",
     "license_plate": "UN-CH 1"
 }
-// UPDATE: localhost:3005/sql/update/ride
+// UPDATE: localhost:3000/sql/update/ride
 {
     "client_id": 1,
     "driver_id": 4,
@@ -169,7 +169,7 @@
     "price": "33.33",
     "id": 3
 }
-// UPDATE: localhost:3005/sql/update/waypoint
+// UPDATE: localhost:3000/sql/update/waypoint
 {
     "ride_id": 5,
     "number": 8,
@@ -178,7 +178,7 @@
     "id": 1
 }
 //--------------------------GET---------------------------------------------//
-// GET: localhost:3005/nosql/get/client
+// GET: localhost:3000/nosql/get/client
 {
     "skip": 10,
     "limit": 10,
@@ -186,7 +186,7 @@
         "firstname": "asc"
     }
 }
-// GET: localhost:3005/nosql/get/driver
+// GET: localhost:3000/nosql/get/driver
 {
     "skip": 10,
     "limit": 10,
@@ -194,7 +194,7 @@
         "firstname": "asc"
     }
 }
-// GET: localhost:3005/nosql/get/ride
+// GET: localhost:3000/nosql/get/ride
 {
     "skip": 10,
     "limit": 10,
@@ -202,7 +202,7 @@
         "firstname": "asc"
     }
 }
-// GET: localhost:3005/nosql/get/waypoint
+// GET: localhost:3000/nosql/get/waypoint
 {
     "skip": 10,
     "limit": 10,
@@ -217,8 +217,7 @@ SHOW INDEX FROM driver;
 SHOW INDEX FROM ride;
 SHOW INDEX FROM waypoint;
 
-// api.king-anduin.com/sql/get/driver
-// GET: localhost:3005/sql/get/driver
+// GET: localhost:3000/sql/get/driver
 {
     "attributes": [
         "id",
@@ -248,8 +247,7 @@ SHOW INDEX FROM waypoint;
     "where": {
     "drivernumber": "Aaron_Badura_742"
 }
-// api.king-anduin.com/sql/get/overview
-// GET: localhost:3005/sql/get/overview
+// GET: localhost:3000/sql/get/overview
 {
     "attributes": [
         "cust_firstname",
@@ -305,16 +303,13 @@ SHOW INDEX FROM waypoint;
 }
 // Bonus Task
 // Der Umsatz pro Stadt
-// api.king-anduin.com/sql/get/amount
-// localhost:3005/sql/get/amount
+// localhost:3000/sql/get/amount
 // Bonus Task
 // Die Anzahl der Fahrten pro Stadt
-// api.king-anduin.com/sql/get/count
-// localhost:3005/sql/get/count
+// localhost:3000/sql/get/count
 // Bonus Task
 // Der Umsatz und die Anzahl der Fahrten pro Stadt
-// api.king-anduin.com/sql/get/statistics
-// localhost:3005/sql/get/statistics
+// localhost:3000/sql/get/statistics
 {
     "sort": "rides",
     "order": "DESC",
