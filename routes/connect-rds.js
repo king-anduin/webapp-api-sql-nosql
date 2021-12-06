@@ -21,8 +21,8 @@ const Sequelize = require('sequelize');
 // Creating new Object of Sequelize
 const sequelize = new Sequelize(
   process.env.MYSQL_DATABASE,
-  process.env.DB_USER,
-  process.env.DB_PWD,
+  process.env.DB_USER_SQL,
+  process.env.DB_PWD_SQL,
   {
     // Explicitly specifying
     // mysql database

@@ -1,6 +1,43 @@
 version: '3.6'
 
 services:
+  mariadb-ndbs:
+    container_name: mariadb-ndbs
+    image: mariadb:latest
+    restart: unless-stopped
+    volumes:
+      - mariadb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PWD_SQL}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${DB_USER_SQL}
+      - MYSQL_PASSWORD=${DB_PWD_SQL}
+    ports:
+      - 3306:3306
+    env_file:
+      - ./.env
+    networks:
+      - ndbk
+
+  phpmyadmin-mariadb-ndbs:
+    container_name: phpmyadmin-mariadb-ndbs
+    image: phpmyadmin/phpmyadmin:latest
+    restart: unless-stopped
+    depends_on:
+      - mariadb-ndbs
+    environment:
+      - PMA_HOST=mariadb-ndbs
+      - PMA_PORT=3306
+      - PMA_USER=${DB_USER_SQL}
+      - PMA_PASSWORD=${DB_PWD_SQL}
+      - UPLOAD_LIMIT=500M
+    ports:
+      - '3001:80'
+    env_file:
+      - ./.env
+    networks:
+      - ndbk
+
   mongo:
     container_name: mongo
     image: mongo:latest
@@ -29,30 +66,6 @@ services:
       ME_CONFIG_BASICAUTH_USERNAME: ${BASICAUTH_USERNAME}
       ME_CONFIG_BASICAUTH_PASSWORD: ${BASICAUTH_PASSWORD}
       ME_CONFIG_MONGODB_URL: ${MONGO_URL_DOCKER}
-    env_file:
-      - ./.env
-    networks:
-      - ndbk
-
-  web-app:
-    container_name: web-app
-    image: kinganduin1987/webapp-api-sql-nosql:${TAGOS}
-    restart: unless-stopped
-    ports:
-      - 3000:3000
-    depends_on:
-      - mongo
-    environment:
-      NODE_ENV: ${NODE_ENV}
-      BASIC_AUTH_PW: ${BASIC_AUTH_PW}
-      PORT: ${PORT}
-      DB_HOST: ${DB_HOST}
-      DB_USER_SQL: ${DB_USER_SQL}
-      DB_PWD_SQL: ${DB_PWD_SQL}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MONGODB: ${MONGODB_DOCKER}
-      MONGO: ${MONGO_DOCKER}
-      MONGODBNAME: ${MONGODBNAME}
     env_file:
       - ./.env
     networks:

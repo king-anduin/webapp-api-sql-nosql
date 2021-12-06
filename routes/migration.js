@@ -1,7 +1,7 @@
 const csvtojson = require('csvtojson');
 const mongoose = require('mongoose');
 
-const { client, driver, ride, waypoint } = require('./schema-mongo.js');
+const { client, driver, ride, waypoint, statistics, overview } = require('./schema-mongo.js');
 
 //------------------------- scenario_uber_client ---------------------------//
 async function getCollectionClient() {
@@ -87,12 +87,17 @@ async function getCollectionRide() {
             .insertMany(csvData, (err, res) => {
               if (err) throw err;
               console.log(`Inserted: ${res.insertedCount} rows`);
-              client.close();
+              client.close().then(() => {
+                materializedViewOverview();
+                materializedViewStatistics();
+              });
             });
         });
       });
   } else {
     console.log(`Database ${process.env.RIDE} already exists and has ${getRideCount} documents`);
+    materializedViewOverview();
+    materializedViewStatistics();
   }
 }
 getCollectionRide();
@@ -176,128 +181,142 @@ getCollectionWaypoint();
 
 // Materialized view of statistics
 async function materializedViewStatistics() {
-  try {
-    await ride.aggregate([
-      {
-        $lookup: {
-          from: 'driver',
-          localField: 'driver_id',
-          foreignField: '_id',
-          as: 'driver',
+  var getStatisticsCount = await statistics.count();
+  if (getStatisticsCount == 0) {
+    try {
+      await ride.aggregate([
+        {
+          $lookup: {
+            from: 'driver',
+            localField: 'driver_id',
+            foreignField: '_id',
+            as: 'driver',
+          },
         },
-      },
-      {
-        $project: {
-          city: 1,
-          'driver.city': 1,
-          _id: 0,
-          driver_id: 1,
-          price: 1,
+        {
+          $project: {
+            city: 1,
+            'driver.city': 1,
+            _id: 0,
+            driver_id: 1,
+            price: 1,
+          },
         },
-      },
-      {
-        $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: ['$driver', 0] }, '$$ROOT'] } },
-      },
-      { $project: { driver: 0 } },
-      {
-        $merge: {
-          into: 'statistics',
-          on: '_id',
-          whenMatched: 'replace',
-          whenNotMatched: 'insert',
+        {
+          $replaceRoot: {
+            newRoot: { $mergeObjects: [{ $arrayElemAt: ['$driver', 0] }, '$$ROOT'] },
+          },
         },
-      },
-    ]);
-    console.log('success');
-  } catch (err) {
-    console.log(err);
+        { $project: { driver: 0 } },
+        {
+          $merge: {
+            into: 'statistics',
+            on: '_id',
+            whenMatched: 'replace',
+            whenNotMatched: 'insert',
+          },
+        },
+      ]);
+      console.log('materialzed view statistics successfully created');
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    console.log(`materialzed view statistics already exists and has ${getStatisticsCount}`);
   }
 }
-//materializedViewStatistics();
 
 // Materialized view of overview
 async function materializedViewOverview() {
-  try {
-    await ride.aggregate([
-      {
-        $lookup: {
-          from: 'driver',
-          localField: 'driver_id',
-          foreignField: '_id',
-          as: 'driver',
+  var getOverviewCount = await overview.count();
+  if (getOverviewCount == 0) {
+    try {
+      await ride.aggregate([
+        {
+          $lookup: {
+            from: 'driver',
+            localField: 'driver_id',
+            foreignField: '_id',
+            as: 'driver',
+          },
         },
-      },
-      {
-        $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: ['$driver', 0] }, '$$ROOT'] } },
-      },
-      {
-        $project: {
-          driver: 0,
-          country: 0,
-          _id: 0,
+        {
+          $replaceRoot: {
+            newRoot: { $mergeObjects: [{ $arrayElemAt: ['$driver', 0] }, '$$ROOT'] },
+          },
         },
-      },
-      {
-        $project: {
-          driver_id: 1,
-          client_id: 1,
-          driver_firstname: '$firstname',
-          driver_surname: '$surname',
-          drivernumber: 1,
-          city: 1,
-          license_plate: 1,
-          ride_date: 1,
-          distance: 1,
-          price: 1,
+        {
+          $project: {
+            driver: 0,
+            country: 0,
+            _id: 0,
+          },
         },
-      },
-      {
-        $lookup: {
-          from: 'client',
-          localField: 'client_id',
-          foreignField: '_id',
-          as: 'client',
+        {
+          $project: {
+            driver_id: 1,
+            client_id: 1,
+            driver_firstname: '$firstname',
+            driver_surname: '$surname',
+            drivernumber: 1,
+            city: 1,
+            license_plate: 1,
+            ride_date: 1,
+            distance: 1,
+            price: 1,
+          },
         },
-      },
-      {
-        $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: ['$client', 0] }, '$$ROOT'] } },
-      },
-      {
-        $project: {
-          client: 0,
-          _id: 0,
-          gender: 0,
+        {
+          $lookup: {
+            from: 'client',
+            localField: 'client_id',
+            foreignField: '_id',
+            as: 'client',
+          },
         },
-      },
-      {
-        $project: {
-          clientnumber: 1,
-          client_firstname: '$firstname',
-          client_surname: '$surname',
-          driver_id: 1,
-          client_id: 1,
-          driver_firstname: 1,
-          driver_surname: 1,
-          drivernumber: 1,
-          city: 1,
-          license_plate: 1,
-          ride_date: 1,
-          distance: 1,
-          price: 1,
+        {
+          $replaceRoot: {
+            newRoot: { $mergeObjects: [{ $arrayElemAt: ['$client', 0] }, '$$ROOT'] },
+          },
         },
-      },
-      {
-        $merge: {
-          into: 'overview',
-          on: '_id',
-          whenMatched: 'replace',
-          whenNotMatched: 'insert',
+        {
+          $project: {
+            client: 0,
+            _id: 0,
+            gender: 0,
+          },
         },
-      },
-    ]);
-    console.log('success');
-  } catch (err) {
-    console.log(err);
+        {
+          $project: {
+            clientnumber: 1,
+            client_firstname: '$firstname',
+            client_surname: '$surname',
+            driver_id: 1,
+            client_id: 1,
+            driver_firstname: 1,
+            driver_surname: 1,
+            drivernumber: 1,
+            city: 1,
+            license_plate: 1,
+            ride_date: 1,
+            distance: 1,
+            price: 1,
+          },
+        },
+        {
+          $merge: {
+            into: 'overview',
+            on: '_id',
+            whenMatched: 'replace',
+            whenNotMatched: 'insert',
+          },
+        },
+      ]);
+      console.log('materialzed view overview successfully created');
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    console.log(`materialzed view overview already exists and has ${getOverviewCount}`);
   }
 }
-//materializedViewOverview();
