@@ -19,9 +19,9 @@ app.use(express.static(path.resolve(__dirname, '../static/build')));
 
 //------------------------------- MariaDB API -------------------------------//
 // Import sql routes
-const sqlRoute = require('./sql.js');
+// const sqlRoute = require('./sql.js');
 
-app.use('/sql', sqlRoute);
+// app.use('/sql', sqlRoute);
 
 //------------------------------- Mongo API -------------------------------//
 // Import nosql routes
@@ -35,7 +35,7 @@ app.use('/nosql', nosqlRoute);
 // we have defined model.
 const sequelize = require('./connect-rds.js');
 
-// Import the user model we have defined
+// // Import the user model we have defined
 const models = require('./models-sequelize.js');
 
 // Create all the table defined using
@@ -52,7 +52,14 @@ sequelize.sync(models);
 //---------------------------- Migration to Mongo -------------------------//
 // Migration data to MongoDB
 const migration = require('./migration.js');
+
 migration;
+
+//---------------------------- Healthcheck for docker -------------------------//
+// app.js: register the route. In our case, we don't want authorization for this route
+const routesHealthCheck = require('./healthcheck.js');
+
+app.use('/healthcheck', routesHealthCheck);
 
 //------------------------------- Twitter API -------------------------------//
 /*const twitter = require('./twitter.js');

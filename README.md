@@ -12,6 +12,10 @@
 8. close app terminal <br>
    <br>
 
+# healthcheck
+
+curl -f http://admin:${BASIC_AUTH_PW}@localhost:3000/healthcheck
+
 # server-adresses local
 
 localhost:3005 -> app <br>
@@ -89,15 +93,15 @@ If you wanna migrate your data to MongoDB in index.js is a migration line. Just 
 <br>
 GET routes <br>
 localhost:3005/nosql/get/client <br>
-localhost:3005/nosql/get/client/:_id <br>
+localhost:3005/nosql/get/client/:\_id <br>
 localhost:3005/nosql/get/driver <br>
-localhost:3005/nosql/get/driver/:_id <br>
+localhost:3005/nosql/get/driver/:\_id <br>
 localhost:3005/nosql/get/ride <br>
-localhost:3005/nosql/get/ride/:_id <br>
+localhost:3005/nosql/get/ride/:\_id <br>
 localhost:3005/nosql/get/waypoint <br>
-localhost:3005/nosql/get/waypoint/:_id <br>
+localhost:3005/nosql/get/waypoint/:\_id <br>
 localhost:3005/nosql/get/overview/ <br>
-localhost:3005/nosql/get/overview/:_id <br>
+localhost:3005/nosql/get/overview/:\_id <br>
 localhost:3005/nosql/get/count/ <br>
 <br>
 POST routes <br>

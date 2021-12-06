@@ -102,7 +102,7 @@ router.post('/post/client', async (req, res) => {
 // DELETE client
 /**
  * @swagger
- * /sql/delete/client/:_id:
+ * /nosql/delete/client/:_id:
  *   delete:
  *     description: Delete an Employee
  *     parameters:
@@ -129,12 +129,12 @@ router.delete('/delete/client/:_id', async (req, res) => {
 //PUT
 /**
  * @swagger
- * /nosql/update/client:
+ * /nosql/update/client/:_id:
  *   put:
- *     description: Update an Employee
+ *     description: Update a client
  *     parameters:
  *     - _id: _id
- *       description: Update an employee
+ *       description: Update a client
  *       in: formData
  *       required: true
  *       type: Number
@@ -161,6 +161,16 @@ router.put('/update/client/:_id', async function (req, res) {
 });
 //------------------------------- DRIVER routes -------------------------------//
 // GET driver
+/**
+ * @swagger
+ * /nosql/get/driver:
+ *   get:
+ *     description: Get all driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/driver', async (req, res) => {
   const result = await driver
     .find(req.body)
@@ -175,6 +185,16 @@ router.get('/get/driver', async (req, res) => {
 });
 
 // GET driver by id
+/**
+ * @swagger
+ * /nosql/get/driver/:_id:
+ *   get:
+ *     description: Get one driver
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/driver/:_id', async (req, res) => {
   const result = await driver.findById(req.params._id);
   try {
@@ -185,6 +205,22 @@ router.get('/get/driver/:_id', async (req, res) => {
 });
 
 //POST
+/**
+ * @swagger
+ * /nosql/post/driver:
+ *   post:
+ *     description: Create a driver
+ *     parameters:
+ *     - name: Max Mustermann
+ *       description: Create a client
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.post('/post/driver', async (req, res) => {
   const count = (await driver.count()) + 1;
   try {
@@ -210,6 +246,22 @@ router.post('/post/driver', async (req, res) => {
 });
 
 // DELETE driver
+/**
+ * @swagger
+ * /nosql/delete/driver/:_id:
+ *   delete:
+ *     description: Delete an driver
+ *     parameters:
+ *     - _id: _id
+ *       description: Delete an driver
+ *       in: formData
+ *       required: true
+ *       type: Number
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.delete('/delete/driver/:_id', async (req, res) => {
   const result = await driver.findById(req.params._id);
   try {
@@ -221,6 +273,22 @@ router.delete('/delete/driver/:_id', async (req, res) => {
 });
 
 //PUT
+/**
+ * @swagger
+ * /nosql/update/driver/:_id:
+ *   put:
+ *     description: Update a driver
+ *     parameters:
+ *     - _id: _id
+ *       description: Update a driver
+ *       in: formData
+ *       required: true
+ *       type: Number
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.put('/update/driver/:_id', async function (req, res) {
   try {
     var data = {
@@ -241,6 +309,16 @@ router.put('/update/driver/:_id', async function (req, res) {
 });
 //------------------------------- RIDE routes -------------------------------//
 // GET ride
+/**
+ * @swagger
+ * /nosql/get/ride:
+ *   get:
+ *     description: Get all rides
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/ride', async (req, res) => {
   const result = await ride
     .find(req.body)
@@ -255,6 +333,16 @@ router.get('/get/ride', async (req, res) => {
 });
 
 // GET ride by id
+/**
+ * @swagger
+ * /nosql/get/ride/:_id:
+ *   get:
+ *     description: Get one ride
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/ride/:_id', async (req, res) => {
   const result = await ride.findById(req.params._id);
   try {
@@ -265,6 +353,22 @@ router.get('/get/ride/:_id', async (req, res) => {
 });
 
 //POST
+/**
+ * @swagger
+ * /nosql/post/ride:
+ *   post:
+ *     description: Create a ride
+ *     parameters:
+ *     - name: Max Mustermann
+ *       description: Create a ride
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.post('/post/ride', async (req, res) => {
   const count = (await ride.count()) + 1;
   try {
@@ -284,6 +388,23 @@ router.post('/post/ride', async (req, res) => {
   }
 });
 
+// DELETE ride
+/**
+ * @swagger
+ * /nosql/delete/ride/:_id:
+ *   delete:
+ *     description: Delete a ride
+ *     parameters:
+ *     - _id: _id
+ *       description: Delete a ride
+ *       in: formData
+ *       required: true
+ *       type: Number
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.delete('/delete/ride/:_id', async (req, res) => {
   const result = await ride.findById(req.params._id);
   try {
@@ -295,6 +416,22 @@ router.delete('/delete/ride/:_id', async (req, res) => {
 });
 
 //PUT
+/**
+ * @swagger
+ * /nosql/update/ride/:_id:
+ *   put:
+ *     description: Update a ride
+ *     parameters:
+ *     - _id: _id
+ *       description: Update a ride
+ *       in: formData
+ *       required: true
+ *       type: Number
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.put('/update/ride/:_id', async function (req, res) {
   try {
     var data = {
@@ -313,7 +450,17 @@ router.put('/update/ride/:_id', async function (req, res) {
   }
 });
 //------------------------------- WAYPOINT routes -------------------------------//
-// Get waypoint
+// GET waypoint
+/**
+ * @swagger
+ * /nosql/get/waypoint:
+ *   get:
+ *     description: Get all waypoints
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/waypoint', async (req, res) => {
   const result = await waypoint
     .find(req.body)
@@ -328,6 +475,16 @@ router.get('/get/waypoint', async (req, res) => {
 });
 
 // GET waypoint by id
+/**
+ * @swagger
+ * /nosql/get/waypoint/:_id:
+ *   get:
+ *     description: Get one waypoint
+ *     responses:
+ *       200:
+ *         description: Success
+ *
+ */
 router.get('/get/waypoint/:_id', async (req, res) => {
   const result = await waypoint.findById(req.params._id);
   try {
@@ -338,6 +495,22 @@ router.get('/get/waypoint/:_id', async (req, res) => {
 });
 
 //POST
+/**
+ * @swagger
+ * /nosql/post/waypoint:
+ *   post:
+ *     description: Create a waypoint
+ *     parameters:
+ *     - name: Max Mustermann
+ *       description: Create a waypoint
+ *       in: formData
+ *       required: true
+ *       type: String
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.post('/post/waypoint', async (req, res) => {
   const count = (await waypoint.count()) + 1;
   try {
@@ -357,6 +530,22 @@ router.post('/post/waypoint', async (req, res) => {
 });
 
 // DELETE waypoint
+/**
+ * @swagger
+ * /nosql/delete/waypoint/:_id:
+ *   delete:
+ *     description: Delete a waypoint
+ *     parameters:
+ *     - _id: _id
+ *       description: Delete a waypoint
+ *       in: formData
+ *       required: true
+ *       type: Number
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.delete('/delete/waypoint/:_id', async (req, res) => {
   const result = await waypoint.findById(req.params._id);
   try {
@@ -368,6 +557,22 @@ router.delete('/delete/waypoint/:_id', async (req, res) => {
 });
 
 //PUT waypoint
+/**
+ * @swagger
+ * /nosql/update/waypoint/:_id:
+ *   put:
+ *     description: Update a waypoint
+ *     parameters:
+ *     - _id: _id
+ *       description: Update a waypoint
+ *       in: formData
+ *       required: true
+ *       type: Number
+ *     responses:
+ *       201:
+ *         description: Created
+ *
+ */
 router.put('/update/waypoint/:_id', async function (req, res) {
   try {
     var data = {
@@ -399,7 +604,7 @@ router.put('/update/waypoint/:_id', async function (req, res) {
 router.get('/get/overview/:_id', async (req, res) => {
   const result = await overview.findById(req.params._id);
   try {
-    res.status(201).json({ message: 'Overview', overview: result });
+    res.status(200).json({ message: 'Overview', overview: result });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -407,7 +612,7 @@ router.get('/get/overview/:_id', async (req, res) => {
 
 /**
  * @swagger
- * /sql/get/overview:
+ * /nosql/get/overview:
  *   get:
  *     description: Overview as seen in the wireframe
  *     responses:
@@ -422,7 +627,7 @@ router.get('/get/overview/', async (req, res) => {
     .limit(req.body.limit)
     .sort(req.body.sort);
   try {
-    res.status(201).json({ message: 'Overview', overview: result });
+    res.status(200).json({ message: 'Overview', overview: result });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -430,7 +635,7 @@ router.get('/get/overview/', async (req, res) => {
 
 /**
  * @swagger
- * /sql/get/count:
+ * /nosql/get/count:
  *   get:
  *     description: Count rides, sum prices, groupby city
  *     responses:
@@ -447,12 +652,18 @@ router.get('/get/count/', async (req, res) => {
         total: { $sum: '$price' },
       },
     },
-    { $sort: { _id: req.body.sort } },
+    // {
+    //   $addFields: {
+    //     isNumber: { $isNumber: '$count' },
+    //     hasType: { $type: '$count' },
+    //   },
+    // },
+    { $sort: { count: req.body.sort } },
     { $skip: req.body.offset },
     { $limit: req.body.limit },
   ]);
   try {
-    res.status(201).json({ message: 'Count rides, sum prices, groupby city', result: result });
+    res.status(200).json({ message: 'Count rides, sum prices, groupby city', result: result });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -27,6 +27,7 @@ CREATE UNIQUE INDEX id ON driver(id);
 CREATE UNIQUE INDEX id ON ride(id);
 CREATE UNIQUE INDEX id ON waypoint(id);
 CREATE INDEX firstname ON driver(firstname);
+create index price on ride(price); 
 
 # check unique entries
 SHOW INDEX FROM client;

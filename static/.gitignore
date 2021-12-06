@@ -22,6 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-package-lock.json
 package (conflicted copy 2021-09-30 081207).json 
 src/main/resources/application.properties
