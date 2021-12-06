@@ -36,7 +36,7 @@ services:
 
   web-app:
     container_name: web-app
-    image: kinganduin1987/webapp-api-sql-nosql:${TAGOS}
+    image: kinganduin1987/webapp-api-nosql:${TAGOS}
     restart: unless-stopped
     ports:
       - 3000:3000
