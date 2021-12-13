@@ -18,7 +18,6 @@
 4. click on install-app 
 5. start docker-compose-dev 
 6. start (for prod) or start-dev (for dev)
-   When exiting click 
 7. stop docker-compose 
 8. close app terminal
 
