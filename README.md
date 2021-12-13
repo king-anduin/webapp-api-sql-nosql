@@ -18,8 +18,8 @@
 # API routes   
 
 ## Die API nutzt basic authorization for protection
-user=admin   
-pw=${SUPERSECRET} in dot.env.template   
+- `user=admin`   
+- `pw=${SUPERSECRET}` in dot.env.template   
 
 ## server-adresses local
 http://localhost:3000 -> app   
