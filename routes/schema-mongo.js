@@ -24,7 +24,7 @@ const driverSchema = mongoose.Schema(
     surname: { type: String, required: true },
     city: { type: String, required: true },
     country: { type: String, required: true },
-    licence_plate: { type: String, required: true, index: true },
+    license_plate: { type: String, required: true, index: true },
     drivernumber: { type: String, unique: true },
   },
   {

@@ -235,7 +235,10 @@ SHOW INDEX FROM waypoint;
         ]
     ],
     "offset": 0,
-    "limit": 10
+    "limit": 10,
+    "where": {
+        "id": 1
+    }
 }
     "where": {
     "id": 1
@@ -316,19 +319,67 @@ SHOW INDEX FROM waypoint;
     "limit": 10,
     "offset": 0
 }
-//--------------------------PA3---------------------------------------------//
-// localhost:3000/nosql/get/overview/
+//--------------------------Task1---------------------------------------------//
+// https://api.king-anduin.com/nosql/get/driver
+// https://api.king-anduin.com/nosql/get/driver/:_id
 {
-    "skip": 10,
+    "skip": 0,
     "limit": 10,
     "sort": {
-        "_id": "asc"
+        "city": 1
     }
 }
-// localhost:3000/nosql/get/count/
 {
-    "sort": 1,
+    "firstname": "Valentin",
+    "skip": 0,
+    "limit": 10,
+    "sort": {
+        "city": 1
+    }
+}
+//--------------------------Task2---------------------------------------------//
+// https://api.king-anduin.com/nosql/post/driver
+{
+    "firstname": "Sebastian",
+    "surname": "Peter",
+    "city": "Coronastown",
+    "country": "Corona",
+    "license_plate": "SP641"
+}
+// https://api.king-anduin.com/nosql/update/driver/:_id
+// https://api.king-anduin.com/nosql/delete/driver/:_id
+//--------------------------Task3---------------------------------------------//
+// https://api.king-anduin.com/nosql/get/overview
+// https://api.king-anduin.com/nosql/get/overview/:_id
+{
+    "skip": 0,
+    "limit": 10,
+    "sort": {
+        "city": 1
+    }
+}
+//--------------------------Task4---------------------------------------------//
+// https://api.king-anduin.com/nosql/post/ride
+{
+    "client_id": "2",
+    "driver_id": "5",
+    "ride_date": "2021-07-17",
+    "distance": "150",
+    "price": "80"
+}
+// https://api.king-anduin.com/nosql/update/ride/:_id
+{
+    "client_id": "Huhu",
+    "driver_id": "Test",
+    "ride_date": "2021-07-17",
+    "distance": "150",
+    "price": "80"
+}
+// https://api.king-anduin.com/nosql/delete/ride/:_id
+//--------------------------Task5---------------------------------------------//
+// https://api.king-anduin.com/nosql/get/count
+{
+    "sort": -1,
     "limit": 10,
     "offset": 0
 }
-//--------------------------PA4---------------------------------------------//

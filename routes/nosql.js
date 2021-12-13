@@ -654,8 +654,8 @@ router.get('/get/count/', async (req, res) => {
     },
     // {
     //   $addFields: {
-    //     isNumber: { $isNumber: '$count' },
-    //     hasType: { $type: '$count' },
+    //     isNumber: { $isNumber: '$total' },
+    //     hasType: { $type: '$total' },
     //   },
     // },
     { $sort: { count: req.body.sort } },
