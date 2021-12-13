@@ -4,9 +4,10 @@
 - You need to download the data content before using the WebApp
 
 # AWS specific content & microservice Docker
-- I hosted the WebApp on AWS therefore there's a `buildspec.yml` file for an AWS CodePipeline
-- Furthermore it was hosted in an Elastic Beanstalk so you may find `.ebextensions` interesting
-- Additionally I hosted the WebApp on Fargate, so I created a Docker Container, you may take a glimpse at the `Dockerfile` and the `docker-compose.yml`
+- I hosted the WebApp on AWS therefore there's a `buildspec.yml` file for an **CodePipeline**
+- Furthermore it was hosted in an **Elastic Beanstalk** so you may find `.ebextensions` interesting
+- Additionally I hosted the WebApp on **Fargate**, so I created a Docker Container, you may take a glimpse at the `Dockerfile` and the `docker-compose.yml`
+- You can checkout the *NoSQL* Docker Image on [Docker repository](https://hub.docker.com/repository/docker/kinganduin1987/webapp-api-nosql).
 
 
 # Install & start app
@@ -39,7 +40,7 @@ http://localhost:3000/healthcheck
 http://localhost:3000/api-docs   
 
 ## SQL API routes
-Sequelize creates all tables for you and checks them everytime the app gets restart.   
+Sequelize creates all tables for you and checks them everytime the app gets restart. Only Thing is you need to create the views for the *statistic* and the *overview*. You can find the necessary information in the `sql-view.sql`and `scenario_uber.sql`  
 
 ### GET routes 
 http://localhost:3000/sql/get/client  
@@ -80,7 +81,7 @@ http://localhost:3000/sql/get/statistics
 http://localhost:3000/sql/get/overview   
 
 ## NoSQL API routes
-If you wanna migrate your data to MongoDB in index.js is a migration line. Just comment it out and change path to your csv file in .env. That's it.   
+Migration is done automatically  
 
 ### GET routes
 http://localhost:3000/nosql/get/client  
