@@ -1,3 +1,6 @@
+# What's this all about?
+- This repos was created for people who are study or just want to take a look at some SQL & NoSQL examples.
+
 # Install & start app
 
 1. start visual studio code 
@@ -13,13 +16,13 @@
 # API routes   
 
 ## Die API nutzt basic authorization for protection
-user=admin <br>
+user=admin   
 pw=${SUPERSECRET} in dot.env.template   
 
 ## server-adresses local
-http://localhost:3000 -> app
-http://localhost:3001 -> phpmyadmin (GUI MariaDB)
-http://localhost:8081/-> mongo-express (GUI MongoDB)   
+http://localhost:3000 -> app   
+http://localhost:3001 -> phpmyadmin (GUI MariaDB)   
+http://localhost:8081/-> mongo-express (GUI MongoDB)     
 
 ## healthcheck
 http://localhost:3000/healthcheck      
@@ -97,32 +100,32 @@ http://localhost:3000/nosql/delete/ride/:_id
 http://localhost:3000/nosql/delete/waypoint/:_id      
 
 ### PUT routes
-localhost:3000/nosql/update/client/:_id  
-localhost:3000/nosql/update/driver/:_id  
-localhost:3000/nosql/update/ride/:_id  
-localhost:3000/nosql/update/waypoint/:_id   
+http://localhost:3000/nosql/update/client/:_id  
+http://localhost:3000/nosql/update/driver/:_id  
+http://localhost:3000/nosql/update/ride/:_id  
+http://localhost:3000/nosql/update/waypoint/:_id   
 
 # Packages & explanation
-- dotenv:
+- *dotenv*:
   - Another solution is using `dotenv` package. Dotenv loads environment variables from .env files into the process.env variable in Node.js   
 
-- react:
+- *react*:
   - Framework for building frontend   
 
-- mariadb: 
+- *mariadb*: 
   - Install the mariadb Connector using npm   
 
-- express:
+- *express*:
   - backend API framework   
 
-- axios:
+- *axios*:
   - frontend sends requests to backend   
 
-- mongoose:
+- *mongoose*:
   - ODM(Object-document-mapping) for mongo   
 
-- nodemon:
+- *nodemon*:
   - dev-tool -> app restarts automatically after saving   
 
-- sequelize:
+- *sequelize*:
   - ORM(Object-relational-mapping) for mariadb
