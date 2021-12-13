@@ -6,7 +6,7 @@
 # AWS specific content & microservice Docker
 - I hosted the WebApp on AWS therefore there's a `buildspec.yml` file for an AWS CodePipeline
 - Furthermore it was hosted in an Elastic Beanstalk so you may find `.ebextensions` interesting
-- Additionally I hosted the WebApp on Fargate, so I created a Docker Container, you may take a glimpse at the `Dockerfile`
+- Additionally I hosted the WebApp on Fargate, so I created a Docker Container, you may take a glimpse at the `Dockerfile` and the `docker-compose.yml`
 
 
 # Install & start app
