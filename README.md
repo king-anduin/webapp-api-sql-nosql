@@ -31,7 +31,7 @@ http://localhost:3000/api-docs
 Sequelize creates all tables for you and checks them everytime the app gets restart.   
 
 ### GET routes 
-http://localhost:3000/sql/get/client  return
+http://localhost:3000/sql/get/client  
 http://localhost:3000/sql/get/client/:id   
 http://localhost:3000/sql/get/driver   
 http://localhost:3000/sql/get/driver/:id   
@@ -43,63 +43,63 @@ http://localhost:3000/sql/get/amount
 http://localhost:3000/sql/get/count      
 
 ### POST routes 
-localhost:3000/sql/post/client
-localhost:3000/sql/post/driver
-localhost:3000/sql/post/ride
-localhost:3000/sql/post/waypoint    
+http://localhost:3000/sql/post/client  
+http://localhost:3000/sql/post/driver  
+http://localhost:3000/sql/post/ride  
+http://localhost:3000/sql/post/waypoint      
 
 ### DELETE routes
-localhost:3000/sql/delete/client/:id
-localhost:3000/sql/delete/driver/:id
-localhost:3000/sql/delete/ride 
-localhost:3000/sql/delete/waypoint/:id    
+http://localhost:3000/sql/delete/client/:id  
+http://localhost:3000/sql/delete/driver/:id  
+http://localhost:3000/sql/delete/ride   
+http://localhost:3000/sql/delete/waypoint/:id    
 
 ### PUT routes 
-localhost:3000/sql/update/client/:id 
-localhost:3000/sql/update/driver/:id 
-localhost:3000/sql/update/ride/:id 
-localhost:3000/sql/update/waypoint/:id   
+http://localhost:3000/sql/update/client/:id  
+http://localhost:3000/sql/update/driver/:id  
+http://localhost:3000/sql/update/ride/:id  
+http://localhost:3000/sql/update/waypoint/:id   
 
 ### View Statistics
-localhost:3000/sql/get/amount
-localhost:3000/sql/get/count
-localhost:3000/sql/get/statistics   
+http://localhost:3000/sql/get/amount  
+http://localhost:3000/sql/get/count  
+http://localhost:3000/sql/get/statistics   
 
 ### View overview
-localhost:3000/sql/get/overview   
+http://localhost:3000/sql/get/overview   
 
 ## NoSQL API routes
 If you wanna migrate your data to MongoDB in index.js is a migration line. Just comment it out and change path to your csv file in .env. That's it.   
 
 ### GET routes
-localhost:3000/nosql/get/client
-localhost:3000/nosql/get/client/:_id
-localhost:3000/nosql/get/driver
-localhost:3000/nosql/get/driver/:_id
-localhost:3000/nosql/get/ride
-localhost:3000/nosql/get/ride/:_id
-localhost:3000/nosql/get/waypoint
-localhost:3000/nosql/get/waypoint/:_id
-localhost:3000/nosql/get/overview/
-localhost:3000/nosql/get/overview/:_id
-localhost:3000/nosql/get/count/   
+http://localhost:3000/nosql/get/client  
+http://localhost:3000/nosql/get/client/:_id  
+http://localhost:3000/nosql/get/driver  
+http://localhost:3000/nosql/get/driver/:_id  
+http://localhost:3000/nosql/get/ride  
+http://localhost:3000/nosql/get/ride/:_id  
+http://localhost:3000/nosql/get/waypoint  
+http://localhost:3000/nosql/get/waypoint/:_id  
+http://localhost:3000/nosql/get/overview/  
+http://localhost:3000/nosql/get/overview/:_id  
+http://localhost:3000/nosql/get/count/     
 
 ### POST routes 
-localhost:3000/nosql/post/client
-localhost:3000/nosql/post/driver 
-localhost:3000/nosql/post/ride
-localhost:3000/nosql/post/waypoint    
+http://localhost:3000/nosql/post/client  
+http://localhost:3000/nosql/post/driver   
+http://localhost:3000/nosql/post/ride  
+http://localhost:3000/nosql/post/waypoint    
 
 ### DELETE routes
-localhost:3000/nosql/delete/client/:_id
-localhost:3000/nosql/delete/driver/:_id
-localhost:3000/nosql/delete/ride/:_id
-localhost:3000/nosql/delete/waypoint/:_id    
+http://localhost:3000/nosql/delete/client/:_id  
+http://localhost:3000/nosql/delete/driver/:_id  
+http://localhost:3000/nosql/delete/ride/:_id  
+http://localhost:3000/nosql/delete/waypoint/:_id      
 
 ### PUT routes
-localhost:3000/nosql/update/client/:_id
-localhost:3000/nosql/update/driver/:_id
-localhost:3000/nosql/update/ride/:_id
+localhost:3000/nosql/update/client/:_id  
+localhost:3000/nosql/update/driver/:_id  
+localhost:3000/nosql/update/ride/:_id  
 localhost:3000/nosql/update/waypoint/:_id   
 
 # Packages & explanation
