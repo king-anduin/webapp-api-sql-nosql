@@ -1,5 +1,7 @@
 # What's this all about?
-- This repos was created for people who are study or just want to take a look at some SQL & NoSQL examples.
+- This repo was created for people who are study or just want to take a look at some SQL & NoSQL API examples
+- There's a `api-request-examples.json` where you can take a look at API request examples
+- You need to download the data content before using the WebApp
 
 # Install & start app
 
