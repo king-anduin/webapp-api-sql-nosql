@@ -17,30 +17,30 @@ user=admin <br>
 pw=${SUPERSECRET} in dot.env.template   
 
 ## server-adresses local
-localhost:3000 -> app
-localhost:3001 -> phpmyadmin (GUI MariaDB)
-localhost:8081/-> mongo-express (GUI MongoDB)   
+http://localhost:3000 -> app
+http://localhost:3001 -> phpmyadmin (GUI MariaDB)
+http://localhost:8081/-> mongo-express (GUI MongoDB)   
 
 ## healthcheck
 http://localhost:3000/healthcheck      
 
 ## OpenAPI -> Swagger-ui
-localhost:3000/api-docs   
+http://localhost:3000/api-docs   
 
 ## SQL API routes
 Sequelize creates all tables for you and checks them everytime the app gets restart.   
 
 ### GET routes 
-localhost:3000/sql/get/client 
-localhost:3000/sql/get/client/:id 
-localhost:3000/sql/get/driver 
-localhost:3000/sql/get/driver/:id 
-localhost:3000/sql/get/ride 
-localhost:3000/sql/get/ride/:id 
-localhost:3000/sql/get/waypoint 
-localhost:3000/sql/get/waypoint/:id 
-localhost:3000/sql/get/amount 
-localhost:3000/sql/get/count    
+http://localhost:3000/sql/get/client  return
+http://localhost:3000/sql/get/client/:id   
+http://localhost:3000/sql/get/driver   
+http://localhost:3000/sql/get/driver/:id   
+http://localhost:3000/sql/get/ride   
+http://localhost:3000/sql/get/ride/:id   
+http://localhost:3000/sql/get/waypoint   
+http://localhost:3000/sql/get/waypoint/:id   
+http://localhost:3000/sql/get/amount   
+http://localhost:3000/sql/get/count      
 
 ### POST routes 
 localhost:3000/sql/post/client
@@ -123,6 +123,6 @@ localhost:3000/nosql/update/waypoint/:_id
 
 - nodemon:
   - dev-tool -> app restarts automatically after saving   
-  
+
 - sequelize:
   - ORM(Object-relational-mapping) for mariadb
