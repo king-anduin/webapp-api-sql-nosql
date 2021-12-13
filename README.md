@@ -24,7 +24,7 @@
 ## server-adresses local
 http://localhost:3000 -> app   
 http://localhost:3001 -> phpmyadmin (GUI MariaDB)   
-http://localhost:8081/-> mongo-express (GUI MongoDB)     
+http://localhost:8081 -> mongo-express (GUI MongoDB)     
 
 ## healthcheck
 http://localhost:3000/healthcheck      
@@ -108,26 +108,26 @@ http://localhost:3000/nosql/update/ride/:_id
 http://localhost:3000/nosql/update/waypoint/:_id   
 
 # Packages & explanation
-- *dotenv*:
-  - Another solution is using `dotenv` package. Dotenv loads environment variables from .env files into the process.env variable in Node.js   
+- **dotenv**:
+  - *Another solution is using `dotenv` package. Dotenv loads environment variables from .env files into the process.env variable in Node.js*   
 
-- *react*:
-  - Framework for building frontend   
+- **react**:
+  - *Framework for building frontend*   
 
-- *mariadb*: 
-  - Install the mariadb Connector using npm   
+- **mariadb**: 
+  - *Install the mariadb Connector using npm*   
 
-- *express*:
-  - backend API framework   
+- **express**:
+  - *backend API framework*   
 
-- *axios*:
-  - frontend sends requests to backend   
+- **axios**:
+  - *frontend sends requests to backend*   
 
-- *mongoose*:
-  - ODM(Object-document-mapping) for mongo   
+- **mongoose**:
+  - *ODM(Object-document-mapping) for mongo*   
 
-- *nodemon*:
-  - dev-tool -> app restarts automatically after saving   
+- **nodemon**:
+  - *dev-tool -> app restarts automatically after saving*   
 
-- *sequelize*:
-  - ORM(Object-relational-mapping) for mariadb
+- **sequelize**:
+  - *ORM(Object-relational-mapping) for mariadb*
