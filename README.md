@@ -1,150 +1,128 @@
 # Install & start app
 
-1. start visual studio code <br>
-2. create .env file and copy variables from dot.env.template <br>
-3. click on NPM scripts <br>
-4. click on install-app <br>
-5. start docker-compose <br>
-6. start (for prod) or start-dev (for dev)<br>
-   <br>
-   When exiting click <br>
-7. stop docker-compose <br>
-8. close app terminal <br>
-   <br>
+1. start visual studio code 
+2. create .env file and copy variables from dot.env.template 
+3. click on NPM scripts 
+4. click on install-app 
+5. start docker-compose-dev 
+6. start (for prod) or start-dev (for dev)
+   When exiting click 
+7. stop docker-compose 
+8. close app terminal
 
-# healthcheck
+# API routes   
 
-curl -f http://admin:${BASIC_AUTH_PW}@localhost:3000/healthcheck
-
-# server-adresses local
-
-localhost:3005 -> app <br>
-localhost:3001 -> phpmyadmin (GUI MariaDB) <br>
-localhost:8081/-> mongo-express (GUI MongoDB) <br>
-<br>
-
-# server-adresses cloud aws
-
-https://api.king-anduin.com <br>
-https://gui.king-anduin.com/phpmyadmin <br>
-https://api.king-anduin.com/mongo-express <br>
-<br>
-
-# OpenAPI -> Swagger-ui
-
-localhost:3005/api-docs <br>
-https://api.king-anduin.com/api-docs/ <br>
-
-# Die API nutzt basic authorization for protection
-
+## Die API nutzt basic authorization for protection
 user=admin <br>
-pw=${SUPERSECRET} in dot.env.template <br>
+pw=${SUPERSECRET} in dot.env.template   
 
-# SQL API routes
+## server-adresses local
+localhost:3000 -> app
+localhost:3001 -> phpmyadmin (GUI MariaDB)
+localhost:8081/-> mongo-express (GUI MongoDB)   
 
-Sequelize creates all tables for you and checks them everytime the app gets restart.
-<br>
-GET routes <br>
-localhost:3005/sql/get/client <br>
-localhost:3005/sql/get/client/:id <br>
-localhost:3005/sql/get/driver <br>
-localhost:3005/sql/get/driver/:id <br>
-localhost:3005/sql/get/ride <br>
-localhost:3005/sql/get/ride/:id <br>
-localhost:3005/sql/get/waypoint <br>
-localhost:3005/sql/get/waypoint/:id <br>
-localhost:3005/sql/get/amount <br>
-localhost:3005/sql/get/count <br>
-<br>
-POST routes <br>
-localhost:3005/sql/post/client <br>
-localhost:3005/sql/post/driver <br>
-localhost:3005/sql/post/ride <br>
-localhost:3005/sql/post/waypoint <br>
-<br>
-DELETE routes <br>
-localhost:3005/sql/delete/client/:id <br>
-localhost:3005/sql/delete/driver/:id <br>
-localhost:3005/sql/delete/ride <br>
-localhost:3005/sql/delete/waypoint/:id <br>
-<br>
-PUT routes <br>
-localhost:3005/sql/update/client/:id <br>
-localhost:3005/sql/update/driver/:id <br>
-localhost:3005/sql/update/ride/:id <br>
-localhost:3005/sql/update/waypoint/:id <br>
-<br>
+## healthcheck
+http://localhost:3000/healthcheck      
 
-# Statistics
+## OpenAPI -> Swagger-ui
+localhost:3000/api-docs   
 
-localhost:3005/sql/get/amount <br>
-localhost:3005/sql/get/count <br>
-localhost:3005/sql/get/statistics <br>
-<br>
+## SQL API routes
+Sequelize creates all tables for you and checks them everytime the app gets restart.   
 
-# View ride_list
+### GET routes 
+localhost:3000/sql/get/client 
+localhost:3000/sql/get/client/:id 
+localhost:3000/sql/get/driver 
+localhost:3000/sql/get/driver/:id 
+localhost:3000/sql/get/ride 
+localhost:3000/sql/get/ride/:id 
+localhost:3000/sql/get/waypoint 
+localhost:3000/sql/get/waypoint/:id 
+localhost:3000/sql/get/amount 
+localhost:3000/sql/get/count    
 
-localhost:3005/sql/get/overview <br>
-<br>
+### POST routes 
+localhost:3000/sql/post/client
+localhost:3000/sql/post/driver
+localhost:3000/sql/post/ride
+localhost:3000/sql/post/waypoint    
 
-# NoSQL API routes <br>
+### DELETE routes
+localhost:3000/sql/delete/client/:id
+localhost:3000/sql/delete/driver/:id
+localhost:3000/sql/delete/ride 
+localhost:3000/sql/delete/waypoint/:id    
 
-If you wanna migrate your data to MongoDB in index.js is a migration line. Just comment it out and change path to your csv file in .env. That's it.
-<br>
-GET routes <br>
-localhost:3005/nosql/get/client <br>
-localhost:3005/nosql/get/client/:\_id <br>
-localhost:3005/nosql/get/driver <br>
-localhost:3005/nosql/get/driver/:\_id <br>
-localhost:3005/nosql/get/ride <br>
-localhost:3005/nosql/get/ride/:\_id <br>
-localhost:3005/nosql/get/waypoint <br>
-localhost:3005/nosql/get/waypoint/:\_id <br>
-localhost:3005/nosql/get/overview/ <br>
-localhost:3005/nosql/get/overview/:\_id <br>
-localhost:3005/nosql/get/count/ <br>
-<br>
-POST routes <br>
-localhost:3005/nosql/post/client <br>
-localhost:3005/nosql/post/driver <br>
-localhost:3005/nosql/post/ride <br>
-localhost:3005/nosql/post/waypoint <br>
-<br>
-DELETE routes <br>
-localhost:3005/nosql/delete/client/:\_id <br>
-localhost:3005/nosql/delete/driver/:\_id <br>
-localhost:3005/nosql/delete/ride/:\_id <br>
-localhost:3005/nosql/delete/waypoint/:\_id <br>
-<br>
-PUT routes <br>
-localhost:3005/nosql/update/client/:\_id <br>
-localhost:3005/nosql/update/driver/:\_id <br>
-localhost:3005/nosql/update/ride/:\_id <br>
-localhost:3005/nosql/update/waypoint/:\_id <br>
-<br>
+### PUT routes 
+localhost:3000/sql/update/client/:id 
+localhost:3000/sql/update/driver/:id 
+localhost:3000/sql/update/ride/:id 
+localhost:3000/sql/update/waypoint/:id   
+
+### View Statistics
+localhost:3000/sql/get/amount
+localhost:3000/sql/get/count
+localhost:3000/sql/get/statistics   
+
+### View overview
+localhost:3000/sql/get/overview   
+
+## NoSQL API routes
+If you wanna migrate your data to MongoDB in index.js is a migration line. Just comment it out and change path to your csv file in .env. That's it.   
+
+### GET routes
+localhost:3000/nosql/get/client
+localhost:3000/nosql/get/client/:_id
+localhost:3000/nosql/get/driver
+localhost:3000/nosql/get/driver/:_id
+localhost:3000/nosql/get/ride
+localhost:3000/nosql/get/ride/:_id
+localhost:3000/nosql/get/waypoint
+localhost:3000/nosql/get/waypoint/:_id
+localhost:3000/nosql/get/overview/
+localhost:3000/nosql/get/overview/:_id
+localhost:3000/nosql/get/count/   
+
+### POST routes 
+localhost:3000/nosql/post/client
+localhost:3000/nosql/post/driver 
+localhost:3000/nosql/post/ride
+localhost:3000/nosql/post/waypoint    
+
+### DELETE routes
+localhost:3000/nosql/delete/client/:_id
+localhost:3000/nosql/delete/driver/:_id
+localhost:3000/nosql/delete/ride/:_id
+localhost:3000/nosql/delete/waypoint/:_id    
+
+### PUT routes
+localhost:3000/nosql/update/client/:_id
+localhost:3000/nosql/update/driver/:_id
+localhost:3000/nosql/update/ride/:_id
+localhost:3000/nosql/update/waypoint/:_id   
 
 # Packages & explanation
+- dotenv:
+  - Another solution is using `dotenv` package. Dotenv loads environment variables from .env files into the process.env variable in Node.js   
 
-- dotenv: <br>
-  Another solution is using `dotenv` package. Dotenv loads environment variables from .env files into the process.env variable in Node.js<br>
-  <br>
-- react <br>
-  Framework for building frontend
-  <br>
-- mariadb <br>
-  Install the mariadb Connector using npm
-  <br>
-- express <br>
-  backend API framework
-  <br>
-- axios <br>
-  send requests to backend
-  <br>
-- mongoose <br>
-  NoSQL connector
-  <br>
-- nodemon <br>
-  dev-tool -> app restarts automatically after saving
-  <br>
-- sequelize <br>
-  ORM(Object-relational-mapping) tool for node
+- react:
+  - Framework for building frontend   
+
+- mariadb: 
+  - Install the mariadb Connector using npm   
+
+- express:
+  - backend API framework   
+
+- axios:
+  - frontend sends requests to backend   
+
+- mongoose:
+  - ODM(Object-document-mapping) for mongo   
+
+- nodemon:
+  - dev-tool -> app restarts automatically after saving   
+  
+- sequelize:
+  - ORM(Object-relational-mapping) for mariadb
