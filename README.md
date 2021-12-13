@@ -3,6 +3,12 @@
 - There's a `api-request-examples.json` where you can take a look at API request examples
 - You need to download the data content before using the WebApp
 
+# AWS specific content & microservice Docker
+- I hosted the WebApp on AWS therefore there's a `buildspec.yml` file for an AWS CodePipeline
+- Furthermore it was hosted in an Elastic Beanstalk so you may find `.ebextensions` interesting
+- Additionally I hosted the WebApp on Fargate, so I created a Docker Container, you may take a glimpse at the `Dockerfile`
+
+
 # Install & start app
 
 1. start visual studio code 
