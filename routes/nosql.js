@@ -11,6 +11,11 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('connected to database'));
 
+//---------------------- Basic authorization for API usage ----------------//
+const basicAuth = require('express-basic-auth');
+const auth = basicAuth({
+  users: { admin: `${process.env.SUPERSECRET}` },
+});
 //------------------------------- CLIENT routes -------------------------------//
 // GET
 const { client, driver, ride, waypoint, statistics, overview } = require('./schema-mongo.js');
@@ -26,7 +31,7 @@ const { client, driver, ride, waypoint, statistics, overview } = require('./sche
  *         description: Success
  *
  */
-router.get('/get/client/', async (req, res) => {
+router.get('/get/client/', auth, async (req, res) => {
   const result = await client
     .find(req.body)
     .skip(req.body.skip)
@@ -50,7 +55,7 @@ router.get('/get/client/', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/client/:_id', async (req, res) => {
+router.get('/get/client/:_id', auth, async (req, res) => {
   const result = await client.findById(req.params._id);
   try {
     res.send(result);
@@ -76,7 +81,7 @@ router.get('/get/client/:_id', async (req, res) => {
  *         description: Created
  *
  */
-router.post('/post/client', async (req, res) => {
+router.post('/post/client', auth, async (req, res) => {
   const count = (await client.count()) + 1;
   console.log(count);
   try {
@@ -116,7 +121,7 @@ router.post('/post/client', async (req, res) => {
  *         description: Created
  *
  */
-router.delete('/delete/client/:_id', async (req, res) => {
+router.delete('/delete/client/:_id', auth, async (req, res) => {
   const result = await client.findById(req.params._id);
   try {
     await result.remove();
@@ -143,7 +148,7 @@ router.delete('/delete/client/:_id', async (req, res) => {
  *         description: Created
  *
  */
-router.put('/update/client/:_id', async function (req, res) {
+router.put('/update/client/:_id', auth, async function (req, res) {
   try {
     var data = {
       field1: req.body.field1,
@@ -171,7 +176,7 @@ router.put('/update/client/:_id', async function (req, res) {
  *         description: Success
  *
  */
-router.get('/get/driver', async (req, res) => {
+router.get('/get/driver', auth, async (req, res) => {
   const result = await driver
     .find(req.body)
     .skip(req.body.skip)
@@ -195,7 +200,7 @@ router.get('/get/driver', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/driver/:_id', async (req, res) => {
+router.get('/get/driver/:_id', auth, async (req, res) => {
   const result = await driver.findById(req.params._id);
   try {
     res.send(result);
@@ -221,7 +226,7 @@ router.get('/get/driver/:_id', async (req, res) => {
  *         description: Created
  *
  */
-router.post('/post/driver', async (req, res) => {
+router.post('/post/driver', auth, async (req, res) => {
   const count = (await driver.count()) + 1;
   try {
     var post = new driver({
@@ -262,7 +267,7 @@ router.post('/post/driver', async (req, res) => {
  *         description: Created
  *
  */
-router.delete('/delete/driver/:_id', async (req, res) => {
+router.delete('/delete/driver/:_id', auth, async (req, res) => {
   const result = await driver.findById(req.params._id);
   try {
     await result.remove();
@@ -289,7 +294,7 @@ router.delete('/delete/driver/:_id', async (req, res) => {
  *         description: Created
  *
  */
-router.put('/update/driver/:_id', async function (req, res) {
+router.put('/update/driver/:_id', auth, async function (req, res) {
   try {
     var data = {
       field1: req.body.field1,
@@ -319,7 +324,7 @@ router.put('/update/driver/:_id', async function (req, res) {
  *         description: Success
  *
  */
-router.get('/get/ride', async (req, res) => {
+router.get('/get/ride', auth, async (req, res) => {
   const result = await ride
     .find(req.body)
     .skip(req.body.skip)
@@ -343,7 +348,7 @@ router.get('/get/ride', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/ride/:_id', async (req, res) => {
+router.get('/get/ride/:_id', auth, async (req, res) => {
   const result = await ride.findById(req.params._id);
   try {
     res.send(result);
@@ -369,7 +374,7 @@ router.get('/get/ride/:_id', async (req, res) => {
  *         description: Created
  *
  */
-router.post('/post/ride', async (req, res) => {
+router.post('/post/ride', auth, async (req, res) => {
   const count = (await ride.count()) + 1;
   try {
     var post = new ride({
@@ -405,7 +410,7 @@ router.post('/post/ride', async (req, res) => {
  *         description: Created
  *
  */
-router.delete('/delete/ride/:_id', async (req, res) => {
+router.delete('/delete/ride/:_id', auth, async (req, res) => {
   const result = await ride.findById(req.params._id);
   try {
     await result.remove();
@@ -432,7 +437,7 @@ router.delete('/delete/ride/:_id', async (req, res) => {
  *         description: Created
  *
  */
-router.put('/update/ride/:_id', async function (req, res) {
+router.put('/update/ride/:_id', auth, async function (req, res) {
   try {
     var data = {
       id: req.body.id,
@@ -461,7 +466,7 @@ router.put('/update/ride/:_id', async function (req, res) {
  *         description: Success
  *
  */
-router.get('/get/waypoint', async (req, res) => {
+router.get('/get/waypoint', auth, async (req, res) => {
   const result = await waypoint
     .find(req.body)
     .skip(req.body.skip)
@@ -485,7 +490,7 @@ router.get('/get/waypoint', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/waypoint/:_id', async (req, res) => {
+router.get('/get/waypoint/:_id', auth, async (req, res) => {
   const result = await waypoint.findById(req.params._id);
   try {
     res.send(result);
@@ -511,7 +516,7 @@ router.get('/get/waypoint/:_id', async (req, res) => {
  *         description: Created
  *
  */
-router.post('/post/waypoint', async (req, res) => {
+router.post('/post/waypoint', auth, async (req, res) => {
   const count = (await waypoint.count()) + 1;
   try {
     var post = new waypoint({
@@ -546,7 +551,7 @@ router.post('/post/waypoint', async (req, res) => {
  *         description: Created
  *
  */
-router.delete('/delete/waypoint/:_id', async (req, res) => {
+router.delete('/delete/waypoint/:_id', auth, async (req, res) => {
   const result = await waypoint.findById(req.params._id);
   try {
     await result.remove();
@@ -573,7 +578,7 @@ router.delete('/delete/waypoint/:_id', async (req, res) => {
  *         description: Created
  *
  */
-router.put('/update/waypoint/:_id', async function (req, res) {
+router.put('/update/waypoint/:_id', auth, async function (req, res) {
   try {
     var data = {
       field1: req.body.field1,
@@ -601,7 +606,7 @@ router.put('/update/waypoint/:_id', async function (req, res) {
  *         description: Success
  *
  */
-router.get('/get/overview/:_id', async (req, res) => {
+router.get('/get/overview/:_id', auth, async (req, res) => {
   const result = await overview.findById(req.params._id);
   try {
     res.status(200).json({ message: 'Overview', overview: result });
@@ -620,7 +625,7 @@ router.get('/get/overview/:_id', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/overview/', async (req, res) => {
+router.get('/get/overview/', auth, async (req, res) => {
   const result = await overview
     .find(req.body)
     .skip(req.body.skip)
@@ -643,7 +648,7 @@ router.get('/get/overview/', async (req, res) => {
  *         description: Success
  *
  */
-router.get('/get/count/', async (req, res) => {
+router.get('/get/count/', auth, async (req, res) => {
   const result = await statistics.aggregate([
     {
       $group: {

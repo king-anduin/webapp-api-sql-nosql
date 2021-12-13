@@ -347,6 +347,10 @@ SHOW INDEX FROM waypoint;
     "license_plate": "SP641"
 }
 // https://api.king-anduin.com/nosql/update/driver/:_id
+{
+    "firstname": "TimmyTown",
+    "surname": "BlowBlowAway",
+}
 // https://api.king-anduin.com/nosql/delete/driver/:_id
 //--------------------------Task3---------------------------------------------//
 // https://api.king-anduin.com/nosql/get/overview
