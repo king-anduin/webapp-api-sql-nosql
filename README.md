@@ -7,16 +7,19 @@
 2. [AWS specific content and microservice Docker](#aws-specific-content-and-microservice-Docker) 
 3. [Install and start app](#install-and-start-app)  
 4. [API routes ](#api-routes) 
+
    4.1 [Die API nutzt basic authorization for protection](#die-API-nutzt-basic-authorization-for-protection)  
    4.2 [server-adresses local](#server-adresses-local)  
    4.3 [Healthcheck](#healthcheck)  
    4.4 [Swagger-ui](#swagger-ui)  
-5. [SQL API routes](#sql-api-routes) 
+5. [SQL API routes](#sql-api-routes)  
+
    5.1 [GET routes](#get-routes)  
    5.2 [POST routes](#post-routes)  
    5.3 [DELETE routes](#delete-routes)  
    5.4 [PUT routes](#put-routes)  
 6. [NoSQL API routes](#nosql-api-routes) 
+
    6.1 [GET routes](#get-routes)  
    6.2 [POST routes](#post-routes)  
    6.1 [DELETE routes](#delete-routes)  
