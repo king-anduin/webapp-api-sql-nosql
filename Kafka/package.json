@@ -2,7 +2,7 @@
   "name": "kafka",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server_consumer.js",
   "scripts": {
     "start-docker-compose-kafka": "docker-compose -f docker-compose-kafka.yml up -d",
     "stop docker-compose-kafka": "docker-compose -f docker-compose-kafka.yml down"
@@ -11,9 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "kafkajs": "^1.15.0",
     "dotenv": "^8.2.0",
+    "express": "^4.17.2",
     "kafka-node": "^5.0.0",
+    "kafkajs": "^1.15.0",
+    "needle": "^3.0.0",
+    "socket.io": "^4.4.0",
     "twit": "^2.2.11"
   }
 }

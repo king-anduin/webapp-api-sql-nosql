@@ -30,9 +30,7 @@ producer.on('ready', function () {
 
         let message = tweet.text //tweeted text 
         producer.send([
-            { topic: 'twitterNode', messages: message, partition: 0 }, // publish to topic twitterNode
-            { topic: 'twitterNode', messages: message, partition: 1 },
-            { topic: 'twitterNode', messages: message, partition: 2, },
+            { topic: 'twitterNode', messages: message, partition: 0 } // publish to topic twitterNode
         ], function (err, data) {
 
             if (err)

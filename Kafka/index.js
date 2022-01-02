@@ -1,34 +1,38 @@
-const { Kafka } = require("kafkajs");
-
-const main = async () => {
-  const kafka = new Kafka({
-    clientId: "my-app",
-    brokers: ["localhost:9092"],
+$(document).ready(function () {
+  const count = 10;
+  const data = {
+    labels: [...Array(count).keys()].map(i => i.toString()),
+    datasets: [
+      {
+        label: '# - Streamed number',
+        backgroundColor: "rgba(50,220,220,0.5)",
+        data: Array(count).fill(0),
+      }
+    ]
+  }
+  const updateData = function (newVal) {
+    const labels = data["labels"];
+    const dataSetInitial = data["datasets"][0]["data"];
+    count++;
+    labels.push(count.toString());
+    labels.shift();
+    const newData = Math.floor(newVal);
+    dataSetInitial.push(newData);
+    dataSetInitial.shift();
+  };
+  const ctx = document.getElementById("myChart").getContext("2d");
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data,
+    options: { animation: false }
   });
 
-  const producer = kafka.producer();
-
-  await producer.connect();
-
-  await producer.send({
-    topic: "test-topic",
-    messages: [{ value: "Hello KafkaJS user!" }],
-  });
-
-  await producer.disconnect();
-
-  const consumer = kafka.consumer({ groupId: "test-group" });
-
-  await consumer.connect();
-  await consumer.subscribe({ topic: "test-topic", fromBeginning: true });
-
-  await consumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
-      console.log({
-        value: message.value.toString(),
-      });
-    },
-  });
-};
-
-main();
+  function webSocketInvoke() {
+    var socket = io('http://localhost:3000');
+    socket.on('event', (value) => {
+      updateData(value);
+      chart.update();
+    });
+  }
+  webSocketInvoke();
+});

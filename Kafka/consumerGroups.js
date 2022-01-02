@@ -14,7 +14,7 @@ var options = {
 };
 
 
-var consumerGroup = new kafka.ConsumerGroup(options, "twitterNode");
+var consumerGroup = new kafka.ConsumerGroup(options, "twitterStream");
 
 
 consumerGroup.on('message', function (message) {
