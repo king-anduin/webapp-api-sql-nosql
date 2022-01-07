@@ -16,7 +16,6 @@ dotenv.config()
 const token = 'AAAAAAAAAAAAAAAAAAAAAPSWPgEAAAAAuU8Zcq7%2B%2FySsfMgevqnsjNL0PfQ%3DSqvnQ3rVINEEPifD03MPVbduT73QadS2gzV1m0XRLRdYEMgNdw';
 
 const endpointUrl = "https://api.twitter.com/2/tweets/counts/recent";
-// producer.on('ready', function () {
 async function getRequest(index) {
     // Edit query parameters below and specify a search query
     // optional params: start_time,end_time,since_id,until_id,next_token,granularity
@@ -29,7 +28,7 @@ async function getRequest(index) {
         'granularity': 'day'
     },
     {
-        'query': '#curb',
+        'query': '#taxi',
         'granularity': 'day'
     }]
     const res = await needle('get', endpointUrl, params[index], {

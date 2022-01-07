@@ -9,8 +9,6 @@ var kafka = require('kafka-node')
 
 dotenv.config()
 
-let counter = 0
-
 // The code below sets the bearer token from your environment variables
 // To set environment variables on macOS or Linux, run the export command below from the terminal:
 // export BEARER_TOKEN='YOUR-TOKEN'
@@ -28,6 +26,14 @@ const streamURL = 'https://api.twitter.com/2/tweets/search/stream';
 const rules = [{
     'value': 'uber',
     'tag': 'uber'
+},
+{
+    'value': 'lyft',
+    'tag': 'lyft'
+},
+{
+    'value': 'taxi',
+    'tag': 'taxi'
 },
 ];
 
@@ -111,39 +117,61 @@ function streamConnect(retryAttempt) {
         try {
             const json = JSON.parse(data);
             console.log(json);
-            counter = counter + 1
-            console.log(counter);
 
             const Producer = kafka.Producer;
             const client = new kafka.KafkaClient();
             const producer = new Producer(client);
             const kafka_topic = 'twitterStream';
+
+            let payloads = []
+
             const kafka_value = [
                 {
-                    // 'Uber':
-                    counter
+                    json
                 }
             ]
 
-            let payloads = [
-                {
-                    topic: kafka_topic,
-                    messages: JSON.stringify(kafka_value)
-                }
-            ];
+            if (json.matching_rules[0].tag == 'uber') {
 
+                payloads = [
+                    {
+                        topic: kafka_topic,
+                        messages: JSON.stringify(kafka_value),
+                        partition: 0
+                    }
+                ];
+            }
+
+            if (json.matching_rules[0].tag == 'lyft') {
+                payloads = [
+                    {
+                        topic: kafka_topic,
+                        messages: JSON.stringify(kafka_value),
+                        partition: 1
+                    }
+                ];
+            }
+
+            if (json.matching_rules[0].tag == 'taxi') {
+                payloads = [
+                    {
+                        topic: kafka_topic,
+                        messages: JSON.stringify(kafka_value),
+                        partition: 2
+                    }
+                ];
+            }
             producer.on('ready', async function () {
                 let push_status = producer.send(payloads, (err, data) => {
                     if (err) {
                         console.log('[kafka-producer -> ' + kafka_topic + ']: broker update failed');
                     } else {
                         console.log('[kafka-producer -> ' + kafka_topic + ']: broker update success');
-                        // if (i > 1) {
-                        //     process.exit()
-                        // }
                     }
                 });
             });
+
+
 
             producer.on('error', function (err) {
                 console.log(err);
@@ -153,6 +181,9 @@ function streamConnect(retryAttempt) {
 
             // A successful connection resets retry count.
             retryAttempt = 0;
+
+            // The stream ends after 10 Minutes
+            setTimeout(() => { console.log('10 Minutes are over'); process.exit() }, 600000 + 1000)
 
         } catch (e) {
             if (data.detail === "This stream is currently at the maximum allowed connection limit.") {

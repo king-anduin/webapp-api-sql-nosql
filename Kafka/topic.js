@@ -6,8 +6,8 @@ var kafka = require('kafka-node'),
 
 
 let topicCreated = [{
-    topic: 'topic_stream',    //Name of the topic 
-    partitions: 1,
+    topic: 'twitterStream',    //Name of the topic 
+    partitions: 3,
     replicationFactor: 1
 }]
 
@@ -16,7 +16,7 @@ client.createTopics(topicCreated, (err, result) => {
     if (err)
         console.log(err);
     else
-        console.log(result);
+        console.log('Topic created: ', topicCreated[0].topic, result);
     process.exit()
 })
 

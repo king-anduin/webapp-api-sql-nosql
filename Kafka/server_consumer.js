@@ -3,10 +3,14 @@ const express = require('express');
 const port = 3000;
 const app = express();
 
-const Consumer = kafka.Consumer,
-    client = new kafka.KafkaClient('localhost:9092'),
-    consumer = new Consumer(
-        client, [{ topic: 'topic_stream', partition: 0 }], { autoCommit: false });
+var options = {
+
+    kafkaHost: '127.0.0.1:9092',
+    groupId: "twitterStreamPartitions",
+    autoCommit: false
+};
+
+var consumerGroup = new kafka.ConsumerGroup(options, "twitterStream");
 
 const server = app.listen(port, () => {
     console.log(`Listening on port ${server.address().port}`);
@@ -20,8 +24,8 @@ const io = require('socket.io')(server, {
 io.on('connection', client => {
     console.log('Connected', client);
 
-    consumer.on('message', function (message) {
-        client.emit('request', message.value);
+    consumerGroup.on('message', function (message) {
+        client.send(message)
     });
 
     client.on('disconnect', () => {
