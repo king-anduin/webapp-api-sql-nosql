@@ -5,7 +5,10 @@
   "main": "server_consumer.js",
   "scripts": {
     "start-docker-compose-kafka": "docker-compose -f docker-compose-kafka.yml up -d",
-    "stop docker-compose-kafka": "docker-compose -f docker-compose-kafka.yml down"
+    "stop docker-compose-kafka": "docker-compose -f docker-compose-kafka.yml down",
+    "create topic": "node topic.js",
+    "start consumer": "node server_consumer.js",
+    "start stream": "node twitter_stream.js"
   },
   "keywords": [],
   "author": "",
