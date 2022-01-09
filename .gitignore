@@ -109,3 +109,4 @@ nodejs.zip
 
 src/main/resources/application.properties
 ./ebextensions
+.vscode
