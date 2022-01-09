@@ -66,7 +66,7 @@ async function getRequest(index) {
                         response.meta
                 },
                 {
-                    'Curb':
+                    'Taxi':
                         response.meta
                 }
             ]
